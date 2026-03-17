@@ -4,8 +4,6 @@ import { useState, useCallback, memo } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useTranslation } from "../../../lib/i18n";
-import LanguageSwitcher from "../ui/LanguageSwitcher";
 import { ChevronDown } from "lucide-react";
 
 const PUBLIC_NAV = [
@@ -25,7 +23,6 @@ const HeaderComponent = ({ user, onLogout, loading = false, isAuthenticated = fa
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const [businessDropOpen, setBusinessDropOpen] = useState(false);
   const pathname = usePathname();
-  const { t, isRTL } = useTranslation();
 
   // Helper function to determine if a link is active
   const isActiveLink = useCallback((href) => {
@@ -249,9 +246,9 @@ const HeaderComponent = ({ user, onLogout, loading = false, isAuthenticated = fa
           <nav className="hidden lg:flex items-center space-x-1 xl:space-x-2">
             {isAuthenticated ? (
               <>
-                <Link href="/dashboard" className={getLinkClasses("/dashboard")}>{t('navigation.home') || 'Home'}</Link>
-                <Link href="/booking"   className={getLinkClasses("/booking")}>{t('navigation.booking') || 'Booking'}</Link>
-                <Link href="/history"   className={getLinkClasses("/history")}>{t('navigation.history') || 'History'}</Link>
+                <Link href="/dashboard" className={getLinkClasses("/dashboard")}>Home</Link>
+                <Link href="/booking"   className={getLinkClasses("/booking")}>Booking</Link>
+                <Link href="/history"   className={getLinkClasses("/history")}>History</Link>
               </>
             ) : (
               <>
@@ -285,9 +282,8 @@ const HeaderComponent = ({ user, onLogout, loading = false, isAuthenticated = fa
             )}
           </nav>
 
-          {/* Right side: Language + User (hidden for now) */}
+          {/* Right side: User section (hidden for now) */}
           {/* <div className="hidden lg:flex items-center gap-3">
-            <LanguageSwitcher />
             {renderUserSection()}
           </div> */}
 
@@ -319,9 +315,9 @@ const HeaderComponent = ({ user, onLogout, loading = false, isAuthenticated = fa
           <div className="lg:hidden border-t border-white/10 bg-[#008B7E] px-2 pt-2 pb-4 space-y-1">
             {isAuthenticated ? (
               <>
-                <Link href="/dashboard" className={`${getLinkClasses("/dashboard", true)} text-sm`} onClick={handleMenuClose}>{t('navigation.home') || 'Home'}</Link>
-                <Link href="/booking"   className={`${getLinkClasses("/booking",   true)} text-sm`} onClick={handleMenuClose}>{t('navigation.booking') || 'Booking'}</Link>
-                <Link href="/history"   className={`${getLinkClasses("/history",   true)} text-sm`} onClick={handleMenuClose}>{t('navigation.history') || 'History'}</Link>
+                <Link href="/dashboard" className={`${getLinkClasses("/dashboard", true)} text-sm`} onClick={handleMenuClose}>Home</Link>
+                <Link href="/booking"   className={`${getLinkClasses("/booking",   true)} text-sm`} onClick={handleMenuClose}>Booking</Link>
+                <Link href="/history"   className={`${getLinkClasses("/history",   true)} text-sm`} onClick={handleMenuClose}>History</Link>
               </>
             ) : (
               <>
