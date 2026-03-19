@@ -31,10 +31,7 @@ const companyLinks = [
 ];
 
 const supportNumbers = [
-  { region: 'KSA - 24/7', numbers: ['+966 11 000 0000', '+966 55 000 0000'] },
-  { region: 'UAE - 24/7', numbers: ['+971 4 000 0000'] },
-  { region: 'UK - 24/7', numbers: ['+44 20 0000 0000'] },
-  { region: 'USA - 24/7', numbers: ['+1 929 000 0000'] },
+  { region: 'KSA - 24/7', numbers: ['+966 (0)55 77 11 690'] },
 ];
 
 const paymentIcons = [
@@ -92,13 +89,21 @@ export default function Footer() {
                 <p className="text-white/50 text-xs font-bold mb-1 flex items-center gap-1 uppercase tracking-widest">
                   <MessageCircle className="h-3.5 w-3.5" /> WhatsApp - 24/7
                 </p>
-                <p className="text-white text-sm font-medium">+966 50 000 0000</p>
+                <p className="text-white text-sm font-medium">+966 (0)55 77 11 690</p>
               </div>
               <div>
                 <p className="text-white/50 text-xs font-bold mb-1 flex items-center gap-1 uppercase tracking-widest">
                   <Mail className="h-3.5 w-3.5" /> General Inquiries
                 </p>
                 <p className="text-white text-sm font-medium">info@ksarides.com</p>
+              </div>
+              <div>
+                <p className="text-white/50 text-xs font-bold mb-1 uppercase tracking-widest">Address</p>
+                <p className="text-white/80 text-sm leading-relaxed">
+                  6851, Mhmas Al-Hazazni,<br />
+                  Mada&apos;en Al-Fahad, Jeddah,<br />
+                  Makkah – 22343-4872
+                </p>
               </div>
             </div>
           </div>
