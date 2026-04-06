@@ -19,7 +19,7 @@ export default function TrustedPartnersSection() {
               Selected by enterprise teams
             </h2>
             <p className="text-white/50 text-sm leading-relaxed">
-              Finance, tech, energy, and travel brands rely on KSA Rides for executive ground moves worldwide.
+              Finance, tech, energy, and travel brands rely on KSA Rides for executive ground moves across KSA.
             </p>
           </div>
           <div className="flex-shrink-0">

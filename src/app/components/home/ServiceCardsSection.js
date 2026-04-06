@@ -2,13 +2,14 @@
 
 import Link from 'next/link';
 import { Globe, Users, Clock, Car } from 'lucide-react';
+import { SERVICE_CITY_LIST } from '../../lib/constants';
 
 const services = [
   {
     Icon: Globe,
-    title: 'Global',
+    title: 'KSA coverage',
     description:
-      'Wherever your journey leads, KSA Rides ensures your comfort along the way.',
+      `Transfers across ${SERVICE_CITY_LIST}.`,
     href: '/about',
   },
   {

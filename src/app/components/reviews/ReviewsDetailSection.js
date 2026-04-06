@@ -3,7 +3,7 @@
 const features = [
   {
     title: 'Business & travel manager',
-    desc: 'Instant invoices, 3-minute median response SLA, guaranteed availability in 75+ countries with dedicated account managers.',
+    desc: 'Instant invoices, 3-minute median response SLA, and dedicated account support for managed travel.',
   },
   {
     title: 'Families & leisure',

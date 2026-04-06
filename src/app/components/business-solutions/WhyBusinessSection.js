@@ -19,10 +19,10 @@ const features = [
   },
   {
     Icon: Globe,
-    title: 'Global executive coverage',
+    title: 'KSA executive coverage',
     badge: null,
     description:
-      'Premium vehicles and multilingual drivers in 2100+ cities across 100+ countries — wherever business takes you.',
+      'Premium vehicles and professional drivers across Jeddah, Taif, Madinah, and Riyadh.',
   },
   {
     Icon: Zap,
@@ -54,7 +54,7 @@ export default function WhyBusinessSection() {
           {/* LEFT */}
           <div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-              Trusted by leading businesses worldwide
+              Trusted by leading businesses in KSA
             </h2>
 
             <p className="text-gray-700 mb-2">
@@ -65,7 +65,7 @@ export default function WhyBusinessSection() {
             </p>
             <p className="text-gray-500 text-sm leading-relaxed mb-8">
               Your corporate dashboard delivers consolidated billing, ride visibility, and policy compliance
-              — all backed by a global chauffeur network.
+              — backed by a local chauffeur network in key cities.
             </p>
 
             {/* Feature cards 2×2 */}

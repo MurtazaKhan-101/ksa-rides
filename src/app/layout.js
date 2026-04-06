@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" dir="ltr">
       <head>
-        <title>KSA Rides - Your Reliable Worldwide Airport Transfers</title>
+        <title>KSA Rides - Private Transfers in Jeddah, Taif, Madinah & Riyadh</title>
         <meta name="description" content="Book private airport transfers, city rides, and hourly chauffeur services with KSA Rides. Fixed pricing, professional drivers, available 24/7." />
       </head>
       <body

@@ -32,7 +32,7 @@ export default function AboutHero() {
 
             <p className="text-white/70 text-base sm:text-lg leading-relaxed max-w-lg">
               We build seamless airport transfers for travellers, travel managers, and partners
-              worldwide — powered by technology, local expertise, and a team that never stops caring.
+              across KSA — powered by technology, local expertise, and a team that never stops caring.
             </p>
 
             {/* Mini cards */}
@@ -45,17 +45,17 @@ export default function AboutHero() {
                   </div>
                 </div>
                 <p className="text-3xl font-bold text-white mb-1">24/7</p>
-                <p className="text-white/50 text-xs">Real people available in every time zone.</p>
+                <p className="text-white/50 text-xs">Real people available 24/7.</p>
               </div>
               <div className="bg-white/8 border border-white/15 rounded-xl p-5">
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-sm font-bold text-white">Global reach</span>
+                  <span className="text-sm font-bold text-white">KSA reach</span>
                   <div className="w-8 h-8 rounded-full bg-[#00B1C5]/20 flex items-center justify-center">
                     <Globe className="h-4 w-4 text-[#00B1C5]" />
                   </div>
                 </div>
-                <p className="text-3xl font-bold text-white mb-1">+670</p>
-                <p className="text-white/50 text-xs">Airports &amp; cities covered with curated chauffeurs.</p>
+                <p className="text-3xl font-bold text-white mb-1">4</p>
+                <p className="text-white/50 text-xs">Jeddah, Taif, Madinah, Riyadh.</p>
               </div>
             </div>
 
@@ -104,8 +104,8 @@ export default function AboutHero() {
           <div className="grid sm:grid-cols-3 gap-4 py-8">
             {[
               { label: 'TRANSFERS EACH YEAR',      value: '2M+',     sub: 'Riders trust us for their most important journeys.' },
-              { label: 'PROFESSIONALS WORLDWIDE',  value: '15,500+', sub: 'Curated chauffeurs, dispatchers, and coordinators.' },
-              { label: 'CITIES & AIRPORTS',         value: '670+',    sub: 'Premium coverage across more than 100 countries.' },
+              { label: '24/7 SUPPORT',             value: 'Always on', sub: 'Help when you need it, day or night.' },
+              { label: 'SERVICE CITIES',           value: '4',        sub: 'Jeddah, Taif, Madinah, Riyadh.' },
             ].map(({ label, value, sub }) => (
               <div key={label} className="bg-white/5 border border-white/10 rounded-2xl p-6">
                 <p className="text-xs font-bold text-white/40 tracking-widest uppercase mb-2">{label}</p>

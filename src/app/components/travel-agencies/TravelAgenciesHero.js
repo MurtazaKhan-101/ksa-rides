@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { Globe, Headphones, Building2, ArrowRight, Clock } from 'lucide-react';
 
 const stats = [
-  { value: '750+',  label: 'TRUSTED AGENCIES',      sub: 'Travel brands collaborate with us globally.' },
+  { value: '750+',  label: 'TRUSTED AGENCIES',      sub: 'Travel brands collaborate with us across KSA.' },
   { value: '2M+',   label: 'SUCCESSFUL TRANSFERS',  sub: 'Trips completed with premium vehicles last year.' },
   { value: '4.9/5', label: 'AVERAGE RATING',        sub: 'Consistently excellent passenger feedback.' },
 ];
@@ -57,13 +57,13 @@ export default function TravelAgenciesHero() {
               </div>
               <div className="bg-white/8 border border-white/15 rounded-xl p-5">
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-sm font-bold text-white">Worldwide Coverage</span>
+                  <span className="text-sm font-bold text-white">KSA Coverage</span>
                   <div className="w-8 h-8 rounded-full bg-[#00B1C5]/20 flex items-center justify-center">
                     <Globe className="h-4 w-4 text-[#00B1C5]" />
                   </div>
                 </div>
-                <p className="text-3xl font-bold text-white mb-1">+670</p>
-                <p className="text-white/50 text-xs">Airports & cities across 100+ countries with professional chauffeurs.</p>
+                <p className="text-3xl font-bold text-white mb-1">4</p>
+                <p className="text-white/50 text-xs">Jeddah, Taif, Madinah, Riyadh.</p>
               </div>
             </div>
 

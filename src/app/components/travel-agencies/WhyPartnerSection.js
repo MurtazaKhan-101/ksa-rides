@@ -12,10 +12,10 @@ const features = [
   },
   {
     Icon: Globe,
-    title: 'Global Coverage',
+    title: 'KSA Coverage',
     badge: null,
     description:
-      'No matter your client\'s destination, KSA Rides ensures reliable and high-quality transfers across hundreds of cities worldwide.',
+      'Reliable transfers across Jeddah, Taif, Madinah, and Riyadh.',
   },
   {
     Icon: Percent,
@@ -65,8 +65,7 @@ export default function WhyPartnerSection() {
             <p className="text-gray-500 text-sm leading-relaxed mb-8">
               As a member of our program, you will have access to our platform at ksarides.com, where
               you can easily book airport transfers for your clients. With our extensive network of
-              trusted and reliable transfer companies, you can ensure a smooth and hassle-free travel
-              experience for your clients.
+              trusted chauffeurs, you can ensure a smooth and hassle-free travel experience for your clients.
             </p>
 
             {/* Feature cards 2×2 */}

@@ -10,12 +10,12 @@ const LANGUAGES = [
 
 const sideStats = [
   { value: '1,200+', label: 'Agencies' },
-  { value: '90+',    label: 'Countries' },
+  { value: '4',      label: 'Cities' },
   { value: '24/7',   label: 'Support' },
 ];
 
 const sideFeatures = [
-  { Icon: Globe,      title: 'Global Coverage',                      sub: 'Worldwide network' },
+  { Icon: Globe,      title: 'KSA Coverage',                          sub: 'Jeddah, Taif, Madinah, Riyadh' },
   { Icon: Percent,    title: 'Competitive Rates & Transparent Pricing', sub: 'Discount already applied' },
   { Icon: Headphones, title: 'Dedicated Support 24/7',               sub: '24/7 expert support' },
 ];

@@ -16,7 +16,7 @@ export default function AboutTrustedBrands() {
               Trusted Partners
             </p>
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-3">
-              Chosen by leading global brands
+              Chosen by leading brands
             </h2>
             <p className="text-white/50 text-sm leading-relaxed">
               We serve teams that need reliability at scale — across finance, tech, energy, travel, and events.

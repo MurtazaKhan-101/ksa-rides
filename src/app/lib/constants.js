@@ -81,3 +81,34 @@ export const ERROR_MESSAGES = {
   INVALID_CREDENTIALS: "Invalid email or password.",
   GENERIC_ERROR: "Something went wrong. Please try again.",
 };
+
+// Frontend service coverage (only show these locations in UI)
+export const SERVICE_CITIES = [
+  {
+    id: "jeddah",
+    city: "Jeddah",
+    airport: "King Abdulaziz International Airport",
+    image: "/images/map.svg",
+  },
+  {
+    id: "taif",
+    city: "Taif",
+    airport: "Taif International Airport",
+    image: "/images/map.svg",
+  },
+  {
+    id: "madinah",
+    city: "Madinah",
+    airport: "Prince Mohammad bin Abdulaziz International Airport",
+    image: "/images/map.svg",
+  },
+  {
+    id: "riyadh",
+    city: "Riyadh",
+    airport: "King Khalid International Airport",
+    image: "/images/map.svg",
+  },
+];
+
+export const SERVICE_CITY_NAMES = SERVICE_CITIES.map((c) => c.city);
+export const SERVICE_CITY_LIST = SERVICE_CITY_NAMES.join(", ");

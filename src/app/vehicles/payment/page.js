@@ -38,8 +38,7 @@ const PAYMENT_ICONS = [
 ];
 
 const COUNTRIES = [
-  'Saudi Arabia', 'United Arab Emirates', 'United Kingdom', 'United States',
-  'Germany', 'France', 'India', 'Pakistan', 'Egypt', 'Turkey', 'Canada', 'Australia',
+  'Saudi Arabia',
 ];
 
 // ─── Step bar ─────────────────────────────────────────────────────────────────

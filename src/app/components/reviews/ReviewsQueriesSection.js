@@ -3,7 +3,7 @@
 const queries = [
   {
     q: 'Is KSA Rides reliable?',
-    a: '99% on-time rides across 2.8M+ trips, insured coverage, humans on-shift worldwide around the clock.',
+    a: '99% on-time rides across 2.8M+ trips, insured coverage, humans on-shift 24/7.',
   },
   {
     q: 'KSA Rides Reddit',

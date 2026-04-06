@@ -6,10 +6,10 @@ import { Facebook, Instagram, Twitter, Mail, MessageCircle } from 'lucide-react'
 const BRAND_GRADIENT = 'linear-gradient(296.47deg, #005F56 -2.82%, #00B1C5 97.17%)';
 
 const topAirports = [
-  'London Heathrow Airport', 'Rome Airport', 'Barcelona Airport',
-  'New York JFK Airport', 'Dubai Airport', 'Lisbon Airport',
-  'Los Angeles Airport', 'Milan Malpensa Airport', 'Amsterdam Airport',
-  'Naples Airport', 'Málaga Airport',
+  'King Abdulaziz International Airport (Jeddah)',
+  'Taif International Airport (Taif)',
+  'Prince Mohammad bin Abdulaziz International Airport (Madinah)',
+  'King Khalid International Airport (Riyadh)',
 ];
 
 const services = [
@@ -102,7 +102,7 @@ export default function Footer() {
                 <p className="text-white/80 text-sm leading-relaxed">
                   6851, Mhmas Al-Hazazni,<br />
                   Mada&apos;en Al-Fahad, Jeddah,<br />
-                  Makkah – 22343-4872
+                  22343-4872
                 </p>
               </div>
             </div>

@@ -7,6 +7,7 @@ import {
   ChevronDown, Plane, Timer,
 } from 'lucide-react';
 import { useTranslation } from '../../../lib/i18n';
+import { SERVICE_CITY_LIST } from '../../lib/constants';
 
 const DURATION_OPTIONS = [2, 3, 4, 5, 6, 7, 8, 10, 12];
 
@@ -51,7 +52,7 @@ export default function HeroSection({
 
   /* Default heading if none passed */
   const heading = title ?? (
-    <>Your Reliable Worldwid Airport Transfers</>
+    <>Private Transfers in {SERVICE_CITY_LIST}</>
   );
 
   if (!isInitialized) return <div className="min-h-screen bg-white" />;

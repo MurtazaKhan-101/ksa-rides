@@ -2,49 +2,15 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { Globe, Building2, Mountain, Plane } from 'lucide-react';
+import { Building2, Plane } from 'lucide-react';
+import { SERVICE_CITIES, SERVICE_CITY_LIST } from '../../lib/constants';
 
 const filters = [
-  { label: 'Countries+', Icon: Globe },
-  { label: 'Cities+',    Icon: Building2 },
-  { label: 'Ski destinations+', Icon: Mountain },
-];
-
-const destinations = [
-  {
-    city: 'Sharm el Sheikh',
-    airport: 'Sharm el Sheikh Airport',
-    image: '/images/Aerial view of Sharm el Sheikh airport.svg',
-  },
-  {
-    city: 'Heraklion',
-    airport: 'Crete Heraklion Airport',
-    image: '/images/Aerial view of Heraklion airport.svg',
-  },
-  {
-    city: 'London',
-    airport: 'London Gatwick Airport',
-    image: '/images/Aerial view of London airport.svg',
-  },
-  {
-    city: 'Atlanta',
-    airport: 'Atlanta International Airport',
-    image: '/images/Aerial view of Atlanta airport.svg',
-  },
-  {
-    city: 'Trieste',
-    airport: 'Trieste Airport',
-    image: '/images/Aerial view of Trieste airport.svg',
-  },
-  {
-    city: 'Vilnius',
-    airport: 'Vilnius Airport',
-    image: '/images/Aerial view of Vilnius airport.svg',
-  },
+  { label: 'Cities', Icon: Building2 },
 ];
 
 export default function DestinationsSection() {
-  const [activeFilter, setActiveFilter] = useState('Countries+');
+  const [activeFilter, setActiveFilter] = useState('Cities');
 
   return (
     <section className="py-12 lg:py-20 bg-white">
@@ -75,7 +41,7 @@ export default function DestinationsSection() {
 
         {/* Description */}
         <p className="text-gray-700 font-medium mb-1">
-          Book a private transfer at over 1500 airports, stations and ports worldwide
+          Book private transfers across {SERVICE_CITY_LIST}
         </p>
         <p className="text-gray-500 text-sm mb-8 max-w-3xl">
           Travel in comfort, safety, and convenience with professional drivers and hassle-free pickups.
@@ -84,7 +50,7 @@ export default function DestinationsSection() {
 
         {/* 2×3 grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {destinations.map(({ city, airport, image }) => (
+          {SERVICE_CITIES.map(({ city, airport, image }) => (
             <a
               key={city}
               href="#"

@@ -1,12 +1,13 @@
 "use client";
 
 import Image from 'next/image';
+import { SERVICE_CITIES, SERVICE_CITY_LIST } from '../../lib/constants';
 
 const stats = [
-  { label: 'Countries', value: '100+' },
-  { label: 'Cities',    value: '2100+' },
-  { label: 'Airports',  value: '670+' },
-  { label: 'Routes',    value: '∞' },
+  { label: 'Cities', value: String(SERVICE_CITIES.length) },
+  { label: 'Airports', value: String(SERVICE_CITIES.length) },
+  { label: 'Availability', value: '24/7' },
+  { label: 'Service area', value: 'KSA' },
 ];
 
 export default function GlobalCoverageSection() {
@@ -19,7 +20,7 @@ export default function GlobalCoverageSection() {
           <div className="rounded-2xl overflow-hidden shadow-xl">
             <Image
               src="/images/main-1.svg"
-              alt="KSA Rides global coverage"
+              alt="KSA Rides coverage in KSA"
               width={640}
               height={480}
               className="w-full h-auto object-cover"
@@ -33,21 +34,20 @@ export default function GlobalCoverageSection() {
                 Your Personal Chauffeur, At Your Fingertips
               </p>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#005F56]">
-                Global Coverage
+                Service Coverage
               </h2>
             </div>
 
             <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
-              Book your private chauffeur in seconds and enjoy a premium travel experience
-              tailored to your schedule. Reliable, comfortable, and stress-free transportation
-              is now easier than ever. Arrive at your destination refreshed, relaxed, and
-              always on time.
+              Book your private chauffeur in seconds for travel across {SERVICE_CITY_LIST}.
+              Reliable, comfortable, and stress-free transportation is now easier than ever.
+              Arrive at your destination refreshed, relaxed, and always on time.
             </p>
 
             <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
-              Whether you&apos;re traveling for business, leisure, or anything in between, our
-              professional chauffeurs provide exceptional service to ensure your journey is
-              smooth and effortless. Simply book online, and leave the rest to us.
+              Whether you&apos;re traveling for business or leisure, our professional chauffeurs
+              provide exceptional service to ensure your journey is smooth and effortless.
+              Simply book online, and leave the rest to us.
             </p>
 
             {/* Logo mark */}

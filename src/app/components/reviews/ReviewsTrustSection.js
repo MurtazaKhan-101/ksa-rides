@@ -21,12 +21,12 @@ const stats = [
   {
     label: 'Years in operation',
     value: '5+',
-    detail: 'Since 2020, with ops teams across the Middle East, Europe, and the US.',
+    detail: 'Since 2020, with operational support available 24/7.',
   },
   {
-    label: 'Countries covered',
-    value: '100+',
-    detail: 'Network of vetted partners in 2100+ cities and key hubs.',
+    label: 'Service cities',
+    value: '4',
+    detail: 'Jeddah, Taif, Madinah, Riyadh.',
   },
 ];
 

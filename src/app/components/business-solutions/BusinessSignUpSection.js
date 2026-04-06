@@ -10,12 +10,12 @@ const COMPANY_SIZES = [
 
 const sideStats = [
   { value: '300+',  label: 'Enterprise Clients' },
-  { value: '100+',  label: 'Countries' },
+  { value: '4',     label: 'Cities' },
   { value: '99.3%', label: 'Trip Success' },
 ];
 
 const sideFeatures = [
-  { Icon: Globe,      title: 'Global Coverage',            sub: 'Consistent service across 2100+ cities' },
+  { Icon: Globe,      title: 'KSA Coverage',               sub: 'Jeddah, Taif, Madinah, Riyadh' },
   { Icon: BarChart2,  title: 'Centralised Dashboard',      sub: 'Visibility, billing, and compliance in one place' },
   { Icon: Shield,     title: 'Duty of Care Compliance',    sub: 'Real-time tracking for every executive journey' },
 ];

@@ -32,8 +32,8 @@ export default function AgencyCtaBanner() {
         </h2>
 
         <p className="text-white/70 text-sm sm:text-base leading-relaxed mb-8 max-w-xl mx-auto">
-          Access a curated global network of professional drivers, instant confirmations,
-          transparent pricing and tools built for agencies and corporate teams — not just consumers.
+          Access professional drivers, instant confirmations, transparent pricing, and tools built for
+          agencies and corporate teams — not just consumers.
         </p>
 
         {/* Buttons */}

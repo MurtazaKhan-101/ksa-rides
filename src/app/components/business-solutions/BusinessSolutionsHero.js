@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { Globe, Headphones, Clock, ArrowRight } from 'lucide-react';
 
 const stats = [
-  { value: '300+',  label: 'ENTERPRISE CLIENTS',  sub: 'Global organisations manage travel with KSA Rides.' },
+  { value: '300+',  label: 'ENTERPRISE CLIENTS',  sub: 'Organisations manage travel with KSA Rides.' },
   { value: '99.3%', label: 'TRIP SUCCESS RATE',   sub: 'Delivering reliable rides for executives and guests.' },
   { value: '4.9/5', label: 'SATISFACTION SCORE',  sub: 'Consistently rated by travel managers and passengers.' },
 ];
@@ -56,13 +56,13 @@ export default function BusinessSolutionsHero() {
               </div>
               <div className="bg-white/8 border border-white/15 rounded-xl p-5">
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-sm font-bold text-white">Global Operations</span>
+                  <span className="text-sm font-bold text-white">KSA Operations</span>
                   <div className="w-8 h-8 rounded-full bg-[#00B1C5]/20 flex items-center justify-center">
                     <Globe className="h-4 w-4 text-[#00B1C5]" />
                   </div>
                 </div>
-                <p className="text-3xl font-bold text-white mb-1">100+</p>
-                <p className="text-white/50 text-xs">countries — consistent chauffeur standards wherever business takes you.</p>
+                <p className="text-3xl font-bold text-white mb-1">4</p>
+                <p className="text-white/50 text-xs">Jeddah, Taif, Madinah, Riyadh — consistent chauffeur standards.</p>
               </div>
             </div>
 
