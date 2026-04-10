@@ -1,6 +1,7 @@
 "use client";
 
 import HeroSection           from '../components/home/HeroSection';
+import AppDownloadSection    from '../components/home/AppDownloadSection';
 import ServiceCardsSection   from '../components/home/ServiceCardsSection';
 import GlobalCoverageSection from '../components/home/GlobalCoverageSection';
 import SeamlessSection       from '../components/home/SeamlessSection';
@@ -20,6 +21,7 @@ export default function CityRidesPage() {
         heroImageAlt="KSA Rides – Local city chauffeur service"
         defaultTab="transfer"
       />
+      <AppDownloadSection />
       <ServiceCardsSection />
       <GlobalCoverageSection />
       <SeamlessSection />

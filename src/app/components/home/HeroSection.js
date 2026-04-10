@@ -77,7 +77,7 @@ export default function HeroSection({
               <div className="flex border-b border-gray-100">
                 {[
                   { id: 'transfer', Icon: Plane,  label: 'Transfer' },
-                  { id: 'hourly',   Icon: Timer,   label: 'By the Hour' },
+                  // { id: 'hourly',   Icon: Timer,   label: 'By the Hour' },
                 ].map(({ id, Icon, label }) => (
                   <button
                     key={id}

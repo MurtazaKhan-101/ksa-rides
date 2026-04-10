@@ -1,6 +1,7 @@
 "use client";
 
 import HeroSection           from '../components/home/HeroSection';
+import AppDownloadSection    from '../components/home/AppDownloadSection';
 import ServiceCardsSection   from '../components/home/ServiceCardsSection';
 import GlobalCoverageSection from '../components/home/GlobalCoverageSection';
 import SeamlessSection       from '../components/home/SeamlessSection';
@@ -15,6 +16,7 @@ export default function Homepage() {
   return (
     <div className="min-h-screen bg-white">
       <HeroSection />
+      <AppDownloadSection />
       <ServiceCardsSection />
       <GlobalCoverageSection />
       <SeamlessSection />
