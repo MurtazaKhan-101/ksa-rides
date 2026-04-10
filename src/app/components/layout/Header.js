@@ -9,7 +9,7 @@ import { ChevronDown } from "lucide-react";
 const PUBLIC_NAV = [
   { label: 'Airport ride',   href: '/home' },
   { label: 'City rides',     href: '/city-rides' },
-  { label: 'Hourly Service', href: '/hourly-service' },
+  // { label: 'Hourly Service', href: '/hourly-service' },
   { label: 'Help',           href: '/help' },
 ];
 
