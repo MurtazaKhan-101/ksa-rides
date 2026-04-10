@@ -16,7 +16,7 @@ export default function CityRidesPage() {
     <div className="min-h-screen bg-white">
       <HeroSection
         title="Your local chauffeur service"
-        heroImage="/images/city-hero.avif"
+        heroImage="/ksa-images/ksa-ride-6.png"
         heroImageAlt="KSA Rides – Local city chauffeur service"
         defaultTab="transfer"
       />

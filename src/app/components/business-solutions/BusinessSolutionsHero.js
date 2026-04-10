@@ -84,7 +84,7 @@ export default function BusinessSolutionsHero() {
           <div className="relative">
             <div className="rounded-2xl overflow-hidden shadow-2xl">
               <Image
-                src="/images/business-hero.avif"
+                src="/ksa-images/ksa-ride-4.png"
                 alt="KSA Rides Business Solutions – Executive in car"
                 width={640}
                 height={520}

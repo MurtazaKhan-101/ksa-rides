@@ -22,7 +22,7 @@ const DURATION_OPTIONS = [2, 3, 4, 5, 6, 7, 8, 10, 12];
  */
 export default function HeroSection({
   title,
-  heroImage = '/images/hero.svg',
+  heroImage = '/ksa-images/ksa-ride-5.png',
   heroImageAlt = 'KSA Rides – Professional transfers',
   defaultTab = 'transfer',
 }) {

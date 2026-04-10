@@ -19,7 +19,7 @@ export default function HelpHero({ onSearch }) {
       <div className="relative h-64 sm:h-72 lg:h-80 flex items-center justify-center overflow-hidden">
         {/* Background image */}
         <Image
-          src="/images/help-banner.jpg"
+          src="/ksa-images/ksa-ride-1.svg"
           alt="KSA Rides Help Center"
           fill
           className="object-cover object-center"

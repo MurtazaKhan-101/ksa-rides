@@ -19,7 +19,7 @@ export default function GlobalCoverageSection() {
           {/* Left: image */}
           <div className="rounded-2xl overflow-hidden shadow-xl">
             <Image
-              src="/images/main-1.svg"
+              src="/ksa-images/ksa-ride-8.svg"
               alt="KSA Rides coverage in KSA"
               width={640}
               height={480}

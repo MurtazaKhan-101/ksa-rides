@@ -77,7 +77,7 @@ export default function AboutHero() {
           <div className="relative">
             <div className="rounded-2xl overflow-hidden shadow-2xl">
               <Image
-                src="/images/about-us.avif"
+                src="/ksa-images/saudi_Couple.svg"
                 alt="KSA Rides Team"
                 width={640}
                 height={520}

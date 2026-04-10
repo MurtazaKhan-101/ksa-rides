@@ -88,25 +88,25 @@ export const SERVICE_CITIES = [
     id: "jeddah",
     city: "Jeddah",
     airport: "King Abdulaziz International Airport",
-    image: "/images/map.svg",
+    image: "/ksa-images/jeddah%202.svg",
   },
   {
     id: "taif",
     city: "Taif",
     airport: "Taif International Airport",
-    image: "/images/map.svg",
+    image: "/ksa-images/taif%202.svg",
   },
   {
     id: "madinah",
     city: "Madinah",
     airport: "Prince Mohammad bin Abdulaziz International Airport",
-    image: "/images/map.svg",
+    image: "/ksa-images/madinah%202.svg",
   },
   {
     id: "riyadh",
     city: "Riyadh",
     airport: "King Khalid International Airport",
-    image: "/images/map.svg",
+    image: "/ksa-images/riyadh.avif",
   },
 ];
 

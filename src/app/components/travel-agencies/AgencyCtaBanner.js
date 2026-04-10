@@ -9,7 +9,7 @@ export default function AgencyCtaBanner() {
       {/* Background image */}
       <div className="absolute inset-0">
         <Image
-          src="/images/agency-booking-cta.avif"
+          src="/ksa-images/ksa-ride-5.png"
           alt="KSA Rides – Elevate your transfers"
           fill
           className="object-cover object-center"

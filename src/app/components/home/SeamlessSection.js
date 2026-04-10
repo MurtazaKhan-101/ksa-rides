@@ -34,7 +34,7 @@ export default function SeamlessSection() {
           {/* Right: image */}
           <div className="rounded-2xl overflow-hidden shadow-xl order-1 lg:order-2">
             <Image
-              src="/images/main-2.svg"
+              src="/ksa-images/ksa-ride-7.svg"
               alt="Seamless KSA Rides experience"
               width={640}
               height={480}

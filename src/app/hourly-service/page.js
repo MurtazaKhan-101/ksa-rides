@@ -16,7 +16,7 @@ export default function HourlyServicePage() {
     <div className="min-h-screen bg-white">
       <HeroSection
         title={<>Your Reliable<br />Hourly Service</>}
-        heroImage="/images/city-hero.avif"
+        heroImage="/ksa-images/ksa-ride-5.png"
         heroImageAlt="KSA Rides – Hourly chauffeur service"
         defaultTab="hourly"
       />

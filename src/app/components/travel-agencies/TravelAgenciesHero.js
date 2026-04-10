@@ -85,8 +85,8 @@ export default function TravelAgenciesHero() {
           <div className="relative">
             <div className="rounded-2xl overflow-hidden shadow-2xl">
               <Image
-                src="/images/travel-hero.avif"
-                alt="KSA Rides Travel Agency – Woman at airport"
+                src="/ksa-images/ksa-ride-6.png"
+                alt="KSA Rides Travel Agency – Saudi couple arriving at destination"
                 width={640}
                 height={520}
                 className="w-full h-auto object-cover"
