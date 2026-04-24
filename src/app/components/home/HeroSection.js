@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import {
   MapPin,
@@ -53,27 +53,6 @@ const HERO_VEHICLES = [
     image: "/ksa-images/mercedes%20sprinter.png",
   },
 ];
-
-function getRecommendedVehicles(passengers, baggages) {
-  const eligible = HERO_VEHICLES.filter(
-    (v) => passengers <= v.passengers && baggages <= v.luggage,
-  ).sort((a, b) => a.price - b.price);
-
-  if (eligible.length >= 2) {
-    return eligible.slice(0, 2);
-  }
-
-  if (eligible.length === 1) {
-    const nextBest = HERO_VEHICLES.filter((v) => v.id !== eligible[0].id).sort(
-      (a, b) => a.price - b.price,
-    )[0];
-    return nextBest ? [eligible[0], nextBest] : eligible;
-  }
-
-  return HERO_VEHICLES.slice()
-    .sort((a, b) => a.price - b.price)
-    .slice(0, 2);
-}
 
 /**
  * HeroSection — reusable across homepage, city-rides, and hourly-service.
@@ -130,7 +109,7 @@ export default function HeroSection({
     if (!Number.isNaN(passengersParam))
       setPassengers(Math.max(1, passengersParam));
     if (!Number.isNaN(baggagesParam)) setBaggages(Math.max(0, baggagesParam));
-    if (vehicleParam) setSelectedVehicle(vehicleParam);
+    setSelectedVehicle(vehicleParam || HERO_VEHICLES[0].id);
   }, []);
 
   const from = fromCity
@@ -144,16 +123,6 @@ export default function HeroSection({
       ? `${toCity}, ${toLandmark.trim()}`
       : toCity
     : "";
-
-  const suggestedVehicles = useMemo(() => {
-    return getRecommendedVehicles(passengers, baggages);
-  }, [passengers, baggages]);
-
-  useEffect(() => {
-    if (!suggestedVehicles.some((v) => v.id === selectedVehicle)) {
-      setSelectedVehicle(suggestedVehicles[0]?.id || "");
-    }
-  }, [selectedVehicle, suggestedVehicles]);
 
   const canSearch =
     !!fromCity &&
@@ -457,49 +426,56 @@ export default function HeroSection({
                   </div>
                 </div>
 
-                {/* Suggested vehicles */}
+                {/* Vehicle selector */}
                 <div className="space-y-2">
-                  <div className="text-xs text-gray-400 font-medium">
-                    Recommended vehicles for your passengers and baggages
+                  <div className="flex items-center justify-between">
+                    <div className="text-xs text-gray-500 font-medium">
+                      Select your vehicle
+                    </div>
+                    <div className="text-[11px] text-gray-400">
+                      Scroll to view all
+                    </div>
                   </div>
-                  <div className="grid sm:grid-cols-2 gap-2">
-                    {suggestedVehicles.map((vehicle) => {
-                      const selected = selectedVehicle === vehicle.id;
-                      return (
-                        <button
-                          key={vehicle.id}
-                          type="button"
-                          onClick={() => setSelectedVehicle(vehicle.id)}
-                          className={`text-left p-3 rounded-xl border-2 transition-colors ${
-                            selected
-                              ? "border-[#00B1C5] bg-[#00B1C5]/5"
-                              : "border-gray-200 bg-white hover:border-[#00B1C5]/60"
-                          }`}
-                        >
-                          <div className="flex items-center gap-2 mb-2">
-                            <Image
-                              src={vehicle.image}
-                              alt={vehicle.name}
-                              width={42}
-                              height={28}
-                              className="h-7 w-auto object-contain"
-                            />
-                            <div className="min-w-0">
-                              <p className="text-sm font-semibold text-gray-800 truncate">
-                                {vehicle.name}
-                              </p>
-                              <p className="text-xs text-gray-500">
-                                SAR {vehicle.price.toFixed(2)}
-                              </p>
+                  <div className="overflow-x-auto pb-1 -mx-1 px-1">
+                    <div className="flex gap-2 min-w-max">
+                      {HERO_VEHICLES.map((vehicle) => {
+                        const selected = selectedVehicle === vehicle.id;
+                        return (
+                          <button
+                            key={vehicle.id}
+                            type="button"
+                            onClick={() => setSelectedVehicle(vehicle.id)}
+                            className={`text-left p-3 rounded-xl border-2 transition-all min-w-[210px] sm:min-w-[230px] ${
+                              selected
+                                ? "border-[#00B1C5] bg-gradient-to-br from-[#E9F9FB] to-[#F4FFFE] shadow-sm"
+                                : "border-gray-200 bg-white hover:border-[#00B1C5]/60 hover:shadow-sm"
+                            }`}
+                          >
+                            <div className="flex items-center gap-2 mb-2">
+                              <Image
+                                src={vehicle.image}
+                                alt={vehicle.name}
+                                width={42}
+                                height={28}
+                                className="h-7 w-auto object-contain"
+                              />
+                              <div className="min-w-0">
+                                <p className="text-sm font-semibold text-gray-800 truncate">
+                                  {vehicle.name}
+                                </p>
+                                <p className="text-xs text-gray-500">
+                                  SAR {vehicle.price.toFixed(2)}
+                                </p>
+                              </div>
                             </div>
-                          </div>
-                          <p className="text-xs text-gray-500">
-                            Up to {vehicle.passengers} passengers ·{" "}
-                            {vehicle.luggage} bags
-                          </p>
-                        </button>
-                      );
-                    })}
+                            <p className="text-xs text-gray-500">
+                              Up to {vehicle.passengers} passengers ·{" "}
+                              {vehicle.luggage} bags
+                            </p>
+                          </button>
+                        );
+                      })}
+                    </div>
                   </div>
                 </div>
 
