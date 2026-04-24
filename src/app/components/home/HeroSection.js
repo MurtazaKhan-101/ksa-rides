@@ -14,7 +14,6 @@ import {
   Plane,
   Timer,
 } from "lucide-react";
-import { useSearchParams } from "next/navigation";
 import { useTranslation } from "../../../lib/i18n";
 import { SERVICE_CITY_LIST } from "../../lib/constants";
 
@@ -92,7 +91,6 @@ export default function HeroSection({
   defaultTab = "transfer",
 }) {
   const { isInitialized } = useTranslation();
-  const searchParams = useSearchParams();
 
   const [serviceType, setServiceType] = useState(defaultTab);
   const [fromCity, setFromCity] = useState("");
@@ -110,6 +108,9 @@ export default function HeroSection({
   const [returnTime, setReturnTime] = useState("");
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const searchParams = new URLSearchParams(window.location.search);
     const fromCityParam = searchParams.get("fromCity") || "";
     const fromLandmarkParam = searchParams.get("fromLandmark") || "";
     const toCityParam = searchParams.get("toCity") || "";
@@ -130,7 +131,7 @@ export default function HeroSection({
       setPassengers(Math.max(1, passengersParam));
     if (!Number.isNaN(baggagesParam)) setBaggages(Math.max(0, baggagesParam));
     if (vehicleParam) setSelectedVehicle(vehicleParam);
-  }, [searchParams]);
+  }, []);
 
   const from = fromCity
     ? fromLandmark.trim()
