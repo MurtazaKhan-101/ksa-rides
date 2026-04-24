@@ -1,15 +1,80 @@
 "use client";
 
-import { useState } from 'react';
-import Image from 'next/image';
+import { useEffect, useMemo, useState } from "react";
+import Image from "next/image";
 import {
-  MapPin, Calendar, Clock, Search, Plus, Minus,
-  ChevronDown, Plane, Timer,
-} from 'lucide-react';
-import { useTranslation } from '../../../lib/i18n';
-import { SERVICE_CITY_LIST } from '../../lib/constants';
+  MapPin,
+  Calendar,
+  Clock,
+  Search,
+  Plus,
+  Minus,
+  Briefcase,
+  ChevronDown,
+  Plane,
+  Timer,
+} from "lucide-react";
+import { useSearchParams } from "next/navigation";
+import { useTranslation } from "../../../lib/i18n";
+import { SERVICE_CITY_LIST } from "../../lib/constants";
 
 const DURATION_OPTIONS = [2, 3, 4, 5, 6, 7, 8, 10, 12];
+const CITY_OPTIONS = ["Jeddah", "Taif", "Madinah", "Riyadh"];
+const HERO_VEHICLES = [
+  {
+    id: "hyundai-grand-starex",
+    name: "Hyundai Grand Starex",
+    passengers: 3,
+    luggage: 3,
+    price: 65.55,
+    image: "/ksa-images/2022-Hyundai-Grand-Starex.png",
+  },
+  {
+    id: "gmc-yukong",
+    name: "GMC Yukong",
+    passengers: 3,
+    luggage: 3,
+    price: 157.31,
+    image: "/ksa-images/GMC%20Yukon.png",
+  },
+  {
+    id: "hyundai-star-x",
+    name: "Hyundai Star X",
+    passengers: 7,
+    luggage: 7,
+    price: 102.82,
+    image: "/ksa-images/Hyundai%20Star%20X.png",
+  },
+  {
+    id: "mercedes-sprinter",
+    name: "Mercedes Sprinter",
+    passengers: 12,
+    luggage: 12,
+    price: 220.0,
+    image: "/ksa-images/mercedes%20sprinter.png",
+  },
+];
+
+function getRecommendedVehicles(passengers, baggages) {
+  const eligible = HERO_VEHICLES.filter(
+    (v) => passengers <= v.passengers && baggages <= v.luggage,
+  ).sort((a, b) => a.price - b.price);
+
+  if (eligible.length >= 2) {
+    return eligible.slice(0, 2);
+  }
+
+  if (eligible.length === 1) {
+    const nextBest = HERO_VEHICLES.filter((v) => v.id !== eligible[0].id).sort(
+      (a, b) => a.price - b.price,
+    )[0];
+    return nextBest ? [eligible[0], nextBest] : eligible;
+  }
+
+  return HERO_VEHICLES.slice()
+    .sort((a, b) => a.price - b.price)
+    .slice(0, 2);
+}
 
 /**
  * HeroSection — reusable across homepage, city-rides, and hourly-service.
@@ -22,48 +87,111 @@ const DURATION_OPTIONS = [2, 3, 4, 5, 6, 7, 8, 10, 12];
  */
 export default function HeroSection({
   title,
-  heroImage = '/ksa-images/ksa-ride-5.png',
-  heroImageAlt = 'KSA Rides – Professional transfers',
-  defaultTab = 'transfer',
+  heroImage = "/ksa-images/ksa-ride-5.png",
+  heroImageAlt = "KSA Rides – Professional transfers",
+  defaultTab = "transfer",
 }) {
   const { isInitialized } = useTranslation();
+  const searchParams = useSearchParams();
 
   const [serviceType, setServiceType] = useState(defaultTab);
-  const [from, setFrom]               = useState('');
-  const [to, setTo]                   = useState('');
-  const [pickupDate, setPickupDate]   = useState('');
-  const [pickupTime, setPickupTime]   = useState('');
-  const [passengers, setPassengers]   = useState(2);
-  const [duration, setDuration]       = useState(2);
-  const [showReturn, setShowReturn]   = useState(false);
-  const [returnDate, setReturnDate]   = useState('');
-  const [returnTime, setReturnTime]   = useState('');
+  const [fromCity, setFromCity] = useState("");
+  const [fromLandmark, setFromLandmark] = useState("");
+  const [toCity, setToCity] = useState("");
+  const [toLandmark, setToLandmark] = useState("");
+  const [pickupDate, setPickupDate] = useState("");
+  const [pickupTime, setPickupTime] = useState("");
+  const [passengers, setPassengers] = useState(2);
+  const [baggages, setBaggages] = useState(1);
+  const [selectedVehicle, setSelectedVehicle] = useState("");
+  const [duration, setDuration] = useState(2);
+  const [showReturn, setShowReturn] = useState(false);
+  const [returnDate, setReturnDate] = useState("");
+  const [returnTime, setReturnTime] = useState("");
+
+  useEffect(() => {
+    const fromCityParam = searchParams.get("fromCity") || "";
+    const fromLandmarkParam = searchParams.get("fromLandmark") || "";
+    const toCityParam = searchParams.get("toCity") || "";
+    const toLandmarkParam = searchParams.get("toLandmark") || "";
+    const dateParam = searchParams.get("date") || "";
+    const timeParam = searchParams.get("time") || "";
+    const passengersParam = parseInt(searchParams.get("passengers") || "2", 10);
+    const baggagesParam = parseInt(searchParams.get("baggages") || "1", 10);
+    const vehicleParam = searchParams.get("vehicle") || "";
+
+    if (fromCityParam) setFromCity(fromCityParam);
+    if (fromLandmarkParam) setFromLandmark(fromLandmarkParam);
+    if (toCityParam) setToCity(toCityParam);
+    if (toLandmarkParam) setToLandmark(toLandmarkParam);
+    if (dateParam) setPickupDate(dateParam);
+    if (timeParam) setPickupTime(timeParam);
+    if (!Number.isNaN(passengersParam))
+      setPassengers(Math.max(1, passengersParam));
+    if (!Number.isNaN(baggagesParam)) setBaggages(Math.max(0, baggagesParam));
+    if (vehicleParam) setSelectedVehicle(vehicleParam);
+  }, [searchParams]);
+
+  const from = fromCity
+    ? fromLandmark.trim()
+      ? `${fromCity}, ${fromLandmark.trim()}`
+      : fromCity
+    : "";
+
+  const to = toCity
+    ? toLandmark.trim()
+      ? `${toCity}, ${toLandmark.trim()}`
+      : toCity
+    : "";
+
+  const suggestedVehicles = useMemo(() => {
+    return getRecommendedVehicles(passengers, baggages);
+  }, [passengers, baggages]);
+
+  useEffect(() => {
+    if (!suggestedVehicles.some((v) => v.id === selectedVehicle)) {
+      setSelectedVehicle(suggestedVehicles[0]?.id || "");
+    }
+  }, [selectedVehicle, suggestedVehicles]);
+
+  const canSearch =
+    !!fromCity &&
+    !!fromLandmark.trim() &&
+    !!toCity &&
+    !!toLandmark.trim() &&
+    !!pickupDate &&
+    !!pickupTime &&
+    !!selectedVehicle;
 
   const handleSeePrice = () => {
+    if (!canSearch) return;
+
     const params = new URLSearchParams({
       from,
       to,
+      fromCity,
+      fromLandmark: fromLandmark.trim(),
+      toCity,
+      toLandmark: toLandmark.trim(),
       date: pickupDate,
       time: pickupTime,
       passengers: String(passengers),
+      baggages: String(baggages),
+      vehicle: selectedVehicle,
     });
-    window.location.href = `/vehicles?${params.toString()}`;
+    window.location.href = `/vehicles/extras?${params.toString()}`;
   };
 
   /* Default heading if none passed */
-  const heading = title ?? (
-    <>Private Transfers in {SERVICE_CITY_LIST}</>
-  );
+  const heading = title ?? <>Private Transfers in {SERVICE_CITY_LIST}</>;
 
   if (!isInitialized) return <div className="min-h-screen bg-white" />;
 
   return (
     <section id="home" className="relative bg-white overflow-hidden">
-
       {/* ── Hero content ── */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-10 sm:py-14 lg:py-20">
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
-
           {/* Left: heading + search widget */}
           <div className="space-y-7">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#005F56] leading-tight">
@@ -72,22 +200,27 @@ export default function HeroSection({
 
             {/* ── Search widget card ── */}
             <div className="bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden">
-
               {/* Tabs */}
               <div className="flex border-b border-gray-100">
                 {[
-                  { id: 'transfer', Icon: Plane,  label: 'Transfer' },
+                  { id: "transfer", Icon: Plane, label: "Transfer" },
                   // { id: 'hourly',   Icon: Timer,   label: 'By the Hour' },
                 ].map(({ id, Icon, label }) => (
                   <button
                     key={id}
                     onClick={() => setServiceType(id)}
                     className={`flex items-center gap-2 px-5 py-3.5 text-sm font-semibold transition-all ${
-                      serviceType === id ? 'text-white' : 'text-gray-500 hover:text-[#005F56] bg-white'
+                      serviceType === id
+                        ? "text-white"
+                        : "text-gray-500 hover:text-[#005F56] bg-white"
                     }`}
-                    style={serviceType === id
-                      ? { background: 'linear-gradient(296.47deg, #005F56 -2.82%, #00B1C5 97.17%)' }
-                      : {}
+                    style={
+                      serviceType === id
+                        ? {
+                            background:
+                              "linear-gradient(296.47deg, #005F56 -2.82%, #00B1C5 97.17%)",
+                          }
+                        : {}
                     }
                   >
                     <Icon className="h-4 w-4" />
@@ -97,36 +230,73 @@ export default function HeroSection({
               </div>
 
               <div className="p-4 space-y-3">
-
                 {/* From */}
-                <div className="flex items-center gap-3 px-4 py-3 bg-gray-50 rounded-xl border border-gray-200 focus-within:border-[#00B1C5] transition-colors">
-                  <MapPin className="h-5 w-5 text-[#00B1C5] flex-shrink-0" />
-                  <div className="flex-1 min-w-0">
-                    <div className="text-xs text-gray-400 font-medium mb-0.5">From</div>
+                <div className="px-4 py-3 bg-gray-50 rounded-xl border border-gray-200 focus-within:border-[#00B1C5] transition-colors space-y-2">
+                  <div className="flex items-center gap-2">
+                    <MapPin className="h-5 w-5 text-[#00B1C5] flex-shrink-0" />
+                    <div className="text-xs text-gray-400 font-medium">
+                      From
+                    </div>
+                  </div>
+                  <select
+                    value={fromCity}
+                    onChange={(e) => {
+                      setFromCity(e.target.value);
+                      setFromLandmark("");
+                    }}
+                    className="w-full bg-white text-gray-700 text-sm outline-none border border-gray-200 rounded-lg px-3 py-2"
+                  >
+                    <option value="">Select city</option>
+                    {CITY_OPTIONS.map((city) => (
+                      <option key={city} value={city}>
+                        {city}
+                      </option>
+                    ))}
+                  </select>
+                  {fromCity && (
                     <input
                       type="text"
-                      placeholder="Address, airport, hotel, ..."
-                      value={from}
-                      onChange={(e) => setFrom(e.target.value)}
-                      className="w-full bg-transparent text-gray-700 placeholder-gray-400 text-sm outline-none"
+                      placeholder="Enter pickup landmark"
+                      value={fromLandmark}
+                      onChange={(e) => setFromLandmark(e.target.value)}
+                      className="w-full bg-white text-gray-700 placeholder-gray-400 text-sm outline-none border border-gray-200 rounded-lg px-3 py-2"
                     />
-                  </div>
+                  )}
                 </div>
 
                 {/* To — transfer only */}
-                {serviceType === 'transfer' && (
-                  <div className="flex items-center gap-3 px-4 py-3 bg-gray-50 rounded-xl border border-gray-200 focus-within:border-[#00B1C5] transition-colors">
-                    <MapPin className="h-5 w-5 text-[#005F56] flex-shrink-0" />
-                    <div className="flex-1 min-w-0">
-                      <div className="text-xs text-gray-400 font-medium mb-0.5">To</div>
+                {serviceType === "transfer" && (
+                  <div className="px-4 py-3 bg-gray-50 rounded-xl border border-gray-200 focus-within:border-[#00B1C5] transition-colors space-y-2">
+                    <div className="flex items-center gap-2">
+                      <MapPin className="h-5 w-5 text-[#005F56] flex-shrink-0" />
+                      <div className="text-xs text-gray-400 font-medium">
+                        To
+                      </div>
+                    </div>
+                    <select
+                      value={toCity}
+                      onChange={(e) => {
+                        setToCity(e.target.value);
+                        setToLandmark("");
+                      }}
+                      className="w-full bg-white text-gray-700 text-sm outline-none border border-gray-200 rounded-lg px-3 py-2"
+                    >
+                      <option value="">Select city</option>
+                      {CITY_OPTIONS.map((city) => (
+                        <option key={city} value={city}>
+                          {city}
+                        </option>
+                      ))}
+                    </select>
+                    {toCity && (
                       <input
                         type="text"
-                        placeholder="Address, airport, hotel, ..."
-                        value={to}
-                        onChange={(e) => setTo(e.target.value)}
-                        className="w-full bg-transparent text-gray-700 placeholder-gray-400 text-sm outline-none"
+                        placeholder="Enter dropoff landmark"
+                        value={toLandmark}
+                        onChange={(e) => setToLandmark(e.target.value)}
+                        className="w-full bg-white text-gray-700 placeholder-gray-400 text-sm outline-none border border-gray-200 rounded-lg px-3 py-2"
                       />
-                    </div>
+                    )}
                   </div>
                 )}
 
@@ -135,7 +305,9 @@ export default function HeroSection({
                   <label className="flex items-center gap-2 px-4 py-3 bg-gray-50 rounded-xl border border-gray-200 focus-within:border-[#00B1C5] transition-colors cursor-pointer">
                     <Calendar className="h-4 w-4 text-[#00B1C5] flex-shrink-0" />
                     <div className="min-w-0">
-                      <div className="text-xs text-gray-400 font-medium">Pickup date</div>
+                      <div className="text-xs text-gray-400 font-medium">
+                        Pickup date
+                      </div>
                       <input
                         type="date"
                         value={pickupDate}
@@ -147,7 +319,9 @@ export default function HeroSection({
                   <label className="flex items-center gap-2 px-4 py-3 bg-gray-50 rounded-xl border border-gray-200 focus-within:border-[#00B1C5] transition-colors cursor-pointer">
                     <Clock className="h-4 w-4 text-[#00B1C5] flex-shrink-0" />
                     <div className="min-w-0">
-                      <div className="text-xs text-gray-400 font-medium">Pickup time</div>
+                      <div className="text-xs text-gray-400 font-medium">
+                        Pickup time
+                      </div>
                       <input
                         type="time"
                         value={pickupTime}
@@ -159,18 +333,22 @@ export default function HeroSection({
                 </div>
 
                 {/* Duration dropdown — hourly only */}
-                {serviceType === 'hourly' && (
+                {serviceType === "hourly" && (
                   <div className="flex items-center gap-3 px-4 py-3 bg-gray-50 rounded-xl border border-gray-200 focus-within:border-[#00B1C5] transition-colors">
                     <Timer className="h-4 w-4 text-[#005F56] flex-shrink-0" />
                     <div className="flex-1 min-w-0">
-                      <div className="text-xs text-gray-400 font-medium mb-0.5">Duration</div>
+                      <div className="text-xs text-gray-400 font-medium mb-0.5">
+                        Duration
+                      </div>
                       <select
                         value={duration}
                         onChange={(e) => setDuration(Number(e.target.value))}
                         className="w-full bg-transparent text-gray-700 text-sm outline-none cursor-pointer"
                       >
                         {DURATION_OPTIONS.map((h) => (
-                          <option key={h} value={h}>{h} Hours</option>
+                          <option key={h} value={h}>
+                            {h} Hours
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -179,7 +357,7 @@ export default function HeroSection({
                 )}
 
                 {/* ADD RETURN — transfer only */}
-                {serviceType === 'transfer' && !showReturn && (
+                {serviceType === "transfer" && !showReturn && (
                   <button
                     onClick={() => setShowReturn(true)}
                     className="w-full py-3 border-2 border-dashed border-gray-200 rounded-xl text-[#005F56] hover:border-[#00B1C5] hover:text-[#00B1C5] text-sm font-semibold transition-colors flex items-center justify-center gap-2"
@@ -190,12 +368,14 @@ export default function HeroSection({
                 )}
 
                 {/* Return date/time — transfer + showReturn */}
-                {serviceType === 'transfer' && showReturn && (
+                {serviceType === "transfer" && showReturn && (
                   <div className="grid grid-cols-2 gap-3">
                     <label className="flex items-center gap-2 px-4 py-3 bg-gray-50 rounded-xl border border-gray-200 focus-within:border-[#00B1C5] transition-colors cursor-pointer">
                       <Calendar className="h-4 w-4 text-[#005F56] flex-shrink-0" />
                       <div className="min-w-0">
-                        <div className="text-xs text-gray-400 font-medium">Return date</div>
+                        <div className="text-xs text-gray-400 font-medium">
+                          Return date
+                        </div>
                         <input
                           type="date"
                           value={returnDate}
@@ -207,7 +387,9 @@ export default function HeroSection({
                     <label className="flex items-center gap-2 px-4 py-3 bg-gray-50 rounded-xl border border-gray-200 focus-within:border-[#00B1C5] transition-colors cursor-pointer">
                       <Clock className="h-4 w-4 text-[#005F56] flex-shrink-0" />
                       <div className="min-w-0">
-                        <div className="text-xs text-gray-400 font-medium">Return time</div>
+                        <div className="text-xs text-gray-400 font-medium">
+                          Return time
+                        </div>
                         <input
                           type="time"
                           value={returnTime}
@@ -222,18 +404,22 @@ export default function HeroSection({
                 {/* Passengers */}
                 <div className="flex items-center justify-between px-4 py-3 bg-gray-50 rounded-xl border border-gray-200">
                   <div>
-                    <div className="text-xs text-gray-400 font-medium mb-0.5">Passengers</div>
-                    <span className="text-sm font-bold text-gray-700">{passengers}</span>
+                    <div className="text-xs text-gray-400 font-medium mb-0.5">
+                      Passengers
+                    </div>
+                    <span className="text-sm font-bold text-gray-700">
+                      {passengers}
+                    </span>
                   </div>
                   <div className="flex items-center gap-3">
                     <button
-                      onClick={() => setPassengers(p => Math.max(1, p - 1))}
+                      onClick={() => setPassengers((p) => Math.max(1, p - 1))}
                       className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-[#00B1C5] transition-colors"
                     >
                       <Minus className="h-3.5 w-3.5 text-gray-600" />
                     </button>
                     <button
-                      onClick={() => setPassengers(p => p + 1)}
+                      onClick={() => setPassengers((p) => p + 1)}
                       className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-[#00B1C5] transition-colors"
                     >
                       <Plus className="h-3.5 w-3.5 text-gray-600" />
@@ -241,11 +427,90 @@ export default function HeroSection({
                   </div>
                 </div>
 
+                {/* Baggages */}
+                <div className="flex items-center justify-between px-4 py-3 bg-gray-50 rounded-xl border border-gray-200">
+                  <div className="flex items-center gap-2">
+                    <Briefcase className="h-4 w-4 text-[#005F56]" />
+                    <div>
+                      <div className="text-xs text-gray-400 font-medium mb-0.5">
+                        Baggages
+                      </div>
+                      <span className="text-sm font-bold text-gray-700">
+                        {baggages}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <button
+                      onClick={() => setBaggages((b) => Math.max(0, b - 1))}
+                      className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-[#00B1C5] transition-colors"
+                    >
+                      <Minus className="h-3.5 w-3.5 text-gray-600" />
+                    </button>
+                    <button
+                      onClick={() => setBaggages((b) => b + 1)}
+                      className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-[#00B1C5] transition-colors"
+                    >
+                      <Plus className="h-3.5 w-3.5 text-gray-600" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Suggested vehicles */}
+                <div className="space-y-2">
+                  <div className="text-xs text-gray-400 font-medium">
+                    Recommended vehicles for your passengers and baggages
+                  </div>
+                  <div className="grid sm:grid-cols-2 gap-2">
+                    {suggestedVehicles.map((vehicle) => {
+                      const selected = selectedVehicle === vehicle.id;
+                      return (
+                        <button
+                          key={vehicle.id}
+                          type="button"
+                          onClick={() => setSelectedVehicle(vehicle.id)}
+                          className={`text-left p-3 rounded-xl border-2 transition-colors ${
+                            selected
+                              ? "border-[#00B1C5] bg-[#00B1C5]/5"
+                              : "border-gray-200 bg-white hover:border-[#00B1C5]/60"
+                          }`}
+                        >
+                          <div className="flex items-center gap-2 mb-2">
+                            <Image
+                              src={vehicle.image}
+                              alt={vehicle.name}
+                              width={42}
+                              height={28}
+                              className="h-7 w-auto object-contain"
+                            />
+                            <div className="min-w-0">
+                              <p className="text-sm font-semibold text-gray-800 truncate">
+                                {vehicle.name}
+                              </p>
+                              <p className="text-xs text-gray-500">
+                                SAR {vehicle.price.toFixed(2)}
+                              </p>
+                            </div>
+                          </div>
+                          <p className="text-xs text-gray-500">
+                            Up to {vehicle.passengers} passengers ·{" "}
+                            {vehicle.luggage} bags
+                          </p>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
                 {/* See prices CTA */}
                 <button
                   onClick={handleSeePrice}
+                  disabled={!canSearch}
                   className="w-full py-3.5 text-white rounded-xl font-semibold text-sm flex items-center justify-center gap-2 hover:opacity-90 transition-opacity shadow-lg"
-                  style={{ background: 'linear-gradient(296.47deg, #005F56 -2.82%, #00B1C5 97.17%)' }}
+                  style={{
+                    background:
+                      "linear-gradient(296.47deg, #005F56 -2.82%, #00B1C5 97.17%)",
+                  }}
                 >
                   <Search className="h-4 w-4" />
                   See prices
@@ -255,10 +520,17 @@ export default function HeroSection({
 
             {/* Trustpilot */}
             <div className="flex items-center gap-3 text-sm flex-wrap">
-              <span className="font-bold text-gray-800 tracking-widest text-xs uppercase">Excellent</span>
+              <span className="font-bold text-gray-800 tracking-widest text-xs uppercase">
+                Excellent
+              </span>
               <div className="flex gap-0.5">
                 {[...Array(5)].map((_, i) => (
-                  <svg key={i} className="w-5 h-5 text-[#00B67A]" fill="currentColor" viewBox="0 0 20 20">
+                  <svg
+                    key={i}
+                    className="w-5 h-5 text-[#00B67A]"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                   </svg>
                 ))}
@@ -280,7 +552,6 @@ export default function HeroSection({
               />
             </div>
           </div>
-
         </div>
       </div>
     </section>

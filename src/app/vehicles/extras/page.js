@@ -1,37 +1,88 @@
 "use client";
 
-import { useState, Suspense } from 'react';
-import { useSearchParams, useRouter } from 'next/navigation';
-import Image from 'next/image';
+import { useState, Suspense } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
+import Image from "next/image";
 import {
-  Users, Briefcase, CheckCircle2, Shield, UserCheck, Plane,
-  ArrowRight, RotateCcw, Clock, Search, ChevronLeft, HelpCircle,
-} from 'lucide-react';
+  Users,
+  Briefcase,
+  CheckCircle2,
+  Shield,
+  UserCheck,
+  Plane,
+  ArrowRight,
+  RotateCcw,
+  Clock,
+  Search,
+  ChevronLeft,
+  HelpCircle,
+} from "lucide-react";
 
-const BRAND_GRADIENT = 'linear-gradient(296.47deg, #005F56 -2.82%, #00B1C5 97.17%)';
+const BRAND_GRADIENT =
+  "linear-gradient(296.47deg, #005F56 -2.82%, #00B1C5 97.17%)";
 
-const STEPS = ['Vehicle', 'Extras', 'Passenger', 'Payment', 'Passport'];
+const STEPS = ["Vehicle", "Extras", "Passenger", "Payment", "Passport"];
 
 const VEHICLES = [
-  { id: 'hyundai-grand-starex', name: 'Hyundai Grand Starex', passengers: 3, luggage: 3, description: 'Spacious MPV offering comfortable seating for small groups and smooth rides for city or airport transfers.', image: '/ksa-images/2022-Hyundai-Grand-Starex.png', basePrice: 65.55, discountPrice: null },
-  { id: 'gmc-yukong',          name: 'GMC Yukong',          passengers: 3, luggage: 3, description: 'Premium SUV with generous legroom and luggage capacity — ideal for executive travel.', image: '/ksa-images/GMC%20Yukon.png', basePrice: 157.31, discountPrice: null },
-  { id: 'hyundai-star-x',      name: 'Hyundai Star X',      passengers: 7, luggage: 7, description: 'Seven-seater people carrier with flexible seating and large cargo area for family trips.', image: '/ksa-images/Hyundai%20Star%20X.png', basePrice: 102.82, discountPrice: null },
-  { id: 'mercedes-sprinter',   name: 'Mercedes Sprinter',   passengers: 12, luggage: 12, description: 'High-capacity van suitable for groups and long-distance transfers, with roomy luggage space.', image: '/ksa-images/mercedes%20sprinter.png', basePrice: 220.00, discountPrice: null },
+  {
+    id: "hyundai-grand-starex",
+    name: "Hyundai Grand Starex",
+    passengers: 3,
+    luggage: 3,
+    description:
+      "Spacious MPV offering comfortable seating for small groups and smooth rides for city or airport transfers.",
+    image: "/ksa-images/2022-Hyundai-Grand-Starex.png",
+    basePrice: 65.55,
+    discountPrice: null,
+  },
+  {
+    id: "gmc-yukong",
+    name: "GMC Yukong",
+    passengers: 3,
+    luggage: 3,
+    description:
+      "Premium SUV with generous legroom and luggage capacity — ideal for executive travel.",
+    image: "/ksa-images/GMC%20Yukon.png",
+    basePrice: 157.31,
+    discountPrice: null,
+  },
+  {
+    id: "hyundai-star-x",
+    name: "Hyundai Star X",
+    passengers: 7,
+    luggage: 7,
+    description:
+      "Seven-seater people carrier with flexible seating and large cargo area for family trips.",
+    image: "/ksa-images/Hyundai%20Star%20X.png",
+    basePrice: 102.82,
+    discountPrice: null,
+  },
+  {
+    id: "mercedes-sprinter",
+    name: "Mercedes Sprinter",
+    passengers: 12,
+    luggage: 12,
+    description:
+      "High-capacity van suitable for groups and long-distance transfers, with roomy luggage space.",
+    image: "/ksa-images/mercedes%20sprinter.png",
+    basePrice: 220.0,
+    discountPrice: null,
+  },
 ];
 
 const FEATURE_BADGES = [
-  { icon: CheckCircle2, label: 'Free cancellation', color: '#00B1C5' },
-  { icon: ArrowRight,   label: 'Door-to-door service', color: '#005F56' },
-  { icon: UserCheck,    label: 'Meet & Greet', color: '#005F56' },
-  { icon: Plane,        label: 'Flight tracking', color: '#005F56' },
-  { icon: Shield,       label: 'Licensed chauffeurs', color: '#005F56' },
+  { icon: CheckCircle2, label: "Free cancellation", color: "#00B1C5" },
+  { icon: ArrowRight, label: "Door-to-door service", color: "#005F56" },
+  { icon: UserCheck, label: "Meet & Greet", color: "#005F56" },
+  { icon: Plane, label: "Flight tracking", color: "#005F56" },
+  { icon: Shield, label: "Licensed chauffeurs", color: "#005F56" },
 ];
 
 const PAYMENT_ICONS = [
-  { src: '/images/visa.svg',             alt: 'Visa' },
-  { src: '/images/mastercard.svg',       alt: 'Mastercard' },
-  { src: '/images/american-express.svg', alt: 'Amex' },
-  { src: '/images/paypal.svg',           alt: 'PayPal' },
+  { src: "/images/visa.svg", alt: "Visa" },
+  { src: "/images/mastercard.svg", alt: "Mastercard" },
+  { src: "/images/american-express.svg", alt: "Amex" },
+  { src: "/images/paypal.svg", alt: "PayPal" },
 ];
 
 // ─── Step bar ─────────────────────────────────────────────────────────────────
@@ -50,21 +101,25 @@ function BookingStepBar({ current = 0 }) {
                     className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-all"
                     style={
                       active
-                        ? { background: BRAND_GRADIENT, color: '#fff' }
+                        ? { background: BRAND_GRADIENT, color: "#fff" }
                         : done
-                        ? { background: '#00B1C5', color: '#fff' }
-                        : { background: '#F3F4F6', color: '#9CA3AF' }
+                          ? { background: "#00B1C5", color: "#fff" }
+                          : { background: "#F3F4F6", color: "#9CA3AF" }
                     }
                   >
                     {done ? <CheckCircle2 className="h-4 w-4" /> : i + 1}
                   </div>
-                  <span className={`text-xs mt-1 font-medium ${active ? 'text-[#005F56]' : done ? 'text-[#00B1C5]' : 'text-gray-400'}`}>
+                  <span
+                    className={`text-xs mt-1 font-medium ${active ? "text-[#005F56]" : done ? "text-[#00B1C5]" : "text-gray-400"}`}
+                  >
                     {step}
                   </span>
                 </div>
                 {i < STEPS.length - 1 && (
-                  <div className="flex-1 h-0.5 mx-2 mb-5 rounded"
-                    style={{ background: done ? BRAND_GRADIENT : '#E5E7EB' }} />
+                  <div
+                    className="flex-1 h-0.5 mx-2 mb-5 rounded"
+                    style={{ background: done ? BRAND_GRADIENT : "#E5E7EB" }}
+                  />
                 )}
               </div>
             );
@@ -76,21 +131,33 @@ function BookingStepBar({ current = 0 }) {
 }
 
 // ─── Booking summary panel ────────────────────────────────────────────────────
-function BookingSummaryPanel({ from, to, date, time, passengers, selectedVehicle }) {
-  const vehicle = VEHICLES.find(v => v.id === selectedVehicle);
+function BookingSummaryPanel({
+  from,
+  to,
+  date,
+  time,
+  passengers,
+  baggages,
+  selectedVehicle,
+}) {
+  const vehicle = VEHICLES.find((v) => v.id === selectedVehicle);
   const price = vehicle ? (vehicle.discountPrice ?? vehicle.basePrice) : null;
 
   const formattedDate = date
-    ? new Date(date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
-    : '—';
+    ? new Date(date).toLocaleDateString("en-GB", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      })
+    : "—";
 
   const arrivalTime = time
     ? (() => {
-        const [h, m] = time.split(':').map(Number);
+        const [h, m] = time.split(":").map(Number);
         const arr = new Date(0, 0, 0, h, m + 17);
         return arr.toTimeString().slice(0, 5);
       })()
-    : '—';
+    : "—";
 
   return (
     <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
@@ -100,15 +167,27 @@ function BookingSummaryPanel({ from, to, date, time, passengers, selectedVehicle
 
       <div className="px-5 py-4 flex items-center justify-between border-b border-gray-100">
         <span className="text-sm font-semibold text-gray-800">One way</span>
-        <div className="flex items-center gap-1.5 px-3 py-1 bg-gray-100 rounded-full">
-          <Users className="h-3.5 w-3.5 text-gray-600" />
-          <span className="text-xs font-medium text-gray-700">{passengers || 1} Passenger{(passengers || 1) > 1 ? 's' : ''}</span>
+        <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 px-3 py-1 bg-gray-100 rounded-full">
+            <Users className="h-3.5 w-3.5 text-gray-600" />
+            <span className="text-xs font-medium text-gray-700">
+              {passengers || 1} Passenger{(passengers || 1) > 1 ? "s" : ""}
+            </span>
+          </div>
+          <div className="flex items-center gap-1.5 px-3 py-1 bg-gray-100 rounded-full">
+            <Briefcase className="h-3.5 w-3.5 text-gray-600" />
+            <span className="text-xs font-medium text-gray-700">
+              {baggages || 0} Bag{(baggages || 0) > 1 ? "s" : ""}
+            </span>
+          </div>
         </div>
       </div>
 
       <div className="px-5 py-4 border-b border-gray-100">
         <div className="flex items-center justify-between mb-3">
-          <span className="text-xs font-bold text-[#00B1C5]">Outward · {formattedDate}</span>
+          <span className="text-xs font-bold text-[#00B1C5]">
+            Outward · {formattedDate}
+          </span>
           <button className="flex items-center gap-1 text-xs text-gray-500 hover:text-gray-700 transition-colors">
             <span>Edit</span>
           </button>
@@ -122,12 +201,20 @@ function BookingSummaryPanel({ from, to, date, time, passengers, selectedVehicle
             </div>
             <div className="flex-1 space-y-3">
               <div className="flex items-center justify-between">
-                <p className="font-semibold text-gray-900 text-sm leading-tight">{from || 'Origin'}</p>
-                <span className="text-sm font-bold text-gray-700">{time || '—'}</span>
+                <p className="font-semibold text-gray-900 text-sm leading-tight">
+                  {from || "Origin"}
+                </p>
+                <span className="text-sm font-bold text-gray-700">
+                  {time || "—"}
+                </span>
               </div>
               <div className="flex items-center justify-between">
-                <p className="font-semibold text-gray-900 text-sm leading-tight">{to || 'Destination'}</p>
-                <span className="text-sm font-bold text-gray-700">{arrivalTime}</span>
+                <p className="font-semibold text-gray-900 text-sm leading-tight">
+                  {to || "Destination"}
+                </p>
+                <span className="text-sm font-bold text-gray-700">
+                  {arrivalTime}
+                </span>
               </div>
             </div>
           </div>
@@ -145,10 +232,18 @@ function BookingSummaryPanel({ from, to, date, time, passengers, selectedVehicle
         <div className="px-5 py-4 border-b border-gray-100">
           <p className="text-xs text-gray-500 mb-2">Your choice</p>
           <div className="flex items-center gap-3">
-            <Image src={vehicle.image} alt={vehicle.name} width={60} height={40} className="h-10 w-auto object-contain" />
+            <Image
+              src={vehicle.image}
+              alt={vehicle.name}
+              width={60}
+              height={40}
+              className="h-10 w-auto object-contain"
+            />
             <div>
               <p className="font-bold text-gray-900 text-sm">{vehicle.name}</p>
-              <p className="text-xs text-gray-500">Up to {vehicle.passengers} · {vehicle.luggage} medium bags</p>
+              <p className="text-xs text-gray-500">
+                Up to {vehicle.passengers} · {vehicle.luggage} medium bags
+              </p>
             </div>
           </div>
         </div>
@@ -159,11 +254,15 @@ function BookingSummaryPanel({ from, to, date, time, passengers, selectedVehicle
           <p className="font-bold text-gray-900 text-sm mb-3">Price details</p>
           <div className="flex items-center justify-between mb-1">
             <span className="text-sm text-gray-600">Total</span>
-            <span className="text-lg font-bold text-gray-900">SAR {price?.toFixed(2)}</span>
+            <span className="text-lg font-bold text-gray-900">
+              SAR {price?.toFixed(2)}
+            </span>
           </div>
           <div className="flex items-center justify-between">
             <span className="text-xs text-gray-400">Outward</span>
-            <span className="text-sm text-gray-600">SAR {price?.toFixed(2)}</span>
+            <span className="text-sm text-gray-600">
+              SAR {price?.toFixed(2)}
+            </span>
           </div>
         </div>
       )}
@@ -171,7 +270,10 @@ function BookingSummaryPanel({ from, to, date, time, passengers, selectedVehicle
       <div className="px-5 py-4 border-b border-gray-100">
         <div className="flex flex-wrap gap-2">
           {FEATURE_BADGES.map(({ icon: Icon, label, color }) => (
-            <div key={label} className="flex items-center gap-1.5 bg-gray-50 rounded-full px-3 py-1.5">
+            <div
+              key={label}
+              className="flex items-center gap-1.5 bg-gray-50 rounded-full px-3 py-1.5"
+            >
               <Icon className="h-3.5 w-3.5 flex-shrink-0" style={{ color }} />
               <span className="text-xs text-gray-700 font-medium">{label}</span>
             </div>
@@ -181,8 +283,17 @@ function BookingSummaryPanel({ from, to, date, time, passengers, selectedVehicle
 
       <div className="px-5 py-4 flex flex-wrap items-center gap-2">
         {PAYMENT_ICONS.map(({ src, alt }) => (
-          <div key={alt} className="px-2 py-1 bg-gray-100 rounded-lg flex items-center justify-center">
-            <Image src={src} alt={alt} width={36} height={22} className="h-4 w-auto object-contain" />
+          <div
+            key={alt}
+            className="px-2 py-1 bg-gray-100 rounded-lg flex items-center justify-center"
+          >
+            <Image
+              src={src}
+              alt={alt}
+              width={36}
+              height={22}
+              className="h-4 w-auto object-contain"
+            />
           </div>
         ))}
         <span className="text-xs text-gray-400 font-medium">Apple Pay</span>
@@ -197,19 +308,40 @@ function ExtrasContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  const from       = searchParams.get('from')       || '';
-  const to         = searchParams.get('to')         || '';
-  const date       = searchParams.get('date')       || '';
-  const time       = searchParams.get('time')       || '';
-  const passengers = searchParams.get('passengers') || '1';
-  const vehicle    = searchParams.get('vehicle')    || 'economy';
+  const from = searchParams.get("from") || "";
+  const to = searchParams.get("to") || "";
+  const fromCity = searchParams.get("fromCity") || "";
+  const toCity = searchParams.get("toCity") || "";
+  const fromLandmark = searchParams.get("fromLandmark") || "";
+  const toLandmark = searchParams.get("toLandmark") || "";
+  const date = searchParams.get("date") || "";
+  const time = searchParams.get("time") || "";
+  const passengers = searchParams.get("passengers") || "1";
+  const baggages = searchParams.get("baggages") || "0";
+  const vehicle = searchParams.get("vehicle") || "economy";
 
-  const [flightNumber, setFlightNumber] = useState('');
+  const [flightNumber, setFlightNumber] = useState("");
   const [childSeat, setChildSeat] = useState(false);
-  const [driverNotes, setDriverNotes] = useState('');
+  const [driverNotes, setDriverNotes] = useState("");
 
   const buildParams = (extra = {}) => {
-    const p = { from, to, date, time, passengers, vehicle, flightNumber, childSeat: childSeat ? '1' : '0', driverNotes, ...extra };
+    const p = {
+      from,
+      to,
+      fromCity,
+      toCity,
+      fromLandmark,
+      toLandmark,
+      date,
+      time,
+      passengers,
+      baggages,
+      vehicle,
+      flightNumber,
+      childSeat: childSeat ? "1" : "0",
+      driverNotes,
+      ...extra,
+    };
     return new URLSearchParams(p).toString();
   };
 
@@ -218,8 +350,20 @@ function ExtrasContent() {
   };
 
   const handleBack = () => {
-    const params = new URLSearchParams({ from, to, date, time, passengers });
-    router.push(`/vehicles?${params.toString()}`);
+    const params = new URLSearchParams({
+      from,
+      to,
+      fromCity,
+      toCity,
+      fromLandmark,
+      toLandmark,
+      date,
+      time,
+      passengers,
+      baggages,
+      vehicle,
+    });
+    router.push(`/home?${params.toString()}`);
   };
 
   return (
@@ -228,10 +372,11 @@ function ExtrasContent() {
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6">
         <div className="grid lg:grid-cols-[1fr_340px] gap-6 items-start">
-
           {/* Left column — Extras form */}
           <div className="bg-white rounded-2xl border border-gray-200 p-6 sm:p-8">
-            <h1 className="text-xl sm:text-2xl font-bold text-gray-900 mb-6">Extras &amp; notes</h1>
+            <h1 className="text-xl sm:text-2xl font-bold text-gray-900 mb-6">
+              Extras &amp; notes
+            </h1>
 
             {/* Flight number */}
             <div className="mb-6">
@@ -245,7 +390,7 @@ function ExtrasContent() {
                   <input
                     type="text"
                     value={flightNumber}
-                    onChange={e => setFlightNumber(e.target.value)}
+                    onChange={(e) => setFlightNumber(e.target.value)}
                     placeholder="e.g. LH1868"
                     className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#00B1C5]/30 focus:border-[#00B1C5] transition-all"
                   />
@@ -256,7 +401,13 @@ function ExtrasContent() {
                 </button>
               </div>
               <p className="text-xs text-gray-500 mt-2">
-                Please provide your <span className="underline">flight number</span> (<span className="underline">driver will track your flight and adjust pickup time accordingly</span>)
+                Please provide your{" "}
+                <span className="underline">flight number</span> (
+                <span className="underline">
+                  driver will track your flight and adjust pickup time
+                  accordingly
+                </span>
+                )
               </p>
             </div>
 
@@ -268,11 +419,13 @@ function ExtrasContent() {
                 <input
                   type="checkbox"
                   checked={childSeat}
-                  onChange={e => setChildSeat(e.target.checked)}
+                  onChange={(e) => setChildSeat(e.target.checked)}
                   className="w-5 h-5 rounded border-gray-300 text-[#00B1C5] focus:ring-[#00B1C5]/30 cursor-pointer"
                 />
               </div>
-              <span className="text-sm text-gray-800 font-medium">Need a child or booster seat?</span>
+              <span className="text-sm text-gray-800 font-medium">
+                Need a child or booster seat?
+              </span>
             </label>
 
             <div className="border-t border-gray-100 my-6" />
@@ -285,7 +438,7 @@ function ExtrasContent() {
               </label>
               <textarea
                 value={driverNotes}
-                onChange={e => setDriverNotes(e.target.value)}
+                onChange={(e) => setDriverNotes(e.target.value)}
                 placeholder="Luggage info, special requests... No sensitive data—add phone in next step."
                 rows={4}
                 className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm text-gray-900 placeholder-gray-400 resize-y focus:outline-none focus:ring-2 focus:ring-[#00B1C5]/30 focus:border-[#00B1C5] transition-all"
@@ -313,8 +466,12 @@ function ExtrasContent() {
           {/* Right column — Booking summary */}
           <div className="sticky top-20">
             <BookingSummaryPanel
-              from={from} to={to} date={date} time={time}
+              from={from}
+              to={to}
+              date={date}
+              time={time}
               passengers={parseInt(passengers)}
+              baggages={parseInt(baggages)}
               selectedVehicle={vehicle}
             />
           </div>
@@ -326,7 +483,13 @@ function ExtrasContent() {
 
 export default function ExtrasPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-gray-50 flex items-center justify-center"><div className="w-8 h-8 rounded-full border-2 border-[#00B1C5] border-t-transparent animate-spin" /></div>}>
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+          <div className="w-8 h-8 rounded-full border-2 border-[#00B1C5] border-t-transparent animate-spin" />
+        </div>
+      }
+    >
       <ExtrasContent />
     </Suspense>
   );

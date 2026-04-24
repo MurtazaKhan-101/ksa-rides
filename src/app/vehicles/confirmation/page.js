@@ -1,107 +1,172 @@
 "use client";
 
-import { Suspense, useRef } from 'react';
-import { useSearchParams } from 'next/navigation';
-import Link from 'next/link';
-import { CheckCircle2, Calendar, Clock, Users, Car, Download, Home } from 'lucide-react';
-import { jsPDF } from 'jspdf';
+import { Suspense, useRef } from "react";
+import { useSearchParams } from "next/navigation";
+import Link from "next/link";
+import {
+  CheckCircle2,
+  Calendar,
+  Clock,
+  Users,
+  Briefcase,
+  Car,
+  Download,
+  Home,
+} from "lucide-react";
+import { jsPDF } from "jspdf";
 
-const BRAND_GRADIENT = 'linear-gradient(296.47deg, #005F56 -2.82%, #00B1C5 97.17%)';
-const BRAND_DARK  = [0, 95, 86];   // #005F56
+const BRAND_GRADIENT =
+  "linear-gradient(296.47deg, #005F56 -2.82%, #00B1C5 97.17%)";
+const BRAND_DARK = [0, 95, 86]; // #005F56
 const BRAND_LIGHT = [0, 177, 197]; // #00B1C5
 
 const VEHICLES = [
-  { id: 'hyundai-grand-starex', name: 'Hyundai Grand Starex', passengers: 3, luggage: 3, description: 'Spacious MPV offering comfortable seating for small groups and smooth rides for city or airport transfers.', image: '/ksa-images/2022-Hyundai-Grand-Starex.png', basePrice: 65.55, discountPrice: null },
-  { id: 'gmc-yukong',          name: 'GMC Yukong',          passengers: 3, luggage: 3, description: 'Premium SUV with generous legroom and luggage capacity — ideal for executive travel.', image: '/ksa-images/GMC%20Yukon.png', basePrice: 157.31, discountPrice: null },
-  { id: 'hyundai-star-x',      name: 'Hyundai Star X',      passengers: 7, luggage: 7, description: 'Seven-seater people carrier with flexible seating and large cargo area for family trips.', image: '/ksa-images/Hyundai%20Star%20X.png', basePrice: 102.82, discountPrice: null },
-  { id: 'mercedes-sprinter',   name: 'Mercedes Sprinter',   passengers: 12, luggage: 12, description: 'High-capacity van suitable for groups and long-distance transfers, with roomy luggage space.', image: '/ksa-images/mercedes%20sprinter.png', basePrice: 220.00, discountPrice: null },
+  {
+    id: "hyundai-grand-starex",
+    name: "Hyundai Grand Starex",
+    passengers: 3,
+    luggage: 3,
+    description:
+      "Spacious MPV offering comfortable seating for small groups and smooth rides for city or airport transfers.",
+    image: "/ksa-images/2022-Hyundai-Grand-Starex.png",
+    basePrice: 65.55,
+    discountPrice: null,
+  },
+  {
+    id: "gmc-yukong",
+    name: "GMC Yukong",
+    passengers: 3,
+    luggage: 3,
+    description:
+      "Premium SUV with generous legroom and luggage capacity — ideal for executive travel.",
+    image: "/ksa-images/GMC%20Yukon.png",
+    basePrice: 157.31,
+    discountPrice: null,
+  },
+  {
+    id: "hyundai-star-x",
+    name: "Hyundai Star X",
+    passengers: 7,
+    luggage: 7,
+    description:
+      "Seven-seater people carrier with flexible seating and large cargo area for family trips.",
+    image: "/ksa-images/Hyundai%20Star%20X.png",
+    basePrice: 102.82,
+    discountPrice: null,
+  },
+  {
+    id: "mercedes-sprinter",
+    name: "Mercedes Sprinter",
+    passengers: 12,
+    luggage: 12,
+    description:
+      "High-capacity van suitable for groups and long-distance transfers, with roomy luggage space.",
+    image: "/ksa-images/mercedes%20sprinter.png",
+    basePrice: 220.0,
+    discountPrice: null,
+  },
 ];
 
-function generateReceiptPDF({ bookingRef, from, to, date, time, passengers, vehicleName, price }) {
-  const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+function generateReceiptPDF({
+  bookingRef,
+  from,
+  to,
+  date,
+  time,
+  passengers,
+  baggages,
+  vehicleName,
+  price,
+}) {
+  const doc = new jsPDF({ unit: "mm", format: "a4" });
   const pageW = doc.internal.pageSize.getWidth();
   const margin = 20;
   let y = 20;
 
   // ── Header bar ──
   doc.setFillColor(...BRAND_DARK);
-  doc.rect(0, 0, pageW, 38, 'F');
+  doc.rect(0, 0, pageW, 38, "F");
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(22);
-  doc.setFont('helvetica', 'bold');
-  doc.text('KSA RIDES', pageW / 2, 16, { align: 'center' });
+  doc.setFont("helvetica", "bold");
+  doc.text("KSA RIDES", pageW / 2, 16, { align: "center" });
   doc.setFontSize(11);
-  doc.setFont('helvetica', 'normal');
-  doc.text('Booking Receipt', pageW / 2, 26, { align: 'center' });
+  doc.setFont("helvetica", "normal");
+  doc.text("Booking Receipt", pageW / 2, 26, { align: "center" });
   doc.setFontSize(9);
-  doc.text(`Ref: ${bookingRef}`, pageW / 2, 33, { align: 'center' });
+  doc.text(`Ref: ${bookingRef}`, pageW / 2, 33, { align: "center" });
 
   y = 50;
 
   // ── Helper: section title ──
   const sectionTitle = (title) => {
     doc.setFillColor(...BRAND_LIGHT);
-    doc.rect(margin, y, pageW - margin * 2, 8, 'F');
+    doc.rect(margin, y, pageW - margin * 2, 8, "F");
     doc.setTextColor(255, 255, 255);
     doc.setFontSize(11);
-    doc.setFont('helvetica', 'bold');
+    doc.setFont("helvetica", "bold");
     doc.text(title, margin + 3, y + 5.8);
     y += 13;
     doc.setTextColor(50, 50, 50);
-    doc.setFont('helvetica', 'normal');
+    doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
   };
 
   // ── Helper: key-value row ──
   const row = (label, value) => {
-    doc.setFont('helvetica', 'bold');
+    doc.setFont("helvetica", "bold");
     doc.text(`${label}:`, margin, y);
-    doc.setFont('helvetica', 'normal');
+    doc.setFont("helvetica", "normal");
     doc.text(String(value), margin + 45, y);
     y += 7;
   };
 
   // ── Trip Details ──
-  sectionTitle('Trip Details');
-  row('Pickup', from);
-  row('Drop-off', to);
-  row('Date', date);
-  row('Time', time || '—');
-  row('Passengers', passengers);
+  sectionTitle("Trip Details");
+  row("Pickup", from);
+  row("Drop-off", to);
+  row("Date", date);
+  row("Time", time || "—");
+  row("Passengers", passengers);
+  row("Baggages", baggages);
   y += 4;
 
   // ── Vehicle ──
-  sectionTitle('Vehicle');
-  row('Type', vehicleName);
+  sectionTitle("Vehicle");
+  row("Type", vehicleName);
   y += 4;
 
   // ── Fare ──
-  sectionTitle('Fare Summary');
-  row('Subtotal', `SAR ${price.toFixed(2)}`);
-  row('VAT & Taxes', 'Included');
+  sectionTitle("Fare Summary");
+  row("Subtotal", `SAR ${price.toFixed(2)}`);
+  row("VAT & Taxes", "Included");
   y += 3;
   doc.setDrawColor(...BRAND_DARK);
   doc.setLineWidth(0.3);
   doc.line(margin, y, pageW - margin, y);
   y += 7;
   doc.setFontSize(13);
-  doc.setFont('helvetica', 'bold');
+  doc.setFont("helvetica", "bold");
   doc.setTextColor(...BRAND_DARK);
-  doc.text('Total', margin, y);
-  doc.text(`SAR ${price.toFixed(2)}`, pageW - margin, y, { align: 'right' });
+  doc.text("Total", margin, y);
+  doc.text(`SAR ${price.toFixed(2)}`, pageW - margin, y, { align: "right" });
   y += 12;
 
   // ── Footer ──
   doc.setFontSize(9);
   doc.setTextColor(130, 130, 130);
-  doc.setFont('helvetica', 'italic');
-  doc.text('Thank you for choosing KSA Rides!', pageW / 2, y, { align: 'center' });
+  doc.setFont("helvetica", "italic");
+  doc.text("Thank you for choosing KSA Rides!", pageW / 2, y, {
+    align: "center",
+  });
   y += 5;
-  doc.text('For any queries, please contact our support team.', pageW / 2, y, { align: 'center' });
+  doc.text("For any queries, please contact our support team.", pageW / 2, y, {
+    align: "center",
+  });
 
   // ── Bottom brand strip ──
   doc.setFillColor(...BRAND_DARK);
-  doc.rect(0, doc.internal.pageSize.getHeight() - 10, pageW, 10, 'F');
+  doc.rect(0, doc.internal.pageSize.getHeight() - 10, pageW, 10, "F");
 
   doc.save(`KSA-Rides-Receipt-${bookingRef}.pdf`);
 }
@@ -109,21 +174,29 @@ function generateReceiptPDF({ bookingRef, from, to, date, time, passengers, vehi
 function ConfirmationContent() {
   const searchParams = useSearchParams();
 
-  const from       = searchParams.get('from')       || 'Origin';
-  const to         = searchParams.get('to')         || 'Destination';
-  const date       = searchParams.get('date')       || '';
-  const time       = searchParams.get('time')       || '';
-  const passengers = searchParams.get('passengers') || '1';
-  const vehicleId  = searchParams.get('vehicle')    || 'economy';
+  const from = searchParams.get("from") || "Origin";
+  const to = searchParams.get("to") || "Destination";
+  const date = searchParams.get("date") || "";
+  const time = searchParams.get("time") || "";
+  const passengers = searchParams.get("passengers") || "1";
+  const baggages = searchParams.get("baggages") || "0";
+  const vehicleId = searchParams.get("vehicle") || "economy";
 
-  const vehicle = VEHICLES.find(v => v.id === vehicleId);
+  const vehicle = VEHICLES.find((v) => v.id === vehicleId);
   const price = vehicle ? (vehicle.discountPrice ?? vehicle.basePrice) : 0;
 
   const formattedDate = date
-    ? new Date(date).toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })
-    : '—';
+    ? new Date(date).toLocaleDateString("en-GB", {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      })
+    : "—";
 
-  const bookingRefRef = useRef(`KSA-${Date.now().toString(36).toUpperCase().slice(-6)}`);
+  const bookingRefRef = useRef(
+    `KSA-${Date.now().toString(36).toUpperCase().slice(-6)}`,
+  );
   const bookingRef = bookingRefRef.current;
 
   const handleDownloadReceipt = () => {
@@ -132,9 +205,10 @@ function ConfirmationContent() {
       from,
       to,
       date: formattedDate,
-      time: time || '—',
+      time: time || "—",
       passengers,
-      vehicleName: vehicle?.name ?? '—',
+      baggages,
+      vehicleName: vehicle?.name ?? "—",
       price,
     });
   };
@@ -142,24 +216,36 @@ function ConfirmationContent() {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-2xl mx-auto px-4 sm:px-6 py-10">
-
         {/* Success header */}
         <div className="text-center mb-8">
-          <div className="w-20 h-20 rounded-full mx-auto mb-5 flex items-center justify-center" style={{ background: BRAND_GRADIENT }}>
+          <div
+            className="w-20 h-20 rounded-full mx-auto mb-5 flex items-center justify-center"
+            style={{ background: BRAND_GRADIENT }}
+          >
             <CheckCircle2 className="h-10 w-10 text-white" />
           </div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">Booking Confirmed!</h1>
-          <p className="text-gray-500 text-sm">Your transfer has been booked successfully. A confirmation email has been sent.</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
+            Booking Confirmed!
+          </h1>
+          <p className="text-gray-500 text-sm">
+            Your transfer has been booked successfully. A confirmation email has
+            been sent.
+          </p>
         </div>
 
         {/* Booking card */}
         <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden mb-6">
           <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
             <div>
-              <p className="text-xs text-gray-500 font-medium">Booking reference</p>
+              <p className="text-xs text-gray-500 font-medium">
+                Booking reference
+              </p>
               <p className="text-lg font-bold text-[#005F56]">{bookingRef}</p>
             </div>
-            <div className="px-3 py-1.5 rounded-full text-xs font-bold text-white" style={{ background: BRAND_GRADIENT }}>
+            <div
+              className="px-3 py-1.5 rounded-full text-xs font-bold text-white"
+              style={{ background: BRAND_GRADIENT }}
+            >
               Confirmed
             </div>
           </div>
@@ -192,36 +278,57 @@ function ConfirmationContent() {
                 <Calendar className="h-4 w-4 text-[#00B1C5]" />
                 <div>
                   <p className="text-xs text-gray-500">Date</p>
-                  <p className="text-sm font-semibold text-gray-900">{formattedDate}</p>
+                  <p className="text-sm font-semibold text-gray-900">
+                    {formattedDate}
+                  </p>
                 </div>
               </div>
               <div className="flex items-center gap-2">
                 <Clock className="h-4 w-4 text-[#00B1C5]" />
                 <div>
                   <p className="text-xs text-gray-500">Pickup time</p>
-                  <p className="text-sm font-semibold text-gray-900">{time || '—'}</p>
+                  <p className="text-sm font-semibold text-gray-900">
+                    {time || "—"}
+                  </p>
                 </div>
               </div>
               <div className="flex items-center gap-2">
                 <Users className="h-4 w-4 text-[#00B1C5]" />
                 <div>
                   <p className="text-xs text-gray-500">Passengers</p>
-                  <p className="text-sm font-semibold text-gray-900">{passengers}</p>
+                  <p className="text-sm font-semibold text-gray-900">
+                    {passengers}
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <Briefcase className="h-4 w-4 text-[#00B1C5]" />
+                <div>
+                  <p className="text-xs text-gray-500">Baggages</p>
+                  <p className="text-sm font-semibold text-gray-900">
+                    {baggages}
+                  </p>
                 </div>
               </div>
               <div className="flex items-center gap-2">
                 <Car className="h-4 w-4 text-[#00B1C5]" />
                 <div>
                   <p className="text-xs text-gray-500">Vehicle</p>
-                  <p className="text-sm font-semibold text-gray-900">{vehicle?.name ?? '—'}</p>
+                  <p className="text-sm font-semibold text-gray-900">
+                    {vehicle?.name ?? "—"}
+                  </p>
                 </div>
               </div>
             </div>
           </div>
 
           <div className="px-6 py-4 bg-gray-50 border-t border-gray-100 flex items-center justify-between">
-            <span className="text-sm font-medium text-gray-600">Total paid</span>
-            <span className="text-xl font-bold text-gray-900">SAR {price.toFixed(2)}</span>
+            <span className="text-sm font-medium text-gray-600">
+              Total paid
+            </span>
+            <span className="text-xl font-bold text-gray-900">
+              SAR {price.toFixed(2)}
+            </span>
           </div>
         </div>
 
@@ -250,7 +357,13 @@ function ConfirmationContent() {
 
 export default function ConfirmationPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-gray-50 flex items-center justify-center"><div className="w-8 h-8 rounded-full border-2 border-[#00B1C5] border-t-transparent animate-spin" /></div>}>
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+          <div className="w-8 h-8 rounded-full border-2 border-[#00B1C5] border-t-transparent animate-spin" />
+        </div>
+      }
+    >
       <ConfirmationContent />
     </Suspense>
   );
