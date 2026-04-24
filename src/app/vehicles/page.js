@@ -12,71 +12,49 @@ import {
 
 const BRAND_GRADIENT = 'linear-gradient(296.47deg, #005F56 -2.82%, #00B1C5 97.17%)';
 
-// ─── Vehicle catalogue ────────────────────────────────────────────────────────
+// ─── Vehicle catalogue (updated) ─────────────────────────────────────────────
 const VEHICLES = [
   {
-    id: 'economy',
-    name: 'Economy',
+    id: 'hyundai-grand-starex',
+    name: 'Hyundai Grand Starex',
     badge: { label: 'BEST VALUE', color: '#00B1C5' },
     passengers: 3,
     luggage: 3,
-    examples: 'Toyota Camry, Honda Accord or similar',
-    image: '/images/Standard Class Taxi.svg',
+    description: 'Spacious MPV offering comfortable seating for small groups and smooth rides for city or airport transfers.',
+    image: '/ksa-images/2022-Hyundai-Grand-Starex.png',
     basePrice: 65.55,
     discountPrice: null,
   },
   {
-    id: 'standard',
-    name: 'Standard',
-    badge: { label: 'MOST POPULAR', color: '#E86C1F' },
-    passengers: 3,
-    luggage: 3,
-    examples: 'Mercedes E Class, BMW 5 Series or similar',
-    image: '/images/First Class Transfer.svg',
-    basePrice: 96.13,
-    discountPrice: 87.39,
-  },
-  {
-    id: 'first-class',
-    name: 'First Class',
+    id: 'gmc-yukong',
+    name: 'GMC Yukong',
     badge: { label: 'TOP CLASS', color: '#7B61FF' },
     passengers: 3,
     luggage: 3,
-    examples: 'Mercedes S Class, BMW 7, Audi A8 or similar',
-    image: '/images/SUV Limo Class.svg',
+    description: 'Premium SUV with generous legroom and luggage capacity — ideal for executive travel.',
+    image: '/ksa-images/GMC%20Yukon.png',
     basePrice: 157.31,
     discountPrice: null,
   },
   {
-    id: 'standard-van',
-    name: 'Standard Van',
+    id: 'hyundai-star-x',
+    name: 'Hyundai Star X',
     badge: null,
     passengers: 7,
     luggage: 7,
-    examples: 'Mercedes Vito, Ford Custom, Chevrolet Suburban or similar',
-    image: '/images/Standard Van Transfer.svg',
+    description: 'Seven-seater people carrier with flexible seating and large cargo area for family trips.',
+    image: '/ksa-images/Hyundai%20Star%20X.png',
     basePrice: 102.82,
-    discountPrice: 93.47,
-  },
-  {
-    id: 'first-class-van',
-    name: 'First Class Van',
-    badge: { label: 'TOP CLASS', color: '#7B61FF' },
-    passengers: 6,
-    luggage: 6,
-    examples: 'Mercedes V Class, Cadillac Escalade or similar',
-    image: '/images/First Class Van Transfer.svg',
-    basePrice: 157.68,
     discountPrice: null,
   },
   {
-    id: 'minibus',
-    name: 'Minibus 12 Pax',
+    id: 'mercedes-sprinter',
+    name: 'Mercedes Sprinter',
     badge: null,
     passengers: 12,
     luggage: 12,
-    examples: 'Mercedes Sprinter, Ford Transit or similar',
-    image: '/images/Minibus 12 Pax.svg',
+    description: 'High-capacity van suitable for groups and long-distance transfers, with roomy luggage space.',
+    image: '/ksa-images/mercedes%20sprinter.png',
     basePrice: 220.00,
     discountPrice: null,
   },
@@ -240,7 +218,7 @@ function VehicleCard({ vehicle, selected, onSelect }) {
           <HelpCircle className="h-3.5 w-3.5 text-gray-300 cursor-pointer hover:text-gray-500" />
         </div>
 
-        <p className="text-gray-400 text-xs">{vehicle.examples}</p>
+        <p className="text-gray-400 text-xs">{vehicle.description ?? vehicle.examples}</p>
       </div>
 
       {/* Price */}

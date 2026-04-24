@@ -6,46 +6,34 @@ import { ChevronLeft, ChevronRight, Users, Briefcase } from 'lucide-react';
 
 const vehicles = [
   {
-    name: 'Standard Class',
+    name: 'Hyundai Grand Starex',
     passengers: 3,
     luggage: 3,
-    examples: 'Toyota Camry, Honda Accord or similar',
-    image: '/images/Standard Class Taxi.svg',
+    description: 'Spacious MPV offering comfortable seating for small groups and smooth rides for city or airport transfers.',
+    image: '/ksa-images/2022-Hyundai-Grand-Starex.png',
   },
   {
-    name: 'First Class',
+    name: 'GMC Yukong',
     passengers: 3,
     luggage: 3,
-    examples: 'Mercedes S Class, BMW 7, Audi A8, Cadillac Escalade or similar',
-    image: '/images/First Class Transfer.svg',
+    description: 'Premium SUV with generous legroom and luggage capacity — ideal for executive travel.',
+    image: '/ksa-images/GMC%20Yukon.png',
   },
+ 
   {
-    name: 'SUV',
-    passengers: 6,
-    luggage: 6,
-    examples: 'Cadillac Escalade, Chevrolet Suburban or similar',
-    image: '/images/SUV Limo Class.svg',
-  },
-  {
-    name: 'Van Standard',
+    name: 'Hyundai Star X',
     passengers: 7,
     luggage: 7,
-    examples: 'Mercedes Vito, Ford Custom, Chevrolet Suburban or similar',
-    image: '/images/Standard Van Transfer.svg',
+    description: 'Seven-seater people carrier with flexible seating and large cargo area for family trips.',
+    image: '/ksa-images/Hyundai%20Star%20X.png',
   },
+  
   {
-    name: 'Van First Class',
-    passengers: 6,
-    luggage: 6,
-    examples: 'Mercedes V Class, Cadillac Escalade or similar',
-    image: '/images/First Class Van Transfer.svg',
-  },
-  {
-    name: 'Minibus (12 Pax)',
+    name: 'Mercedes Sprinter',
     passengers: 12,
     luggage: 12,
-    examples: 'Mercedes Sprinter, Ford Transit or similar',
-    image: '/images/Minibus 12 Pax.svg',
+    description: 'High-capacity van suitable for groups and long-distance transfers, with roomy luggage space.',
+    image: '/ksa-images/mercedes%20sprinter.png',
   },
 ];
 
@@ -72,14 +60,15 @@ export default function VehiclesSection() {
         </div>
       </div>
 
-      {/* Carousel — full width with peek on edges */}
+      {/* Carousel — centered on desktop, horizontal scroll on mobile */}
       <div className="relative">
-        <div
-          ref={scrollRef}
-          className="flex gap-5 overflow-x-auto scrollbar-hide pb-4 px-6 sm:px-12"
-          style={{ scrollSnapType: 'x mandatory' }}
-        >
-          {vehicles.map(({ name, passengers, luggage, examples, image }) => (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+          <div
+            ref={scrollRef}
+            className="flex gap-5 overflow-x-auto scrollbar-hide pb-4 px-0 sm:px-0 md:grid md:grid-cols-4 md:gap-6 md:justify-center"
+            style={{ scrollSnapType: 'x mandatory' }}
+          >
+          {vehicles.map(({ name, passengers, luggage, description, image }) => (
             <div
               key={name}
               className="flex-none w-56 sm:w-64 bg-gray-100 rounded-2xl p-5 flex flex-col"
@@ -91,27 +80,27 @@ export default function VehiclesSection() {
                   alt={name}
                   width={220}
                   height={144}
-                  className="w-full h-full object-contain drop-shadow-md"
+                  className="mx-auto object-contain drop-shadow-md"
                 />
               </div>
               <h3 className="font-bold text-gray-800 text-sm mb-2">{name}</h3>
-              <div className="flex items-center gap-3 mb-2">
-                <span className="flex items-center gap-1 text-xs text-gray-600">
+              <div className="flex items-center gap-3 mb-2 text-xs text-gray-600">
+                <span className="flex items-center gap-1">
                   <Users className="h-3.5 w-3.5 text-gray-500" />
                   {passengers}
                 </span>
-                <span className="flex items-center gap-1 text-xs text-gray-600">
+                <span className="flex items-center gap-1">
                   <Briefcase className="h-3.5 w-3.5 text-gray-500" />
                   {luggage}
                 </span>
               </div>
-              <p className="text-xs text-gray-400 leading-relaxed line-clamp-2">{examples}</p>
+              <p className="text-xs text-gray-500 leading-relaxed line-clamp-3">{description}</p>
             </div>
           ))}
         </div>
 
-        {/* Navigation arrows — bottom right */}
-        <div className="flex justify-end gap-2 mt-4 px-6 sm:px-12">
+        {/* Navigation arrows — bottom right (mobile only) */}
+        <div className="flex justify-end gap-2 mt-4 px-4 sm:px-6 lg:px-12 md:hidden">
           <button
             onClick={() => scroll(-1)}
             className="w-10 h-10 rounded-full bg-gray-800 hover:bg-gray-700 flex items-center justify-center transition-colors shadow-md"
@@ -126,6 +115,7 @@ export default function VehiclesSection() {
           >
             <ChevronRight className="h-5 w-5 text-white" />
           </button>
+        </div>
         </div>
       </div>
 

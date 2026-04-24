@@ -14,12 +14,10 @@ const BRAND_GRADIENT = 'linear-gradient(296.47deg, #005F56 -2.82%, #00B1C5 97.17
 const STEPS = ['Vehicle', 'Extras', 'Passenger', 'Payment', 'Passport'];
 
 const VEHICLES = [
-  { id: 'economy',         name: 'Economy',         passengers: 3, luggage: 3, image: '/images/Standard Class Taxi.svg',       basePrice: 65.55,  discountPrice: null },
-  { id: 'standard',        name: 'Standard',        passengers: 3, luggage: 3, image: '/images/First Class Transfer.svg',      basePrice: 96.13,  discountPrice: 87.39 },
-  { id: 'first-class',     name: 'First Class',     passengers: 3, luggage: 3, image: '/images/SUV Limo Class.svg',            basePrice: 157.31, discountPrice: null },
-  { id: 'standard-van',    name: 'Standard Van',    passengers: 7, luggage: 7, image: '/images/Standard Van Transfer.svg',     basePrice: 102.82, discountPrice: 93.47 },
-  { id: 'first-class-van', name: 'First Class Van', passengers: 6, luggage: 6, image: '/images/First Class Van Transfer.svg',  basePrice: 157.68, discountPrice: null },
-  { id: 'minibus',         name: 'Minibus 12 Pax',  passengers: 12, luggage: 12, image: '/images/Minibus 12 Pax.svg',          basePrice: 220.00, discountPrice: null },
+  { id: 'hyundai-grand-starex', name: 'Hyundai Grand Starex', passengers: 3, luggage: 3, description: 'Spacious MPV offering comfortable seating for small groups and smooth rides for city or airport transfers.', image: '/ksa-images/2022-Hyundai-Grand-Starex.png', basePrice: 65.55, discountPrice: null },
+  { id: 'gmc-yukong',          name: 'GMC Yukong',          passengers: 3, luggage: 3, description: 'Premium SUV with generous legroom and luggage capacity — ideal for executive travel.', image: '/ksa-images/GMC%20Yukon.png', basePrice: 157.31, discountPrice: null },
+  { id: 'hyundai-star-x',      name: 'Hyundai Star X',      passengers: 7, luggage: 7, description: 'Seven-seater people carrier with flexible seating and large cargo area for family trips.', image: '/ksa-images/Hyundai%20Star%20X.png', basePrice: 102.82, discountPrice: null },
+  { id: 'mercedes-sprinter',   name: 'Mercedes Sprinter',   passengers: 12, luggage: 12, description: 'High-capacity van suitable for groups and long-distance transfers, with roomy luggage space.', image: '/ksa-images/mercedes%20sprinter.png', basePrice: 220.00, discountPrice: null },
 ];
 
 const FEATURE_BADGES = [
