@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import HeroSection           from '../components/home/HeroSection';
 import ServiceCardsSection   from '../components/home/ServiceCardsSection';
 import GlobalCoverageSection from '../components/home/GlobalCoverageSection';
@@ -15,16 +15,12 @@ import Footer                from '../components/home/Footer';
 export default function HourlyServicePage() {
   const [passengers, setPassengers] = useState(0);
 
-  const handleSetPassengers = (val) => {
-    if (typeof val === 'function') {
-      setPassengers((prev) => {
-        const next = val(prev);
-        return Math.min(14, Math.max(0, next));
-      });
-    } else {
-      setPassengers(Math.min(14, Math.max(0, val)));
-    }
-  };
+  const handleSetPassengers = useCallback((val) => {
+    setPassengers((prev) => {
+      const next = typeof val === 'function' ? val(prev) : val;
+      return Math.min(14, Math.max(0, next));
+    });
+  }, []);
 
   return (
     <div className="min-h-screen bg-white">
