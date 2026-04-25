@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import Image from "next/image";
 import {
   MapPin,
@@ -10,69 +10,36 @@ import {
   Plus,
   Minus,
   Briefcase,
-  ChevronDown,
-  Plane,
   Timer,
+  Plane,
+  ChevronLeft as ChevronLeftIcon,
+  ChevronRight as ChevronRightIcon,
+  ChevronDown,
 } from "lucide-react";
 import { useTranslation } from "../../../lib/i18n";
 import { SERVICE_CITY_LIST } from "../../lib/constants";
 
 const DURATION_OPTIONS = [2, 3, 4, 5, 6, 7, 8, 10, 12];
 const CITY_OPTIONS = ["Jeddah", "Taif", "Madinah", "Riyadh"];
-const HERO_VEHICLES = [
-  {
-    id: "hyundai-grand-starex",
-    name: "Hyundai Grand Starex",
-    passengers: 3,
-    luggage: 3,
-    price: 65.55,
-    image: "/ksa-images/2022-Hyundai-Grand-Starex.png",
-  },
-  {
-    id: "gmc-yukong",
-    name: "GMC Yukong",
-    passengers: 3,
-    luggage: 3,
-    price: 157.31,
-    image: "/ksa-images/GMC%20Yukon.png",
-  },
-  {
-    id: "hyundai-star-x",
-    name: "Hyundai Star X",
-    passengers: 7,
-    luggage: 7,
-    price: 102.82,
-    image: "/ksa-images/Hyundai%20Star%20X.png",
-  },
-  {
-    id: "mercedes-sprinter",
-    name: "Mercedes Sprinter",
-    passengers: 12,
-    luggage: 12,
-    price: 220.0,
-    image: "/ksa-images/mercedes%20sprinter.png",
-  },
-];
+import { VEHICLES } from "../../lib/vehicles";
 
 function getRecommendedVehicles(passengers, baggages) {
-  const eligible = HERO_VEHICLES.filter(
-    (v) => passengers <= v.passengers && baggages <= v.luggage,
-  ).sort((a, b) => a.price - b.price);
-
-  if (eligible.length >= 2) {
-    return eligible.slice(0, 2);
+  // If passengers is 0 (All), return all vehicles sorted by price
+  if (passengers === 0) {
+    return [...VEHICLES].sort((a, b) => a.basePrice - b.basePrice);
   }
 
-  if (eligible.length === 1) {
-    const nextBest = HERO_VEHICLES.filter((v) => v.id !== eligible[0].id).sort(
-      (a, b) => a.price - b.price,
-    )[0];
-    return nextBest ? [eligible[0], nextBest] : eligible;
+  // Filter eligible vehicles based on passengers and baggages
+  const eligible = VEHICLES.filter(
+    (v) => passengers <= v.passengers && (baggages <= v.luggage || !v.luggage)
+  ).sort((a, b) => a.basePrice - b.basePrice);
+
+  // If no vehicles perfectly match, show at least the two cheapest ones as fallback
+  if (eligible.length === 0) {
+    return [...VEHICLES].sort((a, b) => a.basePrice - b.basePrice).slice(0, 2);
   }
 
-  return HERO_VEHICLES.slice()
-    .sort((a, b) => a.price - b.price)
-    .slice(0, 2);
+  return eligible;
 }
 
 /**
@@ -89,6 +56,8 @@ export default function HeroSection({
   heroImage = "/ksa-images/ksa-ride-5.png",
   heroImageAlt = "KSA Rides – Professional transfers",
   defaultTab = "transfer",
+  passengers = 2,
+  setPassengers,
 }) {
   const { isInitialized } = useTranslation();
 
@@ -99,8 +68,7 @@ export default function HeroSection({
   const [toLandmark, setToLandmark] = useState("");
   const [pickupDate, setPickupDate] = useState("");
   const [pickupTime, setPickupTime] = useState("");
-  const [passengers, setPassengers] = useState(2);
-  const [baggages, setBaggages] = useState(1);
+  const [baggages, setBaggages] = useState(0);
   const [selectedVehicle, setSelectedVehicle] = useState("");
   const [duration, setDuration] = useState(2);
   const [showReturn, setShowReturn] = useState(false);
@@ -117,8 +85,8 @@ export default function HeroSection({
     const toLandmarkParam = searchParams.get("toLandmark") || "";
     const dateParam = searchParams.get("date") || "";
     const timeParam = searchParams.get("time") || "";
-    const passengersParam = parseInt(searchParams.get("passengers") || "2", 10);
-    const baggagesParam = parseInt(searchParams.get("baggages") || "1", 10);
+    const passengersParam = parseInt(searchParams.get("passengers") || "0", 10);
+    const baggagesParam = parseInt(searchParams.get("baggages") || "0", 10);
     const vehicleParam = searchParams.get("vehicle") || "";
 
     if (fromCityParam) setFromCity(fromCityParam);
@@ -127,11 +95,13 @@ export default function HeroSection({
     if (toLandmarkParam) setToLandmark(toLandmarkParam);
     if (dateParam) setPickupDate(dateParam);
     if (timeParam) setPickupTime(timeParam);
-    if (!Number.isNaN(passengersParam))
-      setPassengers(Math.max(1, passengersParam));
-    if (!Number.isNaN(baggagesParam)) setBaggages(Math.max(0, baggagesParam));
+    if (typeof setPassengers === 'function') {
+      if (!Number.isNaN(passengersParam))
+        setPassengers(Math.max(0, passengersParam));
+    }
+    if (!Number.isNaN(baggagesParam)) setBaggages(Math.min(14, Math.max(0, baggagesParam)));
     if (vehicleParam) setSelectedVehicle(vehicleParam);
-  }, []);
+  }, [setPassengers]);
 
   const from = fromCity
     ? fromLandmark.trim()
@@ -185,6 +155,13 @@ export default function HeroSection({
 
   /* Default heading if none passed */
   const heading = title ?? <>Private Transfers in {SERVICE_CITY_LIST}</>;
+
+  const miniScrollRef = useRef(null);
+
+  const miniScroll = (dir) => {
+    if (!miniScrollRef.current) return;
+    miniScrollRef.current.scrollBy({ left: dir * 210, behavior: "smooth" });
+  };
 
   if (!isInitialized) return <div className="min-h-screen bg-white" />;
 
@@ -409,18 +386,18 @@ export default function HeroSection({
                       Passengers
                     </div>
                     <span className="text-sm font-bold text-gray-700">
-                      {passengers}
+                      {passengers === 0 ? "All" : passengers}
                     </span>
                   </div>
                   <div className="flex items-center gap-3">
                     <button
-                      onClick={() => setPassengers((p) => Math.max(1, p - 1))}
+                      onClick={() => setPassengers((p) => Math.max(0, p - 1))}
                       className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-[#00B1C5] transition-colors"
                     >
                       <Minus className="h-3.5 w-3.5 text-gray-600" />
                     </button>
                     <button
-                      onClick={() => setPassengers((p) => p + 1)}
+                      onClick={() => setPassengers((p) => (p === 0 ? 1 : p + 1))}
                       className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-[#00B1C5] transition-colors"
                     >
                       <Plus className="h-3.5 w-3.5 text-gray-600" />
@@ -449,7 +426,7 @@ export default function HeroSection({
                       <Minus className="h-3.5 w-3.5 text-gray-600" />
                     </button>
                     <button
-                      onClick={() => setBaggages((b) => b + 1)}
+                      onClick={() => setBaggages((b) => Math.min(14, b + 1))}
                       className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-[#00B1C5] transition-colors"
                     >
                       <Plus className="h-3.5 w-3.5 text-gray-600" />
@@ -462,44 +439,79 @@ export default function HeroSection({
                   <div className="text-xs text-gray-400 font-medium">
                     Recommended vehicles for your passengers and baggages
                   </div>
-                  <div className="grid sm:grid-cols-2 gap-2">
-                    {suggestedVehicles.map((vehicle) => {
-                      const selected = selectedVehicle === vehicle.id;
-                      return (
-                        <button
-                          key={vehicle.id}
-                          type="button"
-                          onClick={() => setSelectedVehicle(vehicle.id)}
-                          className={`text-left p-3 rounded-xl border-2 transition-colors ${
-                            selected
-                              ? "border-[#00B1C5] bg-[#00B1C5]/5"
-                              : "border-gray-200 bg-white hover:border-[#00B1C5]/60"
-                          }`}
-                        >
-                          <div className="flex items-center gap-2 mb-2">
-                            <Image
-                              src={vehicle.image}
-                              alt={vehicle.name}
-                              width={42}
-                              height={28}
-                              className="h-7 w-auto object-contain"
-                            />
-                            <div className="min-w-0">
-                              <p className="text-sm font-semibold text-gray-800 truncate">
-                                {vehicle.name}
-                              </p>
-                              <p className="text-xs text-gray-500">
-                                SAR {vehicle.price.toFixed(2)}
-                              </p>
+                  <div className="relative group/mini">
+                    <div 
+                      ref={miniScrollRef}
+                      className="flex gap-2 overflow-x-auto scrollbar-hide pb-3 -mx-1 px-1 snap-x snap-mandatory scroll-smooth"
+                    >
+                      {suggestedVehicles.map((vehicle) => {
+                        const selected = selectedVehicle === vehicle.id;
+                        return (
+                          <button
+                            key={vehicle.id}
+                            type="button"
+                            onClick={() => setSelectedVehicle(vehicle.id)}
+                            className={`flex-none w-[200px] text-left p-3 rounded-xl border-2 transition-colors snap-start ${
+                              selected
+                                ? "border-[#00B1C5] bg-[#00B1C5]/5"
+                                : "border-gray-200 bg-white hover:border-[#00B1C5]/60"
+                            }`}
+                          >
+                            <div className="flex items-center gap-2 mb-2">
+                              <Image
+                                src={vehicle.image}
+                                alt={vehicle.name}
+                                width={42}
+                                height={28}
+                                className="h-7 w-auto object-contain"
+                              />
+                              <div className="min-w-0">
+                                <p className="text-sm font-semibold text-gray-800 truncate">
+                                  {vehicle.name}
+                                </p>
+                                <p className="text-xs text-gray-500">
+                                  SAR {vehicle.basePrice.toFixed(2)}
+                                </p>
+                              </div>
                             </div>
-                          </div>
-                          <p className="text-xs text-gray-500">
-                            Up to {vehicle.passengers} passengers ·{" "}
-                            {vehicle.luggage} bags
-                          </p>
+                            <p className="text-xs text-gray-500">
+                              Up to {vehicle.passengers} passengers ·{" "}
+                              {vehicle.luggage} bags
+                            </p>
+                          </button>
+                        );
+                      })}
+                    </div>
+                    
+                    {/* Scroll Indicator Dots */}
+                    {suggestedVehicles.length > 2 && (
+                      <div className="flex justify-center gap-1 mt-1">
+                        {suggestedVehicles.map((_, i) => (
+                          <div 
+                            key={i} 
+                            className="w-1.5 h-1.5 rounded-full bg-gray-200"
+                          />
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Mini arrows */}
+                    {suggestedVehicles.length > 2 && (
+                      <>
+                        <button 
+                          onClick={() => miniScroll(-1)}
+                          className="absolute -left-3 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-white shadow-lg border border-[#00B1C5]/30 flex items-center justify-center text-[#00B1C5] hover:bg-[#00B1C5] hover:text-white transition-all shadow-md"
+                        >
+                          <ChevronLeftIcon className="h-4 w-4" />
                         </button>
-                      );
-                    })}
+                        <button 
+                          onClick={() => miniScroll(1)}
+                          className="absolute -right-3 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-white shadow-lg border border-[#00B1C5]/30 flex items-center justify-center text-[#00B1C5] hover:bg-[#00B1C5] hover:text-white transition-all shadow-md"
+                        >
+                          <ChevronRightIcon className="h-4 w-4" />
+                        </button>
+                      </>
+                    )}
                   </div>
                 </div>
 

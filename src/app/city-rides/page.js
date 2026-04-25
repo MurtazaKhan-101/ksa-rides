@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from 'react';
 import HeroSection           from '../components/home/HeroSection';
 import AppDownloadSection    from '../components/home/AppDownloadSection';
 import ServiceCardsSection   from '../components/home/ServiceCardsSection';
@@ -13,6 +14,19 @@ import NewsletterSection     from '../components/home/NewsletterSection';
 import Footer                from '../components/home/Footer';
 
 export default function CityRidesPage() {
+  const [passengers, setPassengers] = useState(0);
+
+  const handleSetPassengers = (val) => {
+    if (typeof val === 'function') {
+      setPassengers((prev) => {
+        const next = val(prev);
+        return Math.min(14, Math.max(0, next));
+      });
+    } else {
+      setPassengers(Math.min(14, Math.max(0, val)));
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white">
       <HeroSection
@@ -20,13 +34,15 @@ export default function CityRidesPage() {
         heroImage="/ksa-images/ksa-ride-6.png"
         heroImageAlt="KSA Rides – Local city chauffeur service"
         defaultTab="transfer"
+        passengers={passengers}
+        setPassengers={handleSetPassengers}
       />
       <AppDownloadSection />
       <ServiceCardsSection />
       <GlobalCoverageSection />
       <SeamlessSection />
       <FeaturesSection />
-      <VehiclesSection />
+      <VehiclesSection passengers={passengers} setPassengers={handleSetPassengers} />
       <DestinationsSection />
       <FAQSection />
       <NewsletterSection />

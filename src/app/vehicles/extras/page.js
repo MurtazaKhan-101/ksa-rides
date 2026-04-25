@@ -23,52 +23,7 @@ const BRAND_GRADIENT =
 
 const STEPS = ["Vehicle", "Extras", "Passenger", "Payment", "Passport"];
 
-const VEHICLES = [
-  {
-    id: "hyundai-grand-starex",
-    name: "Hyundai Grand Starex",
-    passengers: 3,
-    luggage: 3,
-    description:
-      "Spacious MPV offering comfortable seating for small groups and smooth rides for city or airport transfers.",
-    image: "/ksa-images/2022-Hyundai-Grand-Starex.png",
-    basePrice: 65.55,
-    discountPrice: null,
-  },
-  {
-    id: "gmc-yukong",
-    name: "GMC Yukong",
-    passengers: 3,
-    luggage: 3,
-    description:
-      "Premium SUV with generous legroom and luggage capacity — ideal for executive travel.",
-    image: "/ksa-images/GMC%20Yukon.png",
-    basePrice: 157.31,
-    discountPrice: null,
-  },
-  {
-    id: "hyundai-star-x",
-    name: "Hyundai Star X",
-    passengers: 7,
-    luggage: 7,
-    description:
-      "Seven-seater people carrier with flexible seating and large cargo area for family trips.",
-    image: "/ksa-images/Hyundai%20Star%20X.png",
-    basePrice: 102.82,
-    discountPrice: null,
-  },
-  {
-    id: "mercedes-sprinter",
-    name: "Mercedes Sprinter",
-    passengers: 12,
-    luggage: 12,
-    description:
-      "High-capacity van suitable for groups and long-distance transfers, with roomy luggage space.",
-    image: "/ksa-images/mercedes%20sprinter.png",
-    basePrice: 220.0,
-    discountPrice: null,
-  },
-];
+import { VEHICLES } from "../../lib/vehicles";
 
 const FEATURE_BADGES = [
   { icon: CheckCircle2, label: "Free cancellation", color: "#00B1C5" },

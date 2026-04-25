@@ -3,42 +3,12 @@
 import { useRef } from 'react';
 import Image from 'next/image';
 import { ChevronLeft, ChevronRight, Users, Briefcase } from 'lucide-react';
+import { VEHICLES as vehicles } from '../../lib/vehicles';
 
-const vehicles = [
-  {
-    name: 'Hyundai Grand Starex',
-    passengers: 3,
-    luggage: 3,
-    description: 'Spacious MPV offering comfortable seating for small groups and smooth rides for city or airport transfers.',
-    image: '/ksa-images/2022-Hyundai-Grand-Starex.png',
-  },
-  {
-    name: 'GMC Yukong',
-    passengers: 3,
-    luggage: 3,
-    description: 'Premium SUV with generous legroom and luggage capacity — ideal for executive travel.',
-    image: '/ksa-images/GMC%20Yukon.png',
-  },
- 
-  {
-    name: 'Hyundai Star X',
-    passengers: 7,
-    luggage: 7,
-    description: 'Seven-seater people carrier with flexible seating and large cargo area for family trips.',
-    image: '/ksa-images/Hyundai%20Star%20X.png',
-  },
-  
-  {
-    name: 'Mercedes Sprinter',
-    passengers: 12,
-    luggage: 12,
-    description: 'High-capacity van suitable for groups and long-distance transfers, with roomy luggage space.',
-    image: '/ksa-images/mercedes%20sprinter.png',
-  },
-];
-
-export default function VehiclesSection() {
+export default function VehiclesSection({ passengers = 0, setPassengers }) {
   const scrollRef = useRef(null);
+
+  const filteredVehicles = vehicles.filter(v => passengers === 0 || v.passengers >= passengers);
 
   const scroll = (dir) => {
     if (!scrollRef.current) return;
@@ -60,62 +30,91 @@ export default function VehiclesSection() {
         </div>
       </div>
 
-      {/* Carousel — centered on desktop, horizontal scroll on mobile */}
-      <div className="relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
-          <div
-            ref={scrollRef}
-            className="flex gap-5 overflow-x-auto scrollbar-hide pb-4 px-0 sm:px-0 md:grid md:grid-cols-4 md:gap-6 md:justify-center"
-            style={{ scrollSnapType: 'x mandatory' }}
-          >
-          {vehicles.map(({ name, passengers, luggage, description, image }) => (
-            <div
-              key={name}
-              className="flex-none w-56 sm:w-64 bg-gray-100 rounded-2xl p-5 flex flex-col"
-              style={{ scrollSnapAlign: 'start' }}
+      {/* Carousel Container */}
+      <div className="relative group max-w-7xl mx-auto">
+        <div className="flex items-center justify-between mb-6 px-4 sm:px-6 lg:px-4">
+          <p className="text-sm font-medium text-gray-500">
+            {passengers > 0 ? (
+              <span>Showing vehicles for <span className="text-[#00B1C5] font-bold">{passengers}</span> passengers</span>
+            ) : (
+              <span>Showing our entire fleet</span>
+            )}
+          </p>
+          {passengers > 0 && (
+            <button
+              onClick={() => setPassengers(0)}
+              className="text-xs text-[#00B1C5] font-bold hover:underline"
             >
-              <div className="h-36 flex items-center justify-center mb-4">
-                <Image
-                  src={image}
-                  alt={name}
-                  width={220}
-                  height={144}
-                  className="mx-auto object-contain drop-shadow-md"
-                />
-              </div>
-              <h3 className="font-bold text-gray-800 text-sm mb-2">{name}</h3>
-              <div className="flex items-center gap-3 mb-2 text-xs text-gray-600">
-                <span className="flex items-center gap-1">
-                  <Users className="h-3.5 w-3.5 text-gray-500" />
-                  {passengers}
-                </span>
-                <span className="flex items-center gap-1">
-                  <Briefcase className="h-3.5 w-3.5 text-gray-500" />
-                  {luggage}
-                </span>
-              </div>
-              <p className="text-xs text-gray-500 leading-relaxed line-clamp-3">{description}</p>
-            </div>
-          ))}
+              Reset Filter
+            </button>
+          )}
         </div>
 
-        {/* Navigation arrows — bottom right (mobile only) */}
-        <div className="flex justify-end gap-2 mt-4 px-4 sm:px-6 lg:px-12 md:hidden">
-          <button
-            onClick={() => scroll(-1)}
-            className="w-10 h-10 rounded-full bg-gray-800 hover:bg-gray-700 flex items-center justify-center transition-colors shadow-md"
-            aria-label="Previous"
-          >
-            <ChevronLeft className="h-5 w-5 text-white" />
-          </button>
-          <button
-            onClick={() => scroll(1)}
-            className="w-10 h-10 rounded-full bg-gray-800 hover:bg-gray-700 flex items-center justify-center transition-colors shadow-md"
-            aria-label="Next"
-          >
-            <ChevronRight className="h-5 w-5 text-white" />
-          </button>
+        {/* Navigation arrows — Side (Desktop/Tablet) */}
+        <button
+          onClick={() => scroll(-1)}
+          className="absolute -left-4 lg:-left-12 top-[45%] -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white shadow-xl border-2 border-[#00B1C5]/20 flex items-center justify-center text-[#00B1C5] hover:bg-[#00B1C5] hover:text-white transition-all duration-300"
+          aria-label="Previous"
+        >
+          <ChevronLeft className="h-6 w-6" />
+        </button>
+        <button
+          onClick={() => scroll(1)}
+          className="absolute -right-4 lg:-right-12 top-[45%] -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white shadow-xl border-2 border-[#00B1C5]/20 flex items-center justify-center text-[#00B1C5] hover:bg-[#00B1C5] hover:text-white transition-all duration-300"
+          aria-label="Next"
+        >
+          <ChevronRight className="h-6 w-6" />
+        </button>
+
+        <div
+          ref={scrollRef}
+          className="flex gap-6 overflow-x-auto scrollbar-hide pb-8 px-4 sm:px-6 lg:px-4"
+          style={{ scrollSnapType: 'x mandatory' }}
+        >
+          {filteredVehicles.length > 0 ? (
+            filteredVehicles.map(({ name, passengers, luggage, description, image }) => (
+              <div
+                key={name}
+                className="flex-none w-72 sm:w-80 bg-gray-50 rounded-3xl p-6 flex flex-col border border-gray-100 hover:border-[#00B1C5]/30 hover:shadow-xl transition-all duration-300"
+                style={{ scrollSnapAlign: 'start' }}
+              >
+                <div className="h-40 flex items-center justify-center mb-6">
+                  <Image
+                    src={image}
+                    alt={name}
+                    width={260}
+                    height={160}
+                    className="mx-auto object-contain drop-shadow-xl"
+                  />
+                </div>
+                <h3 className="font-bold text-gray-900 text-lg mb-2">{name}</h3>
+                <div className="flex items-center gap-4 mb-3 text-sm text-gray-600">
+                  <span className="flex items-center gap-1.5 px-3 py-1 bg-white rounded-full border border-gray-100">
+                    <Users className="h-4 w-4 text-[#00B1C5]" />
+                    <span className="font-semibold">{passengers}</span>
+                  </span>
+                  <span className="flex items-center gap-1.5 px-3 py-1 bg-white rounded-full border border-gray-100">
+                    <Briefcase className="h-4 w-4 text-[#00B1C5]" />
+                    <span className="font-semibold">{luggage}</span>
+                  </span>
+                </div>
+                <p className="text-sm text-gray-500 leading-relaxed line-clamp-3 mb-4">{description}</p>
+
+              </div>
+            ))
+          ) : (
+            <div className="w-full py-20 text-center bg-gray-50 rounded-3xl border-2 border-dashed border-gray-200">
+              <p className="text-gray-500 font-medium italic">No vehicles available for {passengers} passengers.</p>
+              <button onClick={() => setPassengers(0)} className="mt-4 text-[#00B1C5] font-bold hover:underline">Show all vehicles</button>
+            </div>
+          )}
         </div>
+
+        {/* Mini Navigation Dots (Mobile only fallback) */}
+        <div className="flex justify-center gap-2 mt-2 md:hidden">
+          {[...Array(Math.min(filteredVehicles.length, 5))].map((_, i) => (
+            <div key={i} className="w-1.5 h-1.5 rounded-full bg-gray-200" />
+          ))}
         </div>
       </div>
 
