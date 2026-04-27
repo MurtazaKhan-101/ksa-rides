@@ -166,18 +166,18 @@ export default function HeroSection({
   if (!isInitialized) return <div className="min-h-screen bg-white" />;
 
   return (
-    <section id="home" className="relative bg-white overflow-hidden">
+    <section id="home" className="relative bg-white overflow-x-hidden">
       {/* ── Hero content ── */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-10 sm:py-14 lg:py-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-6 sm:py-14 lg:py-20">
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
           {/* Left: heading + search widget */}
-          <div className="space-y-7">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#005F56] leading-tight">
+          <div className="space-y-7 min-w-0">
+            <h1 className="text-2xl sm:text-5xl lg:text-6xl font-bold text-[#005F56] leading-tight break-words">
               {heading}
             </h1>
 
             {/* ── Search widget card ── */}
-            <div className="bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden">
+            <div className="bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden w-full max-w-full">
               {/* Tabs */}
               <div className="flex border-b border-gray-100">
                 {[
@@ -207,9 +207,9 @@ export default function HeroSection({
                 ))}
               </div>
 
-              <div className="p-4 space-y-3">
+              <div className="p-3 sm:p-4 space-y-3">
                 {/* From */}
-                <div className="px-4 py-3 bg-gray-50 rounded-xl border border-gray-200 focus-within:border-[#00B1C5] transition-colors space-y-2">
+                <div className="px-3 sm:px-4 py-3 bg-gray-50 rounded-xl border border-gray-200 focus-within:border-[#00B1C5] transition-colors space-y-2">
                   <div className="flex items-center gap-2">
                     <MapPin className="h-5 w-5 text-[#00B1C5] flex-shrink-0" />
                     <div className="text-xs text-gray-400 font-medium">
@@ -244,7 +244,7 @@ export default function HeroSection({
 
                 {/* To — transfer only */}
                 {serviceType === "transfer" && (
-                  <div className="px-4 py-3 bg-gray-50 rounded-xl border border-gray-200 focus-within:border-[#00B1C5] transition-colors space-y-2">
+                  <div className="px-3 sm:px-4 py-3 bg-gray-50 rounded-xl border border-gray-200 focus-within:border-[#00B1C5] transition-colors space-y-2">
                     <div className="flex items-center gap-2">
                       <MapPin className="h-5 w-5 text-[#005F56] flex-shrink-0" />
                       <div className="text-xs text-gray-400 font-medium">
@@ -279,8 +279,8 @@ export default function HeroSection({
                 )}
 
                 {/* Date & Time row */}
-                <div className="grid grid-cols-2 gap-3">
-                  <label className="flex items-center gap-2 px-4 py-3 bg-gray-50 rounded-xl border border-gray-200 focus-within:border-[#00B1C5] transition-colors cursor-pointer">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <label className="flex items-center gap-2 px-3 sm:px-4 py-3 bg-gray-50 rounded-xl border border-gray-200 focus-within:border-[#00B1C5] transition-colors cursor-pointer min-w-0">
                     <Calendar className="h-4 w-4 text-[#00B1C5] flex-shrink-0" />
                     <div className="min-w-0">
                       <div className="text-xs text-gray-400 font-medium">
@@ -294,7 +294,7 @@ export default function HeroSection({
                       />
                     </div>
                   </label>
-                  <label className="flex items-center gap-2 px-4 py-3 bg-gray-50 rounded-xl border border-gray-200 focus-within:border-[#00B1C5] transition-colors cursor-pointer">
+                  <label className="flex items-center gap-2 px-3 sm:px-4 py-3 bg-gray-50 rounded-xl border border-gray-200 focus-within:border-[#00B1C5] transition-colors cursor-pointer min-w-0">
                     <Clock className="h-4 w-4 text-[#00B1C5] flex-shrink-0" />
                     <div className="min-w-0">
                       <div className="text-xs text-gray-400 font-medium">
@@ -312,7 +312,7 @@ export default function HeroSection({
 
                 {/* Duration dropdown — hourly only */}
                 {serviceType === "hourly" && (
-                  <div className="flex items-center gap-3 px-4 py-3 bg-gray-50 rounded-xl border border-gray-200 focus-within:border-[#00B1C5] transition-colors">
+                  <div className="flex items-center gap-3 px-3 sm:px-4 py-3 bg-gray-50 rounded-xl border border-gray-200 focus-within:border-[#00B1C5] transition-colors">
                     <Timer className="h-4 w-4 text-[#005F56] flex-shrink-0" />
                     <div className="flex-1 min-w-0">
                       <div className="text-xs text-gray-400 font-medium mb-0.5">
@@ -347,8 +347,8 @@ export default function HeroSection({
 
                 {/* Return date/time — transfer + showReturn */}
                 {serviceType === "transfer" && showReturn && (
-                  <div className="grid grid-cols-2 gap-3">
-                    <label className="flex items-center gap-2 px-4 py-3 bg-gray-50 rounded-xl border border-gray-200 focus-within:border-[#00B1C5] transition-colors cursor-pointer">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <label className="flex items-center gap-2 px-3 sm:px-4 py-3 bg-gray-50 rounded-xl border border-gray-200 focus-within:border-[#00B1C5] transition-colors cursor-pointer min-w-0">
                       <Calendar className="h-4 w-4 text-[#005F56] flex-shrink-0" />
                       <div className="min-w-0">
                         <div className="text-xs text-gray-400 font-medium">
@@ -362,7 +362,7 @@ export default function HeroSection({
                         />
                       </div>
                     </label>
-                    <label className="flex items-center gap-2 px-4 py-3 bg-gray-50 rounded-xl border border-gray-200 focus-within:border-[#00B1C5] transition-colors cursor-pointer">
+                    <label className="flex items-center gap-2 px-3 sm:px-4 py-3 bg-gray-50 rounded-xl border border-gray-200 focus-within:border-[#00B1C5] transition-colors cursor-pointer min-w-0">
                       <Clock className="h-4 w-4 text-[#005F56] flex-shrink-0" />
                       <div className="min-w-0">
                         <div className="text-xs text-gray-400 font-medium">
@@ -380,7 +380,7 @@ export default function HeroSection({
                 )}
 
                 {/* Passengers */}
-                <div className="flex items-center justify-between px-4 py-3 bg-gray-50 rounded-xl border border-gray-200">
+                <div className="flex items-center justify-between px-3 sm:px-4 py-3 bg-gray-50 rounded-xl border border-gray-200">
                   <div>
                     <div className="text-xs text-gray-400 font-medium mb-0.5">
                       Passengers
@@ -406,7 +406,7 @@ export default function HeroSection({
                 </div>
 
                 {/* Baggages */}
-                <div className="flex items-center justify-between px-4 py-3 bg-gray-50 rounded-xl border border-gray-200">
+                <div className="flex items-center justify-between px-3 sm:px-4 py-3 bg-gray-50 rounded-xl border border-gray-200">
                   <div className="flex items-center gap-2">
                     <Briefcase className="h-4 w-4 text-[#005F56]" />
                     <div>
@@ -436,13 +436,31 @@ export default function HeroSection({
 
                 {/* Suggested vehicles */}
                 <div className="space-y-2">
-                  <div className="text-xs text-gray-400 font-medium">
-                    Recommended vehicles for your passengers and baggages
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="text-xs text-gray-400 font-medium leading-relaxed">
+                      Recommended vehicles for your passengers and baggages
+                    </div>
+                    {suggestedVehicles.length > 2 && (
+                      <div className="flex gap-1.5 flex-shrink-0">
+                        <button 
+                          onClick={(e) => { e.preventDefault(); miniScroll(-1); }}
+                          className="w-7 h-7 rounded-full bg-[#00B1C5] flex items-center justify-center text-white hover:bg-[#005F56] transition-all shadow-md"
+                        >
+                          <ChevronLeftIcon className="h-4 w-4" />
+                        </button>
+                        <button 
+                          onClick={(e) => { e.preventDefault(); miniScroll(1); }}
+                          className="w-7 h-7 rounded-full bg-[#00B1C5] flex items-center justify-center text-white hover:bg-[#005F56] transition-all shadow-md"
+                        >
+                          <ChevronRightIcon className="h-4 w-4" />
+                        </button>
+                      </div>
+                    )}
                   </div>
                   <div className="relative group/mini">
                     <div 
                       ref={miniScrollRef}
-                      className="flex gap-2 overflow-x-auto scrollbar-hide pb-3 -mx-1 px-1 snap-x snap-mandatory scroll-smooth"
+                      className="flex gap-2 overflow-x-auto scrollbar-hide pb-3 -mx-3 sm:-mx-1 px-3 sm:px-1 snap-x snap-mandatory scroll-smooth"
                     >
                       {suggestedVehicles.map((vehicle) => {
                         const selected = selectedVehicle === vehicle.id;
@@ -495,23 +513,7 @@ export default function HeroSection({
                       </div>
                     )}
 
-                    {/* Mini arrows */}
-                    {suggestedVehicles.length > 2 && (
-                      <>
-                        <button 
-                          onClick={() => miniScroll(-1)}
-                          className="absolute -left-3 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-white shadow-lg border border-[#00B1C5]/30 flex items-center justify-center text-[#00B1C5] hover:bg-[#00B1C5] hover:text-white transition-all shadow-md"
-                        >
-                          <ChevronLeftIcon className="h-4 w-4" />
-                        </button>
-                        <button 
-                          onClick={() => miniScroll(1)}
-                          className="absolute -right-3 top-1/2 -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-white shadow-lg border border-[#00B1C5]/30 flex items-center justify-center text-[#00B1C5] hover:bg-[#00B1C5] hover:text-white transition-all shadow-md"
-                        >
-                          <ChevronRightIcon className="h-4 w-4" />
-                        </button>
-                      </>
-                    )}
+
                   </div>
                 </div>
 

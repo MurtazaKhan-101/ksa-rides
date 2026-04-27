@@ -40,31 +40,35 @@ export default function VehiclesSection({ passengers = 0, setPassengers }) {
               <span>Showing our entire fleet</span>
             )}
           </p>
-          {passengers > 0 && (
-            <button
-              onClick={() => setPassengers(0)}
-              className="text-xs text-[#00B1C5] font-bold hover:underline"
-            >
-              Reset Filter
-            </button>
-          )}
+          <div className="flex items-center gap-4">
+            {passengers > 0 && (
+              <button
+                onClick={() => setPassengers(0)}
+                className="text-xs text-[#00B1C5] font-bold hover:underline"
+              >
+                Reset Filter
+              </button>
+            )}
+            <div className="flex gap-2">
+              <button 
+                onClick={() => scroll(-1)}
+                className="w-9 h-9 rounded-full bg-[#00B1C5] flex items-center justify-center text-white hover:bg-[#005F56] transition-all shadow-md"
+                aria-label="Previous"
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </button>
+              <button 
+                onClick={() => scroll(1)}
+                className="w-9 h-9 rounded-full bg-[#00B1C5] flex items-center justify-center text-white hover:bg-[#005F56] transition-all shadow-md"
+                aria-label="Next"
+              >
+                <ChevronRight className="h-5 w-5" />
+              </button>
+            </div>
+          </div>
         </div>
 
-        {/* Navigation arrows — Side (Desktop/Tablet) */}
-        <button
-          onClick={() => scroll(-1)}
-          className="absolute -left-4 lg:-left-12 top-[45%] -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white shadow-xl border-2 border-[#00B1C5]/20 flex items-center justify-center text-[#00B1C5] hover:bg-[#00B1C5] hover:text-white transition-all duration-300"
-          aria-label="Previous"
-        >
-          <ChevronLeft className="h-6 w-6" />
-        </button>
-        <button
-          onClick={() => scroll(1)}
-          className="absolute -right-4 lg:-right-12 top-[45%] -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white shadow-xl border-2 border-[#00B1C5]/20 flex items-center justify-center text-[#00B1C5] hover:bg-[#00B1C5] hover:text-white transition-all duration-300"
-          aria-label="Next"
-        >
-          <ChevronRight className="h-6 w-6" />
-        </button>
+
 
         <div
           ref={scrollRef}

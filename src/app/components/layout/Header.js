@@ -236,7 +236,7 @@ const HeaderComponent = ({ user, onLogout, loading = false, isAuthenticated = fa
                 alt="KSA Rides"
                 width={240}
                 height={72}
-                className="h-20 w-auto object-contain"
+                className="h-14 sm:h-20 w-auto object-contain"
                 priority
               />
             </Link>
