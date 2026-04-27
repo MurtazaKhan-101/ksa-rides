@@ -436,12 +436,12 @@ export default function HeroSection({
 
                 {/* Suggested vehicles */}
                 <div className="space-y-2">
-                  <div className="flex items-center justify-between gap-2">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                     <div className="text-xs text-gray-400 font-medium leading-relaxed">
                       Recommended vehicles for your passengers and baggages
                     </div>
                     {suggestedVehicles.length > 2 && (
-                      <div className="flex gap-1.5 flex-shrink-0">
+                      <div className="flex gap-1.5 flex-shrink-0 self-end sm:self-auto">
                         <button 
                           onClick={(e) => { e.preventDefault(); miniScroll(-1); }}
                           className="w-7 h-7 rounded-full bg-[#00B1C5] flex items-center justify-center text-white hover:bg-[#005F56] transition-all shadow-md"
