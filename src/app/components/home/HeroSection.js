@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState, useRef } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import {
   MapPin,
@@ -13,33 +13,70 @@ import {
   Timer,
   Plane,
   ChevronLeft as ChevronLeftIcon,
-  ChevronRight as ChevronRightIcon,
   ChevronDown,
 } from "lucide-react";
 import { useTranslation } from "../../../lib/i18n";
-import { SERVICE_CITY_LIST } from "../../lib/constants";
-
-const DURATION_OPTIONS = [2, 3, 4, 5, 6, 7, 8, 10, 12];
-const CITY_OPTIONS = ["Jeddah", "Taif", "Madinah", "Riyadh"];
+import { SERVICE_CITIES, SERVICE_CITY_LIST } from "../../lib/constants";
 import { VEHICLES } from "../../lib/vehicles";
 
-function getRecommendedVehicles(passengers, baggages) {
-  // If passengers is 0 (All), return all vehicles sorted by price
-  if (passengers === 0) {
-    return [...VEHICLES].sort((a, b) => a.basePrice - b.basePrice);
-  }
+const DURATION_OPTIONS = [2, 3, 4, 5, 6, 7, 8, 10, 12];
+const CITY_OPTIONS = SERVICE_CITIES.map(({ city }) => city);
+const CITY_LANDMARK_OPTIONS = {
+  Jeddah: ["King Abdulaziz International Airport (JED)"],
+  Taif: ["Taif Regional Airport (TIF)"],
+  Madinah: ["Prince Mohammad bin Abdulaziz International Airport (MED)"],
+  Riyadh: ["King Khalid International Airport (RUH)"],
+};
 
-  // Filter eligible vehicles based on passengers and baggages
-  const eligible = VEHICLES.filter(
-    (v) => passengers <= v.passengers && (baggages <= v.luggage || !v.luggage)
-  ).sort((a, b) => a.basePrice - b.basePrice);
+function getCityLandmarkOptions(city) {
+  return CITY_LANDMARK_OPTIONS[city] || [];
+}
 
-  // If no vehicles perfectly match, show at least the two cheapest ones as fallback
-  if (eligible.length === 0) {
-    return [...VEHICLES].sort((a, b) => a.basePrice - b.basePrice).slice(0, 2);
-  }
+function getLandmarkMode(city, landmark) {
+  if (!landmark) return "airport";
 
-  return eligible;
+  return getCityLandmarkOptions(city).includes(landmark) ? "airport" : "other";
+}
+
+const VEHICLE_CATEGORIES = [
+  {
+    id: "sedan",
+    label: "Sedan",
+    seatsLabel: "4",
+    bagsLabel: "4",
+    vehicleIds: ["toyota-camry", "mercedes-s-class"],
+    representativeVehicleId: "toyota-camry",
+  },
+  {
+    id: "suv-mpv",
+    label: "SUV / MPV",
+    seatsLabel: "8",
+    bagsLabel: "8",
+    vehicleIds: ["gmc-yukon", "hyundai-staria"],
+    representativeVehicleId: "gmc-yukon",
+  },
+  {
+    id: "minivan",
+    label: "Minivan",
+    seatsLabel: "11–14",
+    bagsLabel: "11–14",
+    vehicleIds: ["hyundai-starex-star-x", "mercedes-sprinter"],
+    representativeVehicleId: "hyundai-starex-star-x",
+  },
+];
+
+function getVehicleCategory(categoryId) {
+  return VEHICLE_CATEGORIES.find((category) => category.id === categoryId);
+}
+
+function getCategoryForVehicle(vehicleId) {
+  return VEHICLE_CATEGORIES.find((category) =>
+    category.vehicleIds.includes(vehicleId),
+  );
+}
+
+function getVehicleById(vehicleId) {
+  return VEHICLES.find((vehicle) => vehicle.id === vehicleId);
 }
 
 /**
@@ -63,12 +100,15 @@ export default function HeroSection({
 
   const [serviceType, setServiceType] = useState(defaultTab);
   const [fromCity, setFromCity] = useState("");
+  const [fromLandmarkMode, setFromLandmarkMode] = useState("airport");
   const [fromLandmark, setFromLandmark] = useState("");
   const [toCity, setToCity] = useState("");
+  const [toLandmarkMode, setToLandmarkMode] = useState("airport");
   const [toLandmark, setToLandmark] = useState("");
   const [pickupDate, setPickupDate] = useState("");
   const [pickupTime, setPickupTime] = useState("");
   const [baggages, setBaggages] = useState(0);
+  const [selectedVehicleCategory, setSelectedVehicleCategory] = useState("");
   const [selectedVehicle, setSelectedVehicle] = useState("");
   const [duration, setDuration] = useState(2);
   const [showReturn, setShowReturn] = useState(false);
@@ -90,18 +130,39 @@ export default function HeroSection({
     const vehicleParam = searchParams.get("vehicle") || "";
 
     if (fromCityParam) setFromCity(fromCityParam);
-    if (fromLandmarkParam) setFromLandmark(fromLandmarkParam);
+    if (fromLandmarkParam) {
+      setFromLandmark(fromLandmarkParam);
+      setFromLandmarkMode(getLandmarkMode(fromCityParam, fromLandmarkParam));
+    }
     if (toCityParam) setToCity(toCityParam);
-    if (toLandmarkParam) setToLandmark(toLandmarkParam);
+    if (toLandmarkParam) {
+      setToLandmark(toLandmarkParam);
+      setToLandmarkMode(getLandmarkMode(toCityParam, toLandmarkParam));
+    }
     if (dateParam) setPickupDate(dateParam);
     if (timeParam) setPickupTime(timeParam);
-    if (typeof setPassengers === 'function') {
+    if (typeof setPassengers === "function") {
       if (!Number.isNaN(passengersParam))
         setPassengers(Math.max(0, passengersParam));
     }
-    if (!Number.isNaN(baggagesParam)) setBaggages(Math.min(14, Math.max(0, baggagesParam)));
-    if (vehicleParam) setSelectedVehicle(vehicleParam);
+    if (!Number.isNaN(baggagesParam))
+      setBaggages(Math.min(14, Math.max(0, baggagesParam)));
+    if (vehicleParam) {
+      setSelectedVehicle(vehicleParam);
+      const vehicleCategory = getCategoryForVehicle(vehicleParam);
+      if (vehicleCategory) setSelectedVehicleCategory(vehicleCategory.id);
+    }
   }, [setPassengers]);
+
+  const fromLandmarkOptions = useMemo(
+    () => getCityLandmarkOptions(fromCity),
+    [fromCity],
+  );
+
+  const toLandmarkOptions = useMemo(
+    () => getCityLandmarkOptions(toCity),
+    [toCity],
+  );
 
   const from = fromCity
     ? fromLandmark.trim()
@@ -115,15 +176,116 @@ export default function HeroSection({
       : toCity
     : "";
 
-  const suggestedVehicles = useMemo(() => {
-    return getRecommendedVehicles(passengers, baggages);
+  const selectedCategory = useMemo(
+    () => getVehicleCategory(selectedVehicleCategory),
+    [selectedVehicleCategory],
+  );
+
+  const categoryVehicles = useMemo(() => {
+    if (!selectedCategory) return [];
+
+    return selectedCategory.vehicleIds
+      .map((vehicleId) => getVehicleById(vehicleId))
+      .filter(Boolean)
+      .sort((a, b) => a.basePrice - b.basePrice);
+  }, [selectedCategory]);
+
+  const categoryOptions = useMemo(() => {
+    const hasEligibleCategory = VEHICLE_CATEGORIES.some((category) => {
+      const maxPassengers =
+        category.id === "minivan" ? 14 : parseInt(category.seatsLabel, 10);
+      const maxBaggages =
+        category.id === "minivan" ? 14 : parseInt(category.bagsLabel, 10);
+      return (
+        passengers === 0 ||
+        (passengers <= maxPassengers && baggages <= maxBaggages)
+      );
+    });
+
+    return VEHICLE_CATEGORIES.map((category) => {
+      const maxPassengers =
+        category.id === "minivan" ? 14 : parseInt(category.seatsLabel, 10);
+      const maxBaggages =
+        category.id === "minivan" ? 14 : parseInt(category.bagsLabel, 10);
+      const fitsCurrentTrip =
+        passengers === 0 ||
+        (passengers <= maxPassengers && baggages <= maxBaggages);
+
+      return {
+        ...category,
+        vehicle: getVehicleById(category.representativeVehicleId),
+        fitsCurrentTrip: hasEligibleCategory ? fitsCurrentTrip : true,
+      };
+    });
   }, [passengers, baggages]);
 
   useEffect(() => {
-    if (!suggestedVehicles.some((v) => v.id === selectedVehicle)) {
-      setSelectedVehicle(suggestedVehicles[0]?.id || "");
+    if (!fromCity) {
+      setFromLandmarkMode("airport");
+      setFromLandmark("");
+      return;
     }
-  }, [selectedVehicle, suggestedVehicles]);
+
+    if (
+      fromLandmarkMode === "airport" &&
+      fromLandmark &&
+      !fromLandmarkOptions.includes(fromLandmark)
+    ) {
+      setFromLandmark("");
+    }
+  }, [fromCity, fromLandmark, fromLandmarkMode, fromLandmarkOptions]);
+
+  useEffect(() => {
+    if (!toCity) {
+      setToLandmarkMode("airport");
+      setToLandmark("");
+      return;
+    }
+
+    if (
+      toLandmarkMode === "airport" &&
+      toLandmark &&
+      !toLandmarkOptions.includes(toLandmark)
+    ) {
+      setToLandmark("");
+    }
+  }, [toCity, toLandmark, toLandmarkMode, toLandmarkOptions]);
+
+  useEffect(() => {
+    if (!selectedVehicleCategory) return;
+
+    const selectedCategoryData = getVehicleCategory(selectedVehicleCategory);
+    if (!selectedCategoryData) {
+      setSelectedVehicleCategory("");
+      setSelectedVehicle("");
+      return;
+    }
+
+    const maxPassengers =
+      selectedCategoryData.id === "minivan"
+        ? 14
+        : parseInt(selectedCategoryData.seatsLabel, 10);
+    const maxBaggages =
+      selectedCategoryData.id === "minivan"
+        ? 14
+        : parseInt(selectedCategoryData.bagsLabel, 10);
+    const categoryStillFits =
+      passengers === 0 ||
+      (passengers <= maxPassengers && baggages <= maxBaggages);
+
+    if (!categoryStillFits) {
+      setSelectedVehicleCategory("");
+      setSelectedVehicle("");
+      return;
+    }
+
+    if (
+      selectedVehicle &&
+      !selectedCategoryData.vehicleIds.includes(selectedVehicle)
+    ) {
+      setSelectedVehicle("");
+    }
+  }, [passengers, baggages, selectedVehicleCategory, selectedVehicle]);
 
   const canSearch =
     !!fromCity &&
@@ -156,59 +318,46 @@ export default function HeroSection({
   /* Default heading if none passed */
   const heading = title ?? <>Private Transfers in {SERVICE_CITY_LIST}</>;
 
-  const miniScrollRef = useRef(null);
-
-  const miniScroll = (dir) => {
-    if (!miniScrollRef.current) return;
-    miniScrollRef.current.scrollBy({ left: dir * 210, behavior: "smooth" });
-  };
-
   if (!isInitialized) return <div className="min-h-screen bg-white" />;
 
   return (
     <section id="home" className="relative bg-white overflow-x-hidden">
-      {/* ── Hero content ── */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-6 sm:py-14 lg:py-20">
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
-          {/* Left: heading + search widget */}
           <div className="space-y-7 min-w-0">
             <h1 className="text-2xl sm:text-5xl lg:text-6xl font-bold text-[#005F56] leading-tight break-words">
               {heading}
             </h1>
 
-            {/* ── Search widget card ── */}
             <div className="bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden w-full max-w-full">
-              {/* Tabs */}
               <div className="flex border-b border-gray-100">
-                {[
-                  { id: "transfer", Icon: Plane, label: "Transfer" },
-                  // { id: 'hourly',   Icon: Timer,   label: 'By the Hour' },
-                ].map(({ id, Icon, label }) => (
-                  <button
-                    key={id}
-                    onClick={() => setServiceType(id)}
-                    className={`flex items-center gap-2 px-5 py-3.5 text-sm font-semibold transition-all ${
-                      serviceType === id
-                        ? "text-white"
-                        : "text-gray-500 hover:text-[#005F56] bg-white"
-                    }`}
-                    style={
-                      serviceType === id
-                        ? {
-                            background:
-                              "linear-gradient(296.47deg, #005F56 -2.82%, #00B1C5 97.17%)",
-                          }
-                        : {}
-                    }
-                  >
-                    <Icon className="h-4 w-4" />
-                    {label}
-                  </button>
-                ))}
+                {[{ id: "transfer", Icon: Plane, label: "Transfer" }].map(
+                  ({ id, Icon, label }) => (
+                    <button
+                      key={id}
+                      onClick={() => setServiceType(id)}
+                      className={`flex items-center gap-2 px-5 py-3.5 text-sm font-semibold transition-all ${
+                        serviceType === id
+                          ? "text-white"
+                          : "text-gray-500 hover:text-[#005F56] bg-white"
+                      }`}
+                      style={
+                        serviceType === id
+                          ? {
+                              background:
+                                "linear-gradient(296.47deg, #005F56 -2.82%, #00B1C5 97.17%)",
+                            }
+                          : {}
+                      }
+                    >
+                      <Icon className="h-4 w-4" />
+                      {label}
+                    </button>
+                  ),
+                )}
               </div>
 
               <div className="p-3 sm:p-4 space-y-3">
-                {/* From */}
                 <div className="px-3 sm:px-4 py-3 bg-gray-50 rounded-xl border border-gray-200 focus-within:border-[#00B1C5] transition-colors space-y-2">
                   <div className="flex items-center gap-2">
                     <MapPin className="h-5 w-5 text-[#00B1C5] flex-shrink-0" />
@@ -220,6 +369,7 @@ export default function HeroSection({
                     value={fromCity}
                     onChange={(e) => {
                       setFromCity(e.target.value);
+                      setFromLandmarkMode("airport");
                       setFromLandmark("");
                     }}
                     className="w-full bg-white text-gray-700 text-sm outline-none border border-gray-200 rounded-lg px-3 py-2"
@@ -232,17 +382,55 @@ export default function HeroSection({
                     ))}
                   </select>
                   {fromCity && (
-                    <input
-                      type="text"
-                      placeholder="Enter pickup landmark"
-                      value={fromLandmark}
-                      onChange={(e) => setFromLandmark(e.target.value)}
-                      className="w-full bg-white text-gray-700 placeholder-gray-400 text-sm outline-none border border-gray-200 rounded-lg px-3 py-2"
-                    />
+                    <>
+                      {fromLandmarkMode === "airport" ? (
+                        <select
+                          value={fromLandmark}
+                          onChange={(e) => {
+                            if (e.target.value === "Other") {
+                              setFromLandmarkMode("other");
+                              setFromLandmark("");
+                              return;
+                            }
+
+                            setFromLandmarkMode("airport");
+                            setFromLandmark(e.target.value);
+                          }}
+                          className="w-full bg-white text-gray-700 text-sm outline-none border border-gray-200 rounded-lg px-3 py-2"
+                        >
+                          <option value="">Select airport</option>
+                          {fromLandmarkOptions.map((airport) => (
+                            <option key={airport} value={airport}>
+                              {airport}
+                            </option>
+                          ))}
+                          <option value="Other">Other</option>
+                        </select>
+                      ) : (
+                        <div className="space-y-2">
+                          <input
+                            type="text"
+                            placeholder="Enter pickup landmark"
+                            value={fromLandmark}
+                            onChange={(e) => setFromLandmark(e.target.value)}
+                            className="w-full bg-white text-gray-700 placeholder-gray-400 text-sm outline-none border border-gray-200 rounded-lg px-3 py-2"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setFromLandmarkMode("airport");
+                              setFromLandmark("");
+                            }}
+                            className="text-xs font-semibold text-[#005F56] hover:text-[#00B1C5]"
+                          >
+                            Choose an airport instead
+                          </button>
+                        </div>
+                      )}
+                    </>
                   )}
                 </div>
 
-                {/* To — transfer only */}
                 {serviceType === "transfer" && (
                   <div className="px-3 sm:px-4 py-3 bg-gray-50 rounded-xl border border-gray-200 focus-within:border-[#00B1C5] transition-colors space-y-2">
                     <div className="flex items-center gap-2">
@@ -255,6 +443,7 @@ export default function HeroSection({
                       value={toCity}
                       onChange={(e) => {
                         setToCity(e.target.value);
+                        setToLandmarkMode("airport");
                         setToLandmark("");
                       }}
                       className="w-full bg-white text-gray-700 text-sm outline-none border border-gray-200 rounded-lg px-3 py-2"
@@ -267,18 +456,56 @@ export default function HeroSection({
                       ))}
                     </select>
                     {toCity && (
-                      <input
-                        type="text"
-                        placeholder="Enter dropoff landmark"
-                        value={toLandmark}
-                        onChange={(e) => setToLandmark(e.target.value)}
-                        className="w-full bg-white text-gray-700 placeholder-gray-400 text-sm outline-none border border-gray-200 rounded-lg px-3 py-2"
-                      />
+                      <>
+                        {toLandmarkMode === "airport" ? (
+                          <select
+                            value={toLandmark}
+                            onChange={(e) => {
+                              if (e.target.value === "Other") {
+                                setToLandmarkMode("other");
+                                setToLandmark("");
+                                return;
+                              }
+
+                              setToLandmarkMode("airport");
+                              setToLandmark(e.target.value);
+                            }}
+                            className="w-full bg-white text-gray-700 text-sm outline-none border border-gray-200 rounded-lg px-3 py-2"
+                          >
+                            <option value="">Select airport</option>
+                            {toLandmarkOptions.map((airport) => (
+                              <option key={airport} value={airport}>
+                                {airport}
+                              </option>
+                            ))}
+                            <option value="Other">Other</option>
+                          </select>
+                        ) : (
+                          <div className="space-y-2">
+                            <input
+                              type="text"
+                              placeholder="Enter dropoff landmark"
+                              value={toLandmark}
+                              onChange={(e) => setToLandmark(e.target.value)}
+                              className="w-full bg-white text-gray-700 placeholder-gray-400 text-sm outline-none border border-gray-200 rounded-lg px-3 py-2"
+                            />
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setToLandmarkMode("airport");
+                                setToLandmark("");
+                              }}
+                              className="text-xs font-semibold text-[#005F56] hover:text-[#00B1C5]"
+                            >
+                              Choose an airport instead
+                            </button>
+                          </div>
+                        )}
+                      </>
                     )}
                   </div>
                 )}
 
-                {/* Date & Time row */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <label className="flex items-center gap-2 px-3 sm:px-4 py-3 bg-gray-50 rounded-xl border border-gray-200 focus-within:border-[#00B1C5] transition-colors cursor-pointer min-w-0">
                     <Calendar className="h-4 w-4 text-[#00B1C5] flex-shrink-0" />
@@ -310,7 +537,6 @@ export default function HeroSection({
                   </label>
                 </div>
 
-                {/* Duration dropdown — hourly only */}
                 {serviceType === "hourly" && (
                   <div className="flex items-center gap-3 px-3 sm:px-4 py-3 bg-gray-50 rounded-xl border border-gray-200 focus-within:border-[#00B1C5] transition-colors">
                     <Timer className="h-4 w-4 text-[#005F56] flex-shrink-0" />
@@ -334,7 +560,6 @@ export default function HeroSection({
                   </div>
                 )}
 
-                {/* ADD RETURN — transfer only */}
                 {serviceType === "transfer" && !showReturn && (
                   <button
                     onClick={() => setShowReturn(true)}
@@ -345,7 +570,6 @@ export default function HeroSection({
                   </button>
                 )}
 
-                {/* Return date/time — transfer + showReturn */}
                 {serviceType === "transfer" && showReturn && (
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <label className="flex items-center gap-2 px-3 sm:px-4 py-3 bg-gray-50 rounded-xl border border-gray-200 focus-within:border-[#00B1C5] transition-colors cursor-pointer min-w-0">
@@ -379,7 +603,6 @@ export default function HeroSection({
                   </div>
                 )}
 
-                {/* Passengers */}
                 <div className="flex items-center justify-between px-3 sm:px-4 py-3 bg-gray-50 rounded-xl border border-gray-200">
                   <div>
                     <div className="text-xs text-gray-400 font-medium mb-0.5">
@@ -397,7 +620,9 @@ export default function HeroSection({
                       <Minus className="h-3.5 w-3.5 text-gray-600" />
                     </button>
                     <button
-                      onClick={() => setPassengers((p) => (p === 0 ? 1 : p + 1))}
+                      onClick={() =>
+                        setPassengers((p) => (p === 0 ? 1 : p + 1))
+                      }
                       className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-[#00B1C5] transition-colors"
                     >
                       <Plus className="h-3.5 w-3.5 text-gray-600" />
@@ -405,7 +630,6 @@ export default function HeroSection({
                   </div>
                 </div>
 
-                {/* Baggages */}
                 <div className="flex items-center justify-between px-3 sm:px-4 py-3 bg-gray-50 rounded-xl border border-gray-200">
                   <div className="flex items-center gap-2">
                     <Briefcase className="h-4 w-4 text-[#005F56]" />
@@ -434,90 +658,132 @@ export default function HeroSection({
                   </div>
                 </div>
 
-                {/* Suggested vehicles */}
                 <div className="space-y-2">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                     <div className="text-xs text-gray-400 font-medium leading-relaxed">
                       Recommended vehicles for your passengers and baggages
                     </div>
-                    {suggestedVehicles.length > 2 && (
-                      <div className="flex gap-1.5 flex-shrink-0 self-end sm:self-auto">
-                        <button 
-                          onClick={(e) => { e.preventDefault(); miniScroll(-1); }}
-                          className="w-7 h-7 rounded-full bg-[#00B1C5] flex items-center justify-center text-white hover:bg-[#005F56] transition-all shadow-md"
-                        >
-                          <ChevronLeftIcon className="h-4 w-4" />
-                        </button>
-                        <button 
-                          onClick={(e) => { e.preventDefault(); miniScroll(1); }}
-                          className="w-7 h-7 rounded-full bg-[#00B1C5] flex items-center justify-center text-white hover:bg-[#005F56] transition-all shadow-md"
-                        >
-                          <ChevronRightIcon className="h-4 w-4" />
-                        </button>
-                      </div>
-                    )}
                   </div>
-                  <div className="relative group/mini">
-                    <div 
-                      ref={miniScrollRef}
-                      className="flex gap-2 overflow-x-auto scrollbar-hide pb-3 -mx-3 sm:-mx-1 px-3 sm:px-1 snap-x snap-mandatory scroll-smooth"
-                    >
-                      {suggestedVehicles.map((vehicle) => {
-                        const selected = selectedVehicle === vehicle.id;
+
+                  {!selectedVehicleCategory ? (
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                      {categoryOptions.map((category) => {
+                        const active = selectedVehicleCategory === category.id;
+
                         return (
                           <button
-                            key={vehicle.id}
+                            key={category.id}
                             type="button"
-                            onClick={() => setSelectedVehicle(vehicle.id)}
-                            className={`flex-none w-[200px] text-left p-3 rounded-xl border-2 transition-colors snap-start ${
-                              selected
+                            onClick={() => {
+                              if (!category.fitsCurrentTrip) return;
+                              setSelectedVehicleCategory(category.id);
+                              setSelectedVehicle("");
+                            }}
+                            disabled={!category.fitsCurrentTrip}
+                            className={`text-left p-3 rounded-xl border-2 transition-colors ${
+                              active
                                 ? "border-[#00B1C5] bg-[#00B1C5]/5"
-                                : "border-gray-200 bg-white hover:border-[#00B1C5]/60"
+                                : category.fitsCurrentTrip
+                                  ? "border-gray-200 bg-white hover:border-[#00B1C5]/60"
+                                  : "border-gray-200 bg-white opacity-50 cursor-not-allowed"
                             }`}
                           >
-                            <div className="flex items-center gap-2 mb-2">
-                              <Image
-                                src={vehicle.image}
-                                alt={vehicle.name}
-                                width={42}
-                                height={28}
-                                className="h-7 w-auto object-contain"
-                              />
+                            <div className="flex items-center justify-between gap-3 mb-3">
                               <div className="min-w-0">
-                                <p className="text-sm font-semibold text-gray-800 truncate">
-                                  {vehicle.name}
+                                <p className="text-base font-semibold text-gray-800">
+                                  {category.label}
                                 </p>
-                                <p className="text-xs text-gray-500">
-                                  SAR {vehicle.basePrice.toFixed(2)}
+                                <p className="text-xs text-gray-500 mt-0.5">
+                                  {category.fitsCurrentTrip
+                                    ? "Recommended for your search"
+                                    : "Does not fit the current passenger or baggage count"}
                                 </p>
                               </div>
+                              {category.vehicle && (
+                                <Image
+                                  src={category.vehicle.image}
+                                  alt={category.label}
+                                  width={64}
+                                  height={40}
+                                  className="h-10 w-auto object-contain flex-shrink-0"
+                                />
+                              )}
                             </div>
-                            <p className="text-xs text-gray-500">
-                              Up to {vehicle.passengers} passengers ·{" "}
-                              {vehicle.luggage} bags
-                            </p>
+                            <div className="space-y-1 text-xs text-gray-500">
+                              <p>Seating: {category.seatsLabel} passengers</p>
+                              <p>Baggage: {category.bagsLabel} bags</p>
+                            </div>
                           </button>
                         );
                       })}
                     </div>
-                    
-                    {/* Scroll Indicator Dots */}
-                    {suggestedVehicles.length > 2 && (
-                      <div className="flex justify-center gap-1 mt-1">
-                        {suggestedVehicles.map((_, i) => (
-                          <div 
-                            key={i} 
-                            className="w-1.5 h-1.5 rounded-full bg-gray-200"
-                          />
-                        ))}
+                  ) : (
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between gap-3">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setSelectedVehicleCategory("");
+                            setSelectedVehicle("");
+                          }}
+                          className="inline-flex items-center gap-2 text-sm font-semibold text-[#005F56] hover:text-[#00B1C5]"
+                        >
+                          <ChevronLeftIcon className="h-4 w-4" />
+                          Back to categories
+                        </button>
+                        <div className="text-xs text-gray-400 font-medium text-right">
+                          Choose a{" "}
+                          {selectedCategory?.label?.toLowerCase() || "vehicle"}
+                        </div>
                       </div>
-                    )}
 
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        {categoryVehicles.map((vehicle) => {
+                          const active = selectedVehicle === vehicle.id;
 
-                  </div>
+                          return (
+                            <button
+                              key={vehicle.id}
+                              type="button"
+                              onClick={() => setSelectedVehicle(vehicle.id)}
+                              className={`text-left p-3 rounded-xl border-2 transition-colors ${
+                                active
+                                  ? "border-[#00B1C5] bg-[#00B1C5]/5"
+                                  : "border-gray-200 bg-white hover:border-[#00B1C5]/60"
+                              }`}
+                            >
+                              <div className="flex items-center gap-2 mb-2">
+                                <Image
+                                  src={vehicle.image}
+                                  alt={vehicle.name}
+                                  width={52}
+                                  height={34}
+                                  className="h-8 w-auto object-contain"
+                                />
+                                <div className="min-w-0">
+                                  <p className="text-sm font-semibold text-gray-800 truncate">
+                                    {vehicle.name}
+                                  </p>
+                                  <p className="text-xs text-gray-500">
+                                    SAR {vehicle.basePrice.toFixed(2)}
+                                  </p>
+                                </div>
+                              </div>
+                              <p className="text-xs text-gray-500 mb-1.5">
+                                {vehicle.description}
+                              </p>
+                              <p className="text-xs text-gray-500">
+                                Seating: {vehicle.passengers} passengers ·
+                                Baggage: {vehicle.luggage} bags
+                              </p>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
                 </div>
 
-                {/* See prices CTA */}
                 <button
                   onClick={handleSeePrice}
                   disabled={!canSearch}
@@ -533,7 +799,6 @@ export default function HeroSection({
               </div>
             </div>
 
-            {/* Trustpilot */}
             <div className="flex items-center gap-3 text-sm flex-wrap">
               <span className="font-bold text-gray-800 tracking-widest text-xs uppercase">
                 Excellent
@@ -554,7 +819,6 @@ export default function HeroSection({
             </div>
           </div>
 
-          {/* Right: hero image */}
           <div className="hidden lg:flex justify-end items-start pt-2">
             <div className="relative w-full max-w-lg rounded-2xl overflow-hidden shadow-2xl">
               <Image
