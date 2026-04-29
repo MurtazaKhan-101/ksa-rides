@@ -666,7 +666,7 @@ export default function HeroSection({
                   </div>
 
                   {!selectedVehicleCategory ? (
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div className="grid grid-cols-1 gap-3 max-w-2xl mx-auto">
                       {categoryOptions.map((category) => {
                         const active = selectedVehicleCategory === category.id;
 
@@ -680,38 +680,54 @@ export default function HeroSection({
                               setSelectedVehicle("");
                             }}
                             disabled={!category.fitsCurrentTrip}
-                            className={`text-left p-3 rounded-xl border-2 transition-colors ${
+                            className={`text-left p-3 rounded-2xl border-2 transition-all shadow-sm hover:shadow-md ${
                               active
                                 ? "border-[#00B1C5] bg-[#00B1C5]/5"
                                 : category.fitsCurrentTrip
                                   ? "border-gray-200 bg-white hover:border-[#00B1C5]/60"
-                                  : "border-gray-200 bg-white opacity-50 cursor-not-allowed"
+                                  : "border-gray-200 bg-white opacity-55 cursor-not-allowed"
                             }`}
                           >
-                            <div className="flex items-center justify-between gap-3 mb-3">
-                              <div className="min-w-0">
-                                <p className="text-base font-semibold text-gray-800">
+                            <div className="flex items-start justify-between gap-3 mb-4 min-h-[72px]">
+                              <div className="min-w-0 pr-2">
+                                <p className="text-base font-semibold text-gray-800 leading-tight">
                                   {category.label}
                                 </p>
-                                <p className="text-xs text-gray-500 mt-0.5">
+                                <p className="text-xs text-gray-500 mt-1 leading-snug">
                                   {category.fitsCurrentTrip
                                     ? "Recommended for your search"
                                     : "Does not fit the current passenger or baggage count"}
                                 </p>
                               </div>
                               {category.vehicle && (
-                                <Image
-                                  src={category.vehicle.image}
-                                  alt={category.label}
-                                  width={64}
-                                  height={40}
-                                  className="h-10 w-auto object-contain flex-shrink-0"
-                                />
+                                <div className="w-20 h-14 rounded-xl bg-gradient-to-br from-gray-50 to-white border border-gray-100 flex items-center justify-center flex-shrink-0 overflow-hidden shadow-sm">
+                                  <Image
+                                    src={category.vehicle.image}
+                                    alt={category.label}
+                                    width={80}
+                                    height={44}
+                                    className="h-10 w-auto object-contain"
+                                  />
+                                </div>
                               )}
                             </div>
-                            <div className="space-y-1 text-xs text-gray-500">
-                              <p>Seating: {category.seatsLabel} passengers</p>
-                              <p>Baggage: {category.bagsLabel} bags</p>
+                            <div className="grid grid-cols-2 gap-2 text-xs text-gray-500">
+                              <div className="rounded-lg bg-gray-50 px-3 py-2">
+                                <p className="uppercase tracking-wide text-[10px] text-gray-400 mb-0.5">
+                                  Seats
+                                </p>
+                                <p className="font-semibold text-gray-700">
+                                  {category.seatsLabel}
+                                </p>
+                              </div>
+                              <div className="rounded-lg bg-gray-50 px-3 py-2">
+                                <p className="uppercase tracking-wide text-[10px] text-gray-400 mb-0.5">
+                                  Bags
+                                </p>
+                                <p className="font-semibold text-gray-700">
+                                  {category.bagsLabel}
+                                </p>
+                              </div>
                             </div>
                           </button>
                         );
@@ -737,7 +753,7 @@ export default function HeroSection({
                         </div>
                       </div>
 
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div className="grid grid-cols-1 gap-3 max-w-2xl mx-auto">
                         {categoryVehicles.map((vehicle) => {
                           const active = selectedVehicle === vehicle.id;
 
@@ -746,33 +762,35 @@ export default function HeroSection({
                               key={vehicle.id}
                               type="button"
                               onClick={() => setSelectedVehicle(vehicle.id)}
-                              className={`text-left p-3 rounded-xl border-2 transition-colors ${
+                              className={`text-left p-3 rounded-2xl border-2 transition-all shadow-sm hover:shadow-md ${
                                 active
                                   ? "border-[#00B1C5] bg-[#00B1C5]/5"
                                   : "border-gray-200 bg-white hover:border-[#00B1C5]/60"
                               }`}
                             >
-                              <div className="flex items-center gap-2 mb-2">
-                                <Image
-                                  src={vehicle.image}
-                                  alt={vehicle.name}
-                                  width={52}
-                                  height={34}
-                                  className="h-8 w-auto object-contain"
-                                />
-                                <div className="min-w-0">
-                                  <p className="text-sm font-semibold text-gray-800 truncate">
+                              <div className="flex items-center gap-3 mb-3">
+                                <div className="w-16 h-12 rounded-xl bg-gradient-to-br from-gray-50 to-white border border-gray-100 flex items-center justify-center flex-shrink-0 overflow-hidden shadow-sm">
+                                  <Image
+                                    src={vehicle.image}
+                                    alt={vehicle.name}
+                                    width={64}
+                                    height={40}
+                                    className="h-9 w-auto object-contain"
+                                  />
+                                </div>
+                                <div className="min-w-0 flex-1">
+                                  <p className="text-sm font-semibold text-gray-800 truncate leading-tight">
                                     {vehicle.name}
                                   </p>
-                                  <p className="text-xs text-gray-500">
+                                  <p className="text-xs text-gray-500 mt-0.5">
                                     SAR {vehicle.basePrice.toFixed(2)}
                                   </p>
                                 </div>
                               </div>
-                              <p className="text-xs text-gray-500 mb-1.5">
+                              <p className="text-xs text-gray-500 mb-2 leading-relaxed">
                                 {vehicle.description}
                               </p>
-                              <p className="text-xs text-gray-500">
+                              <p className="text-xs text-gray-500 font-medium">
                                 Seating: {vehicle.passengers} passengers ·
                                 Baggage: {vehicle.luggage} bags
                               </p>
