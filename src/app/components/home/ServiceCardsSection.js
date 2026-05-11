@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from 'next/link';
 import { Globe, Users, Clock, Car } from 'lucide-react';
@@ -42,13 +42,13 @@ export default function ServiceCardsSection() {
           {services.map(({ Icon, title, description, href }) => (
             <div
               key={title}
-              className="bg-[#EDF4F7] rounded-2xl p-6 flex flex-col justify-between hover:shadow-md transition-shadow"
+              className="bg-[#F5E6A3] rounded-2xl p-6 flex flex-col justify-between hover:shadow-md transition-shadow"
             >
               <div>
                 <div className="flex items-start justify-between mb-4">
                   <h3 className="text-base font-bold text-gray-800 pr-2">{title}</h3>
                   <div className="p-2 rounded-lg bg-white flex-shrink-0 shadow-sm">
-                    <Icon className="h-5 w-5 text-[#005F56]" />
+                    <Icon className="h-5 w-5 text-[#B8960C]" />
                   </div>
                 </div>
                 <p className="text-sm text-gray-500 leading-relaxed">{description}</p>
@@ -59,7 +59,7 @@ export default function ServiceCardsSection() {
                   className="inline-block px-5 py-2 text-white text-sm font-semibold rounded-lg hover:opacity-90 transition-opacity"
                   style={{
                     background:
-                      'linear-gradient(296.47deg, #005F56 -2.82%, #00B1C5 97.17%)',
+                      'linear-gradient(135deg, #1A1A1A 0%, #B8960C 100%)',
                   }}
                 >
                   Details

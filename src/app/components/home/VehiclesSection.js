@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useRef } from 'react';
 import Image from 'next/image';
@@ -16,7 +16,7 @@ export default function VehiclesSection({ passengers = 0, setPassengers }) {
   };
 
   return (
-    <section className="py-12 lg:py-20 bg-white overflow-x-hidden w-full">
+    <section className="py-12 lg:py-20 bg-[#F5E6A3] overflow-x-hidden w-full">
 
       {/* Header — constrained */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
@@ -35,7 +35,7 @@ export default function VehiclesSection({ passengers = 0, setPassengers }) {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4 px-4 sm:px-6 lg:px-4">
           <p className="text-sm font-medium text-gray-500">
             {passengers > 0 ? (
-              <span>Showing vehicles for <span className="text-[#00B1C5] font-bold">{passengers}</span> passengers</span>
+              <span>Showing vehicles for <span className="text-[#B8960C] font-bold">{passengers}</span> passengers</span>
             ) : (
               <span>Showing our entire fleet</span>
             )}
@@ -44,7 +44,7 @@ export default function VehiclesSection({ passengers = 0, setPassengers }) {
             {passengers > 0 && (
               <button
                 onClick={() => setPassengers(0)}
-                className="text-xs text-[#00B1C5] font-bold hover:underline"
+                className="text-xs text-[#B8960C] font-bold hover:underline"
               >
                 Reset Filter
               </button>
@@ -52,14 +52,14 @@ export default function VehiclesSection({ passengers = 0, setPassengers }) {
             <div className="flex gap-2">
               <button 
                 onClick={() => scroll(-1)}
-                className="w-9 h-9 rounded-full bg-[#00B1C5] flex items-center justify-center text-white hover:bg-[#005F56] transition-all shadow-md"
+                className="w-9 h-9 rounded-full bg-[#B8960C] flex items-center justify-center text-white hover:bg-[#B8960C] transition-all shadow-md"
                 aria-label="Previous"
               >
                 <ChevronLeft className="h-5 w-5" />
               </button>
               <button 
                 onClick={() => scroll(1)}
-                className="w-9 h-9 rounded-full bg-[#00B1C5] flex items-center justify-center text-white hover:bg-[#005F56] transition-all shadow-md"
+                className="w-9 h-9 rounded-full bg-[#B8960C] flex items-center justify-center text-white hover:bg-[#B8960C] transition-all shadow-md"
                 aria-label="Next"
               >
                 <ChevronRight className="h-5 w-5" />
@@ -79,7 +79,7 @@ export default function VehiclesSection({ passengers = 0, setPassengers }) {
             filteredVehicles.map(({ name, passengers, luggage, description, image }) => (
               <div
                 key={name}
-                className="flex-none w-72 sm:w-80 bg-gray-50 rounded-3xl p-6 flex flex-col border border-gray-100 hover:border-[#00B1C5]/30 hover:shadow-xl transition-all duration-300"
+                className="flex-none w-72 sm:w-80 bg-white rounded-3xl p-6 flex flex-col border border-[#B8960C]/20 hover:border-[#B8960C]/50 hover:shadow-xl transition-all duration-300"
                 style={{ scrollSnapAlign: 'start' }}
               >
                 <div className="h-40 flex items-center justify-center mb-6">
@@ -94,11 +94,11 @@ export default function VehiclesSection({ passengers = 0, setPassengers }) {
                 <h3 className="font-bold text-gray-900 text-lg mb-2">{name}</h3>
                 <div className="flex items-center gap-4 mb-3 text-sm text-gray-600">
                   <span className="flex items-center gap-1.5 px-3 py-1 bg-white rounded-full border border-gray-100">
-                    <Users className="h-4 w-4 text-[#00B1C5]" />
+                    <Users className="h-4 w-4 text-[#B8960C]" />
                     <span className="font-semibold">{passengers}</span>
                   </span>
                   <span className="flex items-center gap-1.5 px-3 py-1 bg-white rounded-full border border-gray-100">
-                    <Briefcase className="h-4 w-4 text-[#00B1C5]" />
+                    <Briefcase className="h-4 w-4 text-[#B8960C]" />
                     <span className="font-semibold">{luggage}</span>
                   </span>
                 </div>
@@ -109,7 +109,7 @@ export default function VehiclesSection({ passengers = 0, setPassengers }) {
           ) : (
             <div className="w-full py-20 text-center bg-gray-50 rounded-3xl border-2 border-dashed border-gray-200">
               <p className="text-gray-500 font-medium italic">No vehicles available for {passengers} passengers.</p>
-              <button onClick={() => setPassengers(0)} className="mt-4 text-[#00B1C5] font-bold hover:underline">Show all vehicles</button>
+              <button onClick={() => setPassengers(0)} className="mt-4 text-[#B8960C] font-bold hover:underline">Show all vehicles</button>
             </div>
           )}
         </div>

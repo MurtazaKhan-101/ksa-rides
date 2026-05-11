@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 const partners = [
   'Square', 'NVIDIA', 'Riot Games', 'Accenture',
@@ -23,8 +23,8 @@ export default function TrustedPartnersSection() {
             </p>
           </div>
           <div className="flex-shrink-0">
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#00B1C5]/30 bg-[#00B1C5]/10 text-xs font-bold text-[#00B1C5] uppercase tracking-widest">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#00B1C5]" />
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#B8960C]/30 bg-[#B8960C]/10 text-xs font-bold text-[#B8960C] uppercase tracking-widest">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#B8960C]" />
               Duty of Care Ready
             </span>
           </div>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 const features = [
   {
@@ -39,7 +39,7 @@ export default function ReviewsDetailSection() {
             </h2>
             <p className="text-gray-600 text-sm sm:text-base leading-relaxed mb-2">
               Combined ratings show a 4.8/5 average across public reviews. Travellers{' '}
-              <span className="text-[#00B1C5] font-medium">highlight punctuality, proactive comms,</span>{' '}
+              <span className="text-[#B8960C] font-medium">highlight punctuality, proactive comms,</span>{' '}
               and knowing the final price before they pay.
             </p>
             <p className="text-gray-400 text-xs mb-8">
@@ -49,8 +49,8 @@ export default function ReviewsDetailSection() {
             {/* 4 feature cards */}
             <div className="grid sm:grid-cols-2 gap-4">
               {features.map(({ title, desc }) => (
-                <div key={title} className="border border-gray-200 rounded-2xl p-5 hover:border-[#00B1C5]/40 hover:shadow-sm transition-all">
-                  <p className="text-sm font-bold text-[#005F56] mb-2">{title}</p>
+                <div key={title} className="border border-gray-200 rounded-2xl p-5 hover:border-[#B8960C]/40 hover:shadow-sm transition-all">
+                  <p className="text-sm font-bold text-[#B8960C] mb-2">{title}</p>
                   <p className="text-gray-500 text-xs leading-relaxed">{desc}</p>
                 </div>
               ))}
@@ -64,7 +64,7 @@ export default function ReviewsDetailSection() {
               <ul className="space-y-3">
                 {whereWeRead.map((item, i) => (
                   <li key={i} className="flex items-start gap-2 text-xs text-gray-600 leading-relaxed">
-                    <span className="mt-1 text-[#00B1C5] font-bold flex-shrink-0">•</span>
+                    <span className="mt-1 text-[#B8960C] font-bold flex-shrink-0">•</span>
                     {item}
                   </li>
                 ))}

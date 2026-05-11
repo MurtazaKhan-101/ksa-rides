@@ -1,22 +1,22 @@
-@import "tailwindcss";
+﻿@import "tailwindcss";
 
 @theme {
   --color-background: #ffffff;
   --color-foreground: #111827;
 
-  --gradient-sidebar: linear-gradient(296.47deg, #005F56 -2.82%, #00B1C5 97.17%);
-  --gradient-buttons: linear-gradient(296.47deg, #005F56 -2.82%, #00B1C5 97.17%);
-  --gradient-chat: linear-gradient(180deg, #005F56 0%, #00B1C5 100%);
-  --gradient-buttons-hover: linear-gradient(296.47deg, #00B1C5 -2.82%, #005F56 97.17%);
-  --gradient-ui-cards: linear-gradient(296.47deg, #005F56 -2.82%, #00B1C5 97.17%);
+  --gradient-sidebar: linear-gradient(135deg, #1A1A1A 0%, #B8960C 100%);
+  --gradient-buttons: linear-gradient(135deg, #1A1A1A 0%, #B8960C 100%);
+  --gradient-chat: linear-gradient(180deg, #1A1A1A 0%, #B8960C 100%);
+  --gradient-buttons-hover: linear-gradient(135deg, #8B6914 0%, #B8960C 100%);
+  --gradient-ui-cards: linear-gradient(135deg, #1A1A1A 0%, #B8960C 100%);
 
-  --color-auth-btn-bg: #005F56;
-  --color-primary: #005F56;
-  --color-secondary: #00B1C5;
+  --color-auth-btn-bg: #B8960C;
+  --color-primary: #B8960C;
+  --color-secondary: #8B6914;
 
-  --color-brand-dark: #005F56;
-  --color-brand-light: #00B1C5;
-  --color-surface: #EDF4F7;
+  --color-brand-dark: #1A1A1A;
+  --color-brand-light: #B8960C;
+  --color-surface: #F5E6A3;
 }
 
 @layer base, components, utilities;

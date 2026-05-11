@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import LegalPageLayout from '../components/legal/LegalPageLayout';
 
@@ -22,7 +22,7 @@ const CookieTable = ({ rows }) => (
       <tbody>
         {rows.map((row, i) => (
           <tr key={i} className={i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-            <td className="p-3 border border-gray-200 font-mono text-[#005F56]">{row[0]}</td>
+            <td className="p-3 border border-gray-200 font-mono text-[#B8960C]">{row[0]}</td>
             <td className="p-3 border border-gray-200 text-gray-600">{row[1]}</td>
             <td className="p-3 border border-gray-200 text-gray-500">{row[2]}</td>
           </tr>
@@ -36,7 +36,7 @@ export default function CookiePolicyPage() {
   return (
     <LegalPageLayout title="Cookie Policy" badge="Legal" lastUpdated="January 1, 2025">
 
-      <div className="bg-[#EDF4F7] border border-[#00B1C5]/20 rounded-xl p-5 mb-10 text-sm text-gray-700 leading-relaxed">
+      <div className="bg-[#EDF4F7] border border-[#B8960C]/20 rounded-xl p-5 mb-10 text-sm text-gray-700 leading-relaxed">
         This Cookie Policy explains how KSA Rides uses cookies and similar technologies when you visit our website. It tells you what cookies are, why we use them, and how you can control them.
       </div>
 
@@ -93,7 +93,7 @@ export default function CookiePolicyPage() {
         <p>You can control and manage cookies in several ways:</p>
         <p><strong>Browser settings:</strong> Most browsers allow you to refuse or delete cookies via their settings menu. Disabling strictly necessary cookies may affect the functionality of the KSA Rides website.</p>
         <p><strong>Our consent banner:</strong> When you first visit our site, you can choose which non-essential cookie categories to accept or reject via our cookie consent banner.</p>
-        <p><strong>Opt-out tools:</strong> You can opt out of Google Analytics tracking by visiting <span className="text-[#00B1C5]">tools.google.com/dlpage/gaoptout</span>.</p>
+        <p><strong>Opt-out tools:</strong> You can opt out of Google Analytics tracking by visiting <span className="text-[#B8960C]">tools.google.com/dlpage/gaoptout</span>.</p>
       </Section>
 
       <Section title="6. Do Not Track">

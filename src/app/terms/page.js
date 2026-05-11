@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import LegalPageLayout from '../components/legal/LegalPageLayout';
 
@@ -13,7 +13,7 @@ export default function TermsPage() {
   return (
     <LegalPageLayout title="Terms & Conditions" badge="Legal" lastUpdated="January 1, 2025">
 
-      <div className="bg-[#EDF4F7] border border-[#00B1C5]/20 rounded-xl p-5 mb-10 text-sm text-gray-700 leading-relaxed">
+      <div className="bg-[#EDF4F7] border border-[#B8960C]/20 rounded-xl p-5 mb-10 text-sm text-gray-700 leading-relaxed">
         Please read these Terms &amp; Conditions carefully before using KSA Rides services. By booking a transfer or using our platform, you agree to be bound by these terms.
       </div>
 

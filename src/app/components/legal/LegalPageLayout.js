@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Footer from '../home/Footer';
 
@@ -10,8 +10,8 @@ export default function LegalPageLayout({ title, badge, lastUpdated, children })
       <div className="bg-[#EDF4F7] border-b border-gray-200">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
           {badge && (
-            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#00B1C5]/30 bg-[#00B1C5]/10 text-xs font-bold text-[#005F56] uppercase tracking-widest mb-4">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#00B1C5]" />{badge}
+            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#B8960C]/30 bg-[#B8960C]/10 text-xs font-bold text-[#B8960C] uppercase tracking-widest mb-4">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#B8960C]" />{badge}
             </span>
           )}
           <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">{title}</h1>

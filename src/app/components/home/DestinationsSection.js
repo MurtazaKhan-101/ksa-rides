@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from 'react';
 import Image from 'next/image';
@@ -18,7 +18,7 @@ export default function DestinationsSection() {
 
         {/* Header row */}
         <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-4">
-          <h2 className="text-3xl sm:text-4xl font-bold text-[#005F56]">Destinations</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold text-[#B8960C]">Destinations</h2>
 
           {/* Filter pills */}
           <div className="flex flex-wrap gap-2">
@@ -28,8 +28,8 @@ export default function DestinationsSection() {
                 onClick={() => setActiveFilter(label)}
                 className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full border text-sm font-medium transition-all ${
                   activeFilter === label
-                    ? 'border-[#005F56] text-[#005F56] bg-[#005F56]/5'
-                    : 'border-gray-300 text-gray-600 hover:border-[#00B1C5] hover:text-[#005F56]'
+                    ? 'border-[#B8960C] text-[#B8960C] bg-[#B8960C]/5'
+                    : 'border-gray-300 text-gray-600 hover:border-[#B8960C] hover:text-[#B8960C]'
                 }`}
               >
                 <Icon className="h-3.5 w-3.5" />

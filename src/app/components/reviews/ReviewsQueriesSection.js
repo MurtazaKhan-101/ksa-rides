@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 const queries = [
   {
@@ -47,7 +47,7 @@ export default function ReviewsQueriesSection() {
             <div className="grid sm:grid-cols-2 gap-4">
               {queries.map(({ q, a }) => (
                 <div key={q} className="bg-white/5 border border-white/10 rounded-2xl p-5">
-                  <p className="text-sm font-bold text-[#00B1C5] mb-2">{q}</p>
+                  <p className="text-sm font-bold text-[#B8960C] mb-2">{q}</p>
                   <p className="text-white/60 text-xs leading-relaxed">{a}</p>
                 </div>
               ))}
@@ -61,7 +61,7 @@ export default function ReviewsQueriesSection() {
               <ul className="space-y-4">
                 {trustStack.map((item, i) => (
                   <li key={i} className="flex items-start gap-3 text-sm text-white/60 leading-relaxed">
-                    <span className="mt-1.5 w-2 h-2 rounded-full bg-[#00B1C5] flex-shrink-0" />
+                    <span className="mt-1.5 w-2 h-2 rounded-full bg-[#B8960C] flex-shrink-0" />
                     {item}
                   </li>
                 ))}

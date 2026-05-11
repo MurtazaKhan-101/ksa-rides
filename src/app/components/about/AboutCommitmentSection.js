@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { UserCheck, Handshake } from 'lucide-react';
 
@@ -42,12 +42,12 @@ export default function AboutCommitmentSection() {
               We respond fast, adapt quickly, and stay accountable. Whether it is a last-minute change,
               a VIP guest, or a complex multi-stop journey, our team is ready.
             </p>
-            <p className="text-[#00B1C5] text-sm font-medium mb-6">
+            <p className="text-[#B8960C] text-sm font-medium mb-6">
               Prefer to talk it through? Tell us your route and we will design it together.
             </p>
             <a href="#contact"
               className="inline-flex px-6 py-3 rounded-xl font-bold text-white text-sm hover:opacity-90 transition-opacity"
-              style={{ background: 'linear-gradient(296.47deg, #005F56 -2.82%, #00B1C5 97.17%)' }}>
+              style={{ background: 'linear-gradient(135deg, #1A1A1A 0%, #B8960C 100%)' }}>
               Plan with us
             </a>
           </div>
@@ -57,7 +57,7 @@ export default function AboutCommitmentSection() {
             <div key={title} className="bg-white/5 border border-white/10 rounded-2xl p-6">
               <div className="flex items-center gap-3 mb-5">
                 <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0"
-                  style={{ background: 'linear-gradient(296.47deg, #005F56 -2.82%, #00B1C5 97.17%)' }}>
+                  style={{ background: 'linear-gradient(135deg, #1A1A1A 0%, #B8960C 100%)' }}>
                   <Icon className="h-5 w-5 text-white" />
                 </div>
                 <div>

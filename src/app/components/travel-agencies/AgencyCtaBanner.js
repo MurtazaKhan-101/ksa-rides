@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
@@ -22,8 +22,8 @@ export default function AgencyCtaBanner() {
       <div className="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-12 py-20 sm:py-28 text-center text-white">
 
         {/* Badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#00B1C5]/40 bg-[#00B1C5]/10 text-sm text-[#00B1C5] font-semibold mb-6">
-          <span className="w-2 h-2 rounded-full bg-[#00B1C5]" />
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#B8960C]/40 bg-[#B8960C]/10 text-sm text-[#B8960C] font-semibold mb-6">
+          <span className="w-2 h-2 rounded-full bg-[#B8960C]" />
           Elevate your transfers
         </div>
 
@@ -41,7 +41,7 @@ export default function AgencyCtaBanner() {
           <a
             href="#signup"
             className="px-7 py-3 rounded-xl font-bold text-white text-sm hover:opacity-90 transition-opacity"
-            style={{ background: 'linear-gradient(296.47deg, #005F56 -2.82%, #00B1C5 97.17%)' }}
+            style={{ background: 'linear-gradient(135deg, #1A1A1A 0%, #B8960C 100%)' }}
           >
             Start now
           </a>
@@ -57,7 +57,7 @@ export default function AgencyCtaBanner() {
         <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-white/50 font-semibold tracking-widest uppercase">
           {['Instant Confirmations', 'Secure Payments', 'Multi-Language Support'].map((item) => (
             <span key={item} className="flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#00B1C5]" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#B8960C]" />
               {item}
             </span>
           ))}

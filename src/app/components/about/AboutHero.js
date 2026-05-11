@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from 'next/image';
 import { Globe, Headphones, Clock, ArrowRight } from 'lucide-react';
@@ -22,7 +22,7 @@ export default function AboutHero() {
           {/* Left */}
           <div className="space-y-6">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/20 bg-white/5 text-sm text-white/80">
-              <span className="w-2 h-2 rounded-full bg-[#00B1C5]" />
+              <span className="w-2 h-2 rounded-full bg-[#B8960C]" />
               About KSA Rides
             </div>
 
@@ -40,8 +40,8 @@ export default function AboutHero() {
               <div className="bg-white/8 border border-white/15 rounded-xl p-5">
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-sm font-bold text-white">Human support</span>
-                  <div className="w-8 h-8 rounded-full bg-[#00B1C5]/20 flex items-center justify-center">
-                    <Headphones className="h-4 w-4 text-[#00B1C5]" />
+                  <div className="w-8 h-8 rounded-full bg-[#B8960C]/20 flex items-center justify-center">
+                    <Headphones className="h-4 w-4 text-[#B8960C]" />
                   </div>
                 </div>
                 <p className="text-3xl font-bold text-white mb-1">24/7</p>
@@ -50,8 +50,8 @@ export default function AboutHero() {
               <div className="bg-white/8 border border-white/15 rounded-xl p-5">
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-sm font-bold text-white">KSA reach</span>
-                  <div className="w-8 h-8 rounded-full bg-[#00B1C5]/20 flex items-center justify-center">
-                    <Globe className="h-4 w-4 text-[#00B1C5]" />
+                  <div className="w-8 h-8 rounded-full bg-[#B8960C]/20 flex items-center justify-center">
+                    <Globe className="h-4 w-4 text-[#B8960C]" />
                   </div>
                 </div>
                 <p className="text-3xl font-bold text-white mb-1">4</p>
@@ -63,11 +63,11 @@ export default function AboutHero() {
             <div className="flex flex-wrap items-center gap-4">
               <a href="#contact"
                 className="px-6 py-3 rounded-xl font-bold text-white text-sm hover:opacity-90 transition-opacity"
-                style={{ background: 'linear-gradient(296.47deg, #005F56 -2.82%, #00B1C5 97.17%)' }}>
+                style={{ background: 'linear-gradient(135deg, #1A1A1A 0%, #B8960C 100%)' }}>
                 Talk with us
               </a>
               <a href="#story"
-                className="flex items-center gap-2 text-sm font-semibold text-white hover:text-[#00B1C5] transition-colors">
+                className="flex items-center gap-2 text-sm font-semibold text-white hover:text-[#B8960C] transition-colors">
                 Discover our story <ArrowRight className="h-4 w-4" />
               </a>
             </div>
@@ -87,7 +87,7 @@ export default function AboutHero() {
             </div>
             <div className="absolute bottom-4 left-4 right-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-3">
               <div className="flex items-center gap-2">
-                <Clock className="h-4 w-4 text-[#00B1C5] flex-shrink-0" />
+                <Clock className="h-4 w-4 text-[#B8960C] flex-shrink-0" />
                 <div>
                   <p className="text-white text-xs font-bold">Average response time</p>
                   <p className="text-white/60 text-xs">Under 3 minutes — because every trip matters.</p>

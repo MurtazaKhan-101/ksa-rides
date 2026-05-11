@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { Suspense, useRef } from "react";
 import { useSearchParams } from "next/navigation";
@@ -16,9 +16,9 @@ import {
 import { jsPDF } from "jspdf";
 
 const BRAND_GRADIENT =
-  "linear-gradient(296.47deg, #005F56 -2.82%, #00B1C5 97.17%)";
-const BRAND_DARK = [0, 95, 86]; // #005F56
-const BRAND_LIGHT = [0, 177, 197]; // #00B1C5
+  "linear-gradient(135deg, #1A1A1A 0%, #B8960C 100%)";
+const BRAND_DARK = [0, 95, 86]; // #B8960C
+const BRAND_LIGHT = [0, 177, 197]; // #B8960C
 
 import { VEHICLES } from "../../lib/vehicles";
 
@@ -195,7 +195,7 @@ function ConfirmationContent() {
               <p className="text-xs text-gray-500 font-medium">
                 Booking reference
               </p>
-              <p className="text-lg font-bold text-[#005F56]">{bookingRef}</p>
+              <p className="text-lg font-bold text-[#B8960C]">{bookingRef}</p>
             </div>
             <div
               className="px-3 py-1.5 rounded-full text-xs font-bold text-white"
@@ -209,9 +209,9 @@ function ConfirmationContent() {
             {/* Route */}
             <div className="flex items-start gap-3">
               <div className="mt-1 flex flex-col items-center gap-1">
-                <div className="w-3 h-3 rounded-full bg-[#005F56]" />
+                <div className="w-3 h-3 rounded-full bg-[#B8960C]" />
                 <div className="w-0.5 h-10 bg-gray-200" />
-                <div className="w-3 h-3 rounded-full bg-[#00B1C5]" />
+                <div className="w-3 h-3 rounded-full bg-[#B8960C]" />
               </div>
               <div className="flex-1 space-y-4">
                 <div>
@@ -230,7 +230,7 @@ function ConfirmationContent() {
             {/* Details grid */}
             <div className="grid grid-cols-2 gap-4">
               <div className="flex items-center gap-2">
-                <Calendar className="h-4 w-4 text-[#00B1C5]" />
+                <Calendar className="h-4 w-4 text-[#B8960C]" />
                 <div>
                   <p className="text-xs text-gray-500">Date</p>
                   <p className="text-sm font-semibold text-gray-900">
@@ -239,7 +239,7 @@ function ConfirmationContent() {
                 </div>
               </div>
               <div className="flex items-center gap-2">
-                <Clock className="h-4 w-4 text-[#00B1C5]" />
+                <Clock className="h-4 w-4 text-[#B8960C]" />
                 <div>
                   <p className="text-xs text-gray-500">Pickup time</p>
                   <p className="text-sm font-semibold text-gray-900">
@@ -248,7 +248,7 @@ function ConfirmationContent() {
                 </div>
               </div>
               <div className="flex items-center gap-2">
-                <Users className="h-4 w-4 text-[#00B1C5]" />
+                <Users className="h-4 w-4 text-[#B8960C]" />
                 <div>
                   <p className="text-xs text-gray-500">Passengers</p>
                   <p className="text-sm font-semibold text-gray-900">
@@ -257,7 +257,7 @@ function ConfirmationContent() {
                 </div>
               </div>
               <div className="flex items-center gap-2">
-                <Briefcase className="h-4 w-4 text-[#00B1C5]" />
+                <Briefcase className="h-4 w-4 text-[#B8960C]" />
                 <div>
                   <p className="text-xs text-gray-500">Baggages</p>
                   <p className="text-sm font-semibold text-gray-900">
@@ -266,7 +266,7 @@ function ConfirmationContent() {
                 </div>
               </div>
               <div className="flex items-center gap-2">
-                <Car className="h-4 w-4 text-[#00B1C5]" />
+                <Car className="h-4 w-4 text-[#B8960C]" />
                 <div>
                   <p className="text-xs text-gray-500">Vehicle</p>
                   <p className="text-sm font-semibold text-gray-900">
@@ -299,7 +299,7 @@ function ConfirmationContent() {
           </Link>
           <button
             onClick={handleDownloadReceipt}
-            className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl border-2 border-[#005F56] text-[#005F56] text-sm font-bold hover:bg-[#005F56]/5 transition-colors"
+            className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl border-2 border-[#B8960C] text-[#B8960C] text-sm font-bold hover:bg-[#B8960C]/5 transition-colors"
           >
             <Download className="h-4 w-4" />
             Download Receipt
@@ -315,7 +315,7 @@ export default function ConfirmationPage() {
     <Suspense
       fallback={
         <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-          <div className="w-8 h-8 rounded-full border-2 border-[#00B1C5] border-t-transparent animate-spin" />
+          <div className="w-8 h-8 rounded-full border-2 border-[#B8960C] border-t-transparent animate-spin" />
         </div>
       }
     >

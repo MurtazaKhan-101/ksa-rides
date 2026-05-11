@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useCallback, memo } from "react";
 import Link from "next/link";
@@ -75,7 +75,7 @@ const HeaderComponent = ({ user, onLogout, loading = false, isAuthenticated = fa
         <a
           href="/auth/login"
           className="flex items-center gap-2 px-4 py-2 rounded-lg text-white text-sm font-semibold transition-all hover:opacity-90"
-          style={{ background: 'linear-gradient(296.47deg, #005F56 -2.82%, #00B1C5 97.17%)' }}
+          style={{ background: 'linear-gradient(135deg, #1A1A1A 0%, #B8960C 100%)' }}
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
           Sign-in
@@ -112,7 +112,7 @@ const HeaderComponent = ({ user, onLogout, loading = false, isAuthenticated = fa
               />
             ) : (
               <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center">
-                <span className="text-[#005F56] text-sm font-semibold">
+                <span className="text-[#B8960C] text-sm font-semibold">
                   {user.firstName?.charAt(0) || user.email?.charAt(0)}
                 </span>
               </div>
@@ -126,7 +126,7 @@ const HeaderComponent = ({ user, onLogout, loading = false, isAuthenticated = fa
           </div>
           <button
             onClick={handleDesktopLogout}
-            className="bg-white text-[#005F56] px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors"
+            className="bg-white text-[#B8960C] px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors"
             disabled={isLoggingOut}
           >
             {isLoggingOut ? "Logging out..." : "Logout"}
@@ -155,7 +155,7 @@ const HeaderComponent = ({ user, onLogout, loading = false, isAuthenticated = fa
           href="/auth/login"
           onClick={handleMenuClose}
           className="flex items-center justify-center gap-2 w-full py-3 rounded-xl text-white text-sm font-semibold hover:opacity-90 transition-opacity"
-          style={{ background: 'linear-gradient(296.47deg, #005F56 -2.82%, #00B1C5 97.17%)' }}
+          style={{ background: 'linear-gradient(135deg, #1A1A1A 0%, #B8960C 100%)' }}
         >
           Sign-in
         </a>
@@ -191,7 +191,7 @@ const HeaderComponent = ({ user, onLogout, loading = false, isAuthenticated = fa
               />
             ) : (
               <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
-                <span className="text-[#005F56] text-lg font-semibold">
+                <span className="text-[#B8960C] text-lg font-semibold">
                   {user.name?.charAt(0) || user.email?.charAt(0)}
                 </span>
               </div>
@@ -225,14 +225,14 @@ const HeaderComponent = ({ user, onLogout, loading = false, isAuthenticated = fa
   };
 
   return (
-    <header className="sticky top-0 z-30 bg-[#008B7E] border-b border-white/10 backdrop-blur-sm">
+    <header className="sticky top-0 z-30 bg-[#1A1A1A] border-b border-[#B8960C]/30 backdrop-blur-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link href={isAuthenticated ? "/dashboard" : "/home"} className="flex items-center">
               <Image
-                src="/images/logo KSA Rides.png"
+                src="/ksa-images/ksa-logo.png"
                 alt="KSA Rides"
                 width={240}
                 height={72}
@@ -312,7 +312,7 @@ const HeaderComponent = ({ user, onLogout, loading = false, isAuthenticated = fa
 
         {/* Mobile/Tablet Dropdown */}
         {isMenuOpen && (
-          <div className="lg:hidden border-t border-white/10 bg-[#008B7E] px-2 pt-2 pb-4 space-y-1">
+          <div className="lg:hidden border-t border-[#B8960C]/30 bg-[#1A1A1A] px-2 pt-2 pb-4 space-y-1">
             {isAuthenticated ? (
               <>
                 <Link href="/dashboard" className={`${getLinkClasses("/dashboard", true)} text-sm`} onClick={handleMenuClose}>Home</Link>

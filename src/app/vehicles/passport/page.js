@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
@@ -18,7 +18,7 @@ import {
 import { submitBookingToSheets } from "../../lib/googleSheets";
 
 const BRAND_GRADIENT =
-  "linear-gradient(296.47deg, #005F56 -2.82%, #00B1C5 97.17%)";
+  "linear-gradient(135deg, #1A1A1A 0%, #B8960C 100%)";
 
 const STEPS = ["Vehicle", "Extras", "Passenger", "Payment", "Passport"];
 
@@ -93,14 +93,14 @@ function BookingStepBar({ current = 0 }) {
                       active
                         ? { background: BRAND_GRADIENT, color: "#fff" }
                         : done
-                          ? { background: "#00B1C5", color: "#fff" }
+                          ? { background: "#B8960C", color: "#fff" }
                           : { background: "#F3F4F6", color: "#9CA3AF" }
                     }
                   >
                     {done ? <CheckCircle2 className="h-4 w-4" /> : i + 1}
                   </div>
                   <span
-                    className={`text-xs mt-1 font-medium ${active ? "text-[#005F56]" : done ? "text-[#00B1C5]" : "text-gray-400"}`}
+                    className={`text-xs mt-1 font-medium ${active ? "text-[#B8960C]" : done ? "text-[#B8960C]" : "text-gray-400"}`}
                   >
                     {step}
                   </span>
@@ -139,7 +139,7 @@ function PassportUploadBox({ label, file, onFileChange, onRemove, error }) {
         <div
           onDragOver={(e) => e.preventDefault()}
           onDrop={handleDrop}
-          className={`relative border-2 border-dashed rounded-xl p-6 text-center transition-colors cursor-pointer hover:border-[#00B1C5] hover:bg-[#00B1C5]/5 ${
+          className={`relative border-2 border-dashed rounded-xl p-6 text-center transition-colors cursor-pointer hover:border-[#B8960C] hover:bg-[#B8960C]/5 ${
             error ? "border-red-400 bg-red-50" : "border-gray-300"
           }`}
         >
@@ -156,7 +156,7 @@ function PassportUploadBox({ label, file, onFileChange, onRemove, error }) {
               <Camera className="h-5 w-5 text-gray-400" />
             </div>
             <p className="text-sm text-gray-500">
-              <span className="text-[#00B1C5] font-semibold">
+              <span className="text-[#B8960C] font-semibold">
                 Click to upload
               </span>{" "}
               or drag and drop
@@ -297,7 +297,7 @@ function PassportContent() {
   };
 
   const inputCls = (field) =>
-    `w-full px-4 py-3 border rounded-xl text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#00B1C5]/30 focus:border-[#00B1C5] transition-all ${
+    `w-full px-4 py-3 border rounded-xl text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#B8960C]/30 focus:border-[#B8960C] transition-all ${
       errors[field] ? "border-red-400" : "border-gray-200"
     }`;
 
@@ -320,8 +320,8 @@ function PassportContent() {
         </div>
 
         {/* Security notice */}
-        <div className="flex items-start gap-3 p-4 rounded-2xl bg-[#00B1C5]/5 border border-[#00B1C5]/20 mb-6">
-          <Shield className="h-5 w-5 text-[#00B1C5] flex-shrink-0 mt-0.5" />
+        <div className="flex items-start gap-3 p-4 rounded-2xl bg-[#B8960C]/5 border border-[#B8960C]/20 mb-6">
+          <Shield className="h-5 w-5 text-[#B8960C] flex-shrink-0 mt-0.5" />
           <div>
             <p className="text-sm font-semibold text-gray-800">
               Your information is secure
@@ -519,7 +519,7 @@ export default function PassportPage() {
     <Suspense
       fallback={
         <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-          <div className="w-8 h-8 rounded-full border-2 border-[#00B1C5] border-t-transparent animate-spin" />
+          <div className="w-8 h-8 rounded-full border-2 border-[#B8960C] border-t-transparent animate-spin" />
         </div>
       }
     >

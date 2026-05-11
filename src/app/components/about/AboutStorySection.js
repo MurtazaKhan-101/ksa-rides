@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { Shield, Headphones, Cpu, Leaf } from 'lucide-react';
 
@@ -50,7 +50,7 @@ export default function AboutStorySection() {
 
             <p className="text-gray-800 text-sm sm:text-base leading-relaxed mb-4">
               <strong>We started with one promise</strong>{' '}
-              <span className="text-[#00B1C5]">deliver the same level of care everywhere.</span>{' '}
+              <span className="text-[#B8960C]">deliver the same level of care everywhere.</span>{' '}
               From seamless booking to thoughtful follow-up, our team and partners work together
               so every pickup feels effortless.
             </p>
@@ -64,7 +64,7 @@ export default function AboutStorySection() {
               {features.map(({ Icon, title, description }) => (
                 <div key={title} className="bg-white border border-gray-200 rounded-2xl p-6 hover:shadow-md transition-shadow">
                   <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
-                    style={{ background: 'linear-gradient(296.47deg, #005F56 -2.82%, #00B1C5 97.17%)' }}>
+                    style={{ background: 'linear-gradient(135deg, #1A1A1A 0%, #B8960C 100%)' }}>
                     <Icon className="h-5 w-5 text-white" />
                   </div>
                   <h3 className="font-bold text-gray-800 text-sm mb-2">{title}</h3>
@@ -94,7 +94,7 @@ export default function AboutStorySection() {
                     </div>
                     <div>
                       <p className="text-sm font-bold text-white">{title}</p>
-                      <p className="text-xs text-[#00B1C5] mt-0.5 leading-relaxed">{desc}</p>
+                      <p className="text-xs text-[#B8960C] mt-0.5 leading-relaxed">{desc}</p>
                     </div>
                   </div>
                 ))}

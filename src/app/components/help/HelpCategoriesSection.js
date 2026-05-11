@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from 'react';
 import {
@@ -88,28 +88,28 @@ export default function HelpCategoriesSection({ searchQuery = '' }) {
               <a
                 key={title}
                 href={href}
-                className="flex items-center gap-4 p-5 rounded-xl border border-gray-200 bg-white hover:border-[#00B1C5]/40 hover:shadow-md transition-all group"
+                className="flex items-center gap-4 p-5 rounded-xl border border-gray-200 bg-white hover:border-[#B8960C]/40 hover:shadow-md transition-all group"
               >
                 {/* Icon box */}
                 <div className="w-14 h-14 rounded-xl bg-gray-100 group-hover:bg-[#EDF4F7] flex items-center justify-center flex-shrink-0 transition-colors">
-                  <Icon className="h-6 w-6 text-gray-500 group-hover:text-[#005F56] transition-colors" />
+                  <Icon className="h-6 w-6 text-gray-500 group-hover:text-[#B8960C] transition-colors" />
                 </div>
 
                 {/* Text */}
                 <div className="flex-1 min-w-0">
-                  <p className="font-bold text-gray-900 text-sm leading-snug group-hover:text-[#005F56] transition-colors">
+                  <p className="font-bold text-gray-900 text-sm leading-snug group-hover:text-[#B8960C] transition-colors">
                     {title}
                   </p>
                   <p className="text-gray-400 text-xs mt-1">
                     {authors}
                     <span className="mx-1.5">·</span>
-                    <span className="text-[#00B1C5] font-medium">
+                    <span className="text-[#B8960C] font-medium">
                       {articles} {articles === 1 ? 'article' : 'articles'}
                     </span>
                   </p>
                 </div>
 
-                <ChevronRight className="h-4 w-4 text-gray-300 group-hover:text-[#00B1C5] flex-shrink-0 transition-colors" />
+                <ChevronRight className="h-4 w-4 text-gray-300 group-hover:text-[#B8960C] flex-shrink-0 transition-colors" />
               </a>
             ))}
           </div>
@@ -117,14 +117,14 @@ export default function HelpCategoriesSection({ searchQuery = '' }) {
 
         {/* Bottom help strip */}
         <div className="mt-12 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4"
-          style={{ background: 'linear-gradient(296.47deg, #005F56 -2.82%, #00B1C5 97.17%)' }}>
+          style={{ background: 'linear-gradient(135deg, #1A1A1A 0%, #B8960C 100%)' }}>
           <div>
             <p className="font-bold text-white text-base">Can&apos;t find what you&apos;re looking for?</p>
             <p className="text-white/70 text-sm mt-0.5">Our support team is available 24/7 to help.</p>
           </div>
           <a
             href="mailto:support@ksarides.com"
-            className="flex-shrink-0 px-5 py-2.5 bg-white text-[#005F56] font-bold text-sm rounded-xl hover:bg-gray-50 transition-colors"
+            className="flex-shrink-0 px-5 py-2.5 bg-white text-[#B8960C] font-bold text-sm rounded-xl hover:bg-gray-50 transition-colors"
           >
             Contact Support
           </a>

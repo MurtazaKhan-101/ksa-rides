@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from 'react';
 import Image from 'next/image';
@@ -40,7 +40,7 @@ export default function HelpHero({ onSearch }) {
               value={query}
               onChange={e => setQuery(e.target.value)}
               placeholder="Search for articles..."
-              className="w-full pl-12 pr-4 py-4 rounded-xl bg-white text-gray-800 placeholder-gray-400 text-sm font-medium outline-none shadow-xl focus:ring-2 focus:ring-[#00B1C5]/40"
+              className="w-full pl-12 pr-4 py-4 rounded-xl bg-white text-gray-800 placeholder-gray-400 text-sm font-medium outline-none shadow-xl focus:ring-2 focus:ring-[#B8960C]/40"
             />
           </form>
         </div>

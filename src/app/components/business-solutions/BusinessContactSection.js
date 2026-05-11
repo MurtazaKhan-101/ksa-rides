@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { User, Mail } from 'lucide-react';
 
@@ -27,7 +27,7 @@ export default function BusinessContactSection() {
               Our corporate specialists partner with travel managers, EAs, and operations teams
               to deliver tailored transfer programs.
             </p>
-            <p className="text-[#00B1C5] text-sm font-medium">
+            <p className="text-[#B8960C] text-sm font-medium">
               Prefer a scheduled workshop? Request a callback and we will reach out within one business day.
             </p>
           </div>
@@ -36,8 +36,8 @@ export default function BusinessContactSection() {
           <div className="max-w-sm w-full">
             <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
               <div className="flex items-center gap-3 mb-5">
-                <div className="w-10 h-10 rounded-full bg-[#00B1C5]/20 flex items-center justify-center">
-                  <User className="h-5 w-5 text-[#00B1C5]" />
+                <div className="w-10 h-10 rounded-full bg-[#B8960C]/20 flex items-center justify-center">
+                  <User className="h-5 w-5 text-[#B8960C]" />
                 </div>
                 <div>
                   <p className="font-bold text-white text-sm">{specialist.name}</p>
@@ -47,7 +47,7 @@ export default function BusinessContactSection() {
               <div>
                 <p className="text-xs font-bold text-white/30 uppercase tracking-wide mb-1">Email</p>
                 <a href={`mailto:${specialist.email}`}
-                  className="text-[#00B1C5] text-sm font-medium hover:underline flex items-center gap-2">
+                  className="text-[#B8960C] text-sm font-medium hover:underline flex items-center gap-2">
                   <Mail className="h-4 w-4" />
                   {specialist.email}
                 </a>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from 'react';
 import { Plus, Minus } from 'lucide-react';
@@ -48,12 +48,12 @@ export default function FAQSection() {
   const toggle = (id) => setOpenId(openId === id ? null : id);
 
   return (
-    <section id="faq" className="py-12 lg:py-20 bg-[#EDF4F7]">
+    <section id="faq" className="py-12 lg:py-20 bg-[#F5E6A3]">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-12">
 
         {/* Header */}
         <div className="text-center mb-10">
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#005F56]">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#B8960C]">
             Frequently Asked Questions
           </h2>
           <p className="text-gray-500 text-sm mt-2">
@@ -66,7 +66,7 @@ export default function FAQSection() {
           {faqs.map(({ id, question, answer }) => (
             <div
               key={id}
-              className="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+              className="bg-white rounded-2xl border border-[#B8960C]/20 overflow-hidden shadow-sm hover:shadow-md transition-shadow"
             >
               <button
                 onClick={() => toggle(id)}
@@ -79,13 +79,13 @@ export default function FAQSection() {
                   className="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center transition-colors"
                   style={
                     openId === id
-                      ? { background: 'linear-gradient(296.47deg, #005F56 -2.82%, #00B1C5 97.17%)' }
-                      : { background: '#EDF4F7' }
+                      ? { background: 'linear-gradient(135deg, #1A1A1A 0%, #B8960C 100%)' }
+                      : { background: '#F5E6A3' }
                   }
                 >
                   {openId === id
                     ? <Minus className="h-4 w-4 text-white" />
-                    : <Plus className="h-4 w-4 text-[#005F56]" />
+                    : <Plus className="h-4 w-4 text-[#B8960C]" />
                   }
                 </div>
               </button>

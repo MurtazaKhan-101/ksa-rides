@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import LegalPageLayout from '../components/legal/LegalPageLayout';
 
@@ -13,7 +13,7 @@ export default function PrivacyPage() {
   return (
     <LegalPageLayout title="Privacy Policy" badge="Legal" lastUpdated="January 1, 2025">
 
-      <div className="bg-[#EDF4F7] border border-[#00B1C5]/20 rounded-xl p-5 mb-10 text-sm text-gray-700 leading-relaxed">
+      <div className="bg-[#EDF4F7] border border-[#B8960C]/20 rounded-xl p-5 mb-10 text-sm text-gray-700 leading-relaxed">
         Your privacy matters to us. This policy explains how KSA Rides collects, uses, and protects your personal information when you use our services.
       </div>
 
@@ -73,7 +73,7 @@ export default function PrivacyPage() {
       </Section>
 
       <Section title="8. Cookies">
-        <p>We use cookies and similar tracking technologies to enhance your experience on our website. Please review our <a href="/cookie-policy" className="text-[#00B1C5] hover:underline font-semibold">Cookie Policy</a> for full details on what we collect and how to manage your preferences.</p>
+        <p>We use cookies and similar tracking technologies to enhance your experience on our website. Please review our <a href="/cookie-policy" className="text-[#B8960C] hover:underline font-semibold">Cookie Policy</a> for full details on what we collect and how to manage your preferences.</p>
       </Section>
 
       <Section title="9. International Transfers">

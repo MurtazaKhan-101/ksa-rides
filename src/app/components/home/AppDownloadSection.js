@@ -1,10 +1,10 @@
-import Image from 'next/image';
+﻿import Image from 'next/image';
 
 export default function AppDownloadSection() {
   return (
     <section
       className="relative"
-      style={{ background: 'linear-gradient(296.47deg, #005F56 -2.82%, #00B1C5 97.17%)' }}
+      style={{ background: 'linear-gradient(135deg, #1A1A1A 0%, #B8960C 100%)' }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-8 lg:py-8">
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 lg:gap-12">
@@ -32,7 +32,7 @@ export default function AppDownloadSection() {
                   height={90}
                   className="rounded"
                 />
-                <p className="text-[#005F56] text-[9px] font-semibold text-center mt-1">
+                <p className="text-[#B8960C] text-[9px] font-semibold text-center mt-1">
                   Download KSA Rides App
                 </p>
               </div>
@@ -72,23 +72,14 @@ export default function AppDownloadSection() {
             </div>
           </div>
 
-          {/* Right: phone screenshots — constrained height so they never overflow */}
-          <div className="flex items-end justify-center lg:justify-end gap-3 flex-shrink-0">
-            {/* Left phone — slightly pushed down */}
+          {/* Right: phone screenshots */}
+          <div className="flex items-end justify-center lg:justify-end flex-shrink-0">
             <Image
-              src="/ksa-images/mobile-2.png"
-              alt="KSA Rides app – route view"
-              width={185}
-              height={370}
-              className="drop-shadow-2xl w-auto h-[240px] sm:h-[290px] lg:h-[310px] object-contain self-end translate-y-[16px]"
-            />
-            {/* Right phone — full height */}
-            <Image
-              src="/ksa-images/mobile-1.png"
-              alt="KSA Rides app – booking view"
-              width={210}
+              src="/ksa-images/mobile.png"
+              alt="KSA Rides app – booking and route view"
+              width={420}
               height={420}
-              className="drop-shadow-2xl w-auto h-[270px] sm:h-[320px] lg:h-[350px] object-contain"
+              className="drop-shadow-2xl w-auto h-[280px] sm:h-[340px] lg:h-[380px] object-contain"
             />
           </div>
 

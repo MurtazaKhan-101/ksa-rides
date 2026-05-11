@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from 'next/image';
 
@@ -11,10 +11,10 @@ export default function SeamlessSection() {
           {/* Left: content */}
           <div className="space-y-5 order-2 lg:order-1">
             <div>
-              <p className="text-[#00B1C5] font-semibold text-sm tracking-wide mb-2">
+              <p className="text-[#B8960C] font-semibold text-sm tracking-wide mb-2">
                 Travel Comfortably, Arrive Confidently
               </p>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#005F56]">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#B8960C]">
                 Seamless
               </h2>
             </div>

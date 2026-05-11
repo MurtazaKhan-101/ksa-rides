@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
@@ -17,7 +17,7 @@ function VehiclesContent() {
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
       <div className="text-center">
-        <div className="w-10 h-10 mx-auto rounded-full border-2 border-[#00B1C5] border-t-transparent animate-spin mb-3" />
+        <div className="w-10 h-10 mx-auto rounded-full border-2 border-[#B8960C] border-t-transparent animate-spin mb-3" />
         <p className="text-sm text-gray-600">Continuing to booking extras...</p>
       </div>
     </div>
@@ -29,7 +29,7 @@ export default function VehiclesPage() {
     <Suspense
       fallback={
         <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-          <div className="w-8 h-8 rounded-full border-2 border-[#00B1C5] border-t-transparent animate-spin" />
+          <div className="w-8 h-8 rounded-full border-2 border-[#B8960C] border-t-transparent animate-spin" />
         </div>
       }
     >

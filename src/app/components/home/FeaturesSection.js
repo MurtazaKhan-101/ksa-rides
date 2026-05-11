@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { Check } from 'lucide-react';
 
@@ -28,10 +28,10 @@ const steps = [
 
 export default function FeaturesSection() {
   return (
-    <section className="py-12 lg:py-20 bg-[#EDF4F7]">
+    <section className="py-12 lg:py-20 bg-[#F5E6A3]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
 
-        <h2 className="text-2xl sm:text-3xl font-bold text-[#005F56] mb-8 lg:mb-12">
+        <h2 className="text-2xl sm:text-3xl font-bold text-[#B8960C] mb-8 lg:mb-12">
           How does it work
         </h2>
 
@@ -44,7 +44,7 @@ export default function FeaturesSection() {
                 style={{
                   background: isCheck
                     ? '#22c55e'
-                    : 'linear-gradient(296.47deg, #005F56 -2.82%, #00B1C5 97.17%)',
+                    : 'linear-gradient(135deg, #1A1A1A 0%, #B8960C 100%)',
                 }}
               >
                 {isCheck ? <Check className="h-5 w-5" /> : label}
@@ -52,7 +52,7 @@ export default function FeaturesSection() {
 
               {/* Text */}
               <div>
-                <h3 className="font-bold text-[#005F56] text-base mb-1">{title}</h3>
+                <h3 className="font-bold text-[#B8960C] text-base mb-1">{title}</h3>
                 <p className="text-gray-500 text-sm leading-relaxed">{description}</p>
               </div>
             </div>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -100,7 +100,7 @@ export default function LoginWithI18n() {
         <div className="text-center text-white max-w-md">
           <div className="mb-8">
             {/* <img
-              src="/images/logo.svg"
+              src="/ksa-images/ksa-logo.png"
               alt={t('auth.logo_alt')}
               className="mx-auto mb-6"
               width={120}
@@ -130,7 +130,7 @@ export default function LoginWithI18n() {
           {/* Mobile Header */}
           <div className="lg:hidden text-center mb-8">
             {/* <Image
-              src="/images/logo.svg"
+              src="/ksa-images/ksa-logo.png"
               alt={t('auth.logo_alt')}
               width={80}
               height={80}

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { User, Mail, Phone } from 'lucide-react';
 
@@ -35,7 +35,7 @@ export default function LetsConnectSection() {
             <p className="text-white/60 text-sm sm:text-base leading-relaxed mb-4">
               Our travel agency specialists are here to help you every step of the way.
             </p>
-            <p className="text-[#00B1C5] text-sm font-medium">
+            <p className="text-[#B8960C] text-sm font-medium">
               Prefer a scheduled meeting? Request a callback and we will be in touch within one business day.
             </p>
           </div>
@@ -46,8 +46,8 @@ export default function LetsConnectSection() {
               <div key={name}
                 className="bg-white/5 border border-white/10 rounded-2xl p-6">
                 <div className="flex items-center gap-3 mb-5">
-                  <div className="w-10 h-10 rounded-full bg-[#00B1C5]/20 flex items-center justify-center">
-                    <User className="h-5 w-5 text-[#00B1C5]" />
+                  <div className="w-10 h-10 rounded-full bg-[#B8960C]/20 flex items-center justify-center">
+                    <User className="h-5 w-5 text-[#B8960C]" />
                   </div>
                   <div>
                     <p className="font-bold text-white text-sm">{name}</p>
@@ -58,14 +58,14 @@ export default function LetsConnectSection() {
                   <div>
                     <p className="text-xs font-bold text-white/30 uppercase tracking-wide mb-0.5">Email</p>
                     <a href={`mailto:${email}`}
-                      className="text-[#00B1C5] text-sm font-medium hover:underline">
+                      className="text-[#B8960C] text-sm font-medium hover:underline">
                       {email}
                     </a>
                   </div>
                   <div>
                     <p className="text-xs font-bold text-white/30 uppercase tracking-wide mb-0.5">Phone Number</p>
                     <a href={`tel:${phone}`}
-                      className="text-white font-bold text-sm hover:text-[#00B1C5] transition-colors">
+                      className="text-white font-bold text-sm hover:text-[#B8960C] transition-colors">
                       {phone}
                     </a>
                   </div>

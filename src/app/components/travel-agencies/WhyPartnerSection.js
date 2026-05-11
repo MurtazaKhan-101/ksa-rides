@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { Globe, Percent, Headphones, Zap, User, ArrowRight } from 'lucide-react';
 
@@ -73,7 +73,7 @@ export default function WhyPartnerSection() {
               {features.map(({ Icon, title, badge, description }) => (
                 <div key={title} className="bg-gray-50 rounded-2xl p-6 border border-gray-100 hover:shadow-md transition-shadow">
                   <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
-                    style={{ background: 'linear-gradient(296.47deg, #005F56 -2.82%, #00B1C5 97.17%)' }}>
+                    style={{ background: 'linear-gradient(135deg, #1A1A1A 0%, #B8960C 100%)' }}>
                     <Icon className="h-5 w-5 text-white" />
                   </div>
                   <div className="flex items-start gap-2 mb-2">
@@ -137,12 +137,12 @@ export default function WhyPartnerSection() {
         <div className="mt-12">
           <a href="#signup"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-white text-sm hover:opacity-90 transition-opacity mb-4"
-            style={{ background: 'linear-gradient(296.47deg, #005F56 -2.82%, #00B1C5 97.17%)' }}>
+            style={{ background: 'linear-gradient(135deg, #1A1A1A 0%, #B8960C 100%)' }}>
             Join Now!
           </a>
           <p className="text-gray-500 text-sm mb-6">
             Ready to simplify your transfers?{' '}
-            <a href="#signup" className="text-[#00B1C5] hover:underline">
+            <a href="#signup" className="text-[#B8960C] hover:underline">
               Join countless agencies that elevate their clients&apos; journeys with KSA Rides.
             </a>
           </p>
@@ -155,7 +155,7 @@ export default function WhyPartnerSection() {
                 'API and white-label solutions for your workflows (coming soon).',
               ].map((item) => (
                 <li key={item} className="flex items-start gap-2 text-sm text-gray-600">
-                  <span className="mt-1.5 w-2 h-2 rounded-full bg-[#00B1C5] flex-shrink-0" />
+                  <span className="mt-1.5 w-2 h-2 rounded-full bg-[#B8960C] flex-shrink-0" />
                   {item}
                 </li>
               ))}

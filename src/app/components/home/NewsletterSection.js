@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from 'react';
 import { Mail } from 'lucide-react';
@@ -15,9 +15,9 @@ export default function NewsletterSection() {
   };
 
   return (
-    <section className="py-8 px-4 sm:px-6 lg:px-12 bg-white">
+    <section className="py-8 px-4 sm:px-6 lg:px-12 bg-[#F5E6A3]">
       <div className="max-w-3xl mx-auto rounded-2xl p-8 sm:p-10 text-white text-center"
-        style={{ background: 'linear-gradient(296.47deg, #005F56 -2.82%, #00B1C5 97.17%)' }}
+        style={{ background: 'linear-gradient(135deg, #1A1A1A 0%, #B8960C 100%)' }}
       >
         {/* Icon */}
         <div className="flex justify-center mb-4">
@@ -49,7 +49,7 @@ export default function NewsletterSection() {
             />
             <button
               type="submit"
-              className="px-6 py-3 bg-white text-[#005F56] font-bold text-sm rounded-xl hover:bg-gray-50 transition-colors whitespace-nowrap"
+              className="px-6 py-3 bg-white text-[#B8960C] font-bold text-sm rounded-xl hover:bg-gray-50 transition-colors whitespace-nowrap"
             >
               Subscribe
             </button>

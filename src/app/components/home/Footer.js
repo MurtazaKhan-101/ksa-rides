@@ -1,9 +1,9 @@
-"use client";
+﻿"use client";
 
 import Image from 'next/image';
 import { Facebook, Instagram, Twitter, Mail, MessageCircle } from 'lucide-react';
 
-const BRAND_GRADIENT = 'linear-gradient(296.47deg, #005F56 -2.82%, #00B1C5 97.17%)';
+const BRAND_GRADIENT = '#1A1A1A';
 
 const topAirports = [
   'King Abdulaziz International Airport (Jeddah)',
@@ -49,12 +49,11 @@ export default function Footer() {
         {/* Top row: logo + language + social */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-8 border-b border-white/20">
           <Image
-            src="/images/logo KSA Rides.png"
+            src="/ksa-images/ksa-logo.png"
             alt="KSA Rides"
             width={240}
             height={72}
             className="h-20 w-auto object-contain"
-            style={{ filter: 'brightness(0) invert(1)' }}
           />
           <div className="flex items-center gap-4">
             {/* Social icons */}
@@ -81,7 +80,7 @@ export default function Footer() {
                 <div key={region}>
                   <p className="text-white/50 text-xs font-bold mb-1 uppercase tracking-widest">{region}</p>
                   {numbers.map((n) => (
-                    <p key={n} className="text-white text-sm font-medium hover:text-[#00B1C5] transition-colors cursor-pointer">{n}</p>
+                    <p key={n} className="text-white text-sm font-medium hover:text-[#B8960C] transition-colors cursor-pointer">{n}</p>
                   ))}
                 </div>
               ))}

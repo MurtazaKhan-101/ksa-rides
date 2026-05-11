@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useRef } from 'react';
 import { ChevronLeft, ChevronRight, CheckCircle } from 'lucide-react';
@@ -64,7 +64,7 @@ export default function AgencyReviewsSection() {
         {/* Header */}
         <div className="text-center mb-8">
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 flex items-center justify-center gap-2">
-            <span className="text-[#00B1C5]">✦</span> Reviews
+            <span className="text-[#B8960C]">✦</span> Reviews
           </h2>
           <div className="flex flex-wrap items-center justify-center gap-3 mt-4 text-sm">
             <span className="text-gray-600 font-medium">Our customers say</span>
